@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Pose des pièges</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Josefin+Sans:wght@500;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="position:relative; width:1456px; height:819px; overflow:hidden; box-sizing:border-box; font-family:'Josefin Sans',sans-serif; color:#3e2412; background-color:#D9822B; background-image:linear-gradient(rgba(122,63,18,0.45) 0 2px, transparent 2px), linear-gradient(90deg, rgba(122,63,18,0.45) 0 2px, transparent 2px), radial-gradient(circle at 50% 50%, #C8561B 0 13%, transparent 14%), radial-gradient(circle at 50% 50%, transparent 0 40%, #D9822B 41%), repeating-conic-gradient(from 0deg at 50% 50%, #5d6a22 0 14deg, transparent 14deg 45deg); background-size:146px 146px">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="t-pince" viewBox="0 0 120 120"><g stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M42 10 H78 V54 L72 112 H48 L42 54 Z" fill="#c98d4f"></path><path d="M60 62 V112" fill="none" stroke-width="3"></path><rect x="32" y="48" width="56" height="14" rx="7" fill="#E3A72F"></rect><circle cx="60" cy="55" r="5" fill="#9a9ca4" stroke-width="3"></circle></g></symbol>
+<symbol id="t-clous" viewBox="0 0 120 120"><g stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M6 72 L18 24 L30 72 Z" fill="#9a9ca4"></path><path d="M34 72 L46 24 L58 72 Z" fill="#9a9ca4"></path><path d="M62 72 L74 24 L86 72 Z" fill="#9a9ca4"></path><path d="M90 72 L102 24 L114 72 Z" fill="#9a9ca4"></path><rect x="4" y="72" width="112" height="26" rx="5" fill="#c98d4f"></rect></g></symbol>
+<symbol id="t-filet" viewBox="0 0 120 120"><g stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M10 16 H110 L92 100 H28 Z" fill="rgba(251,241,214,0.8)"></path><path d="M36 16 L44 100 M60 16 V100 M84 16 L76 100 M18 48 H102 M24 76 H96" fill="none" stroke-width="3"></path><path d="M6 14 Q60 30 114 14" fill="none" stroke="#C8561B" stroke-width="7"></path></g></symbol>
+<symbol id="t-canon" viewBox="0 0 120 120"><g stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M14 110 H88 L78 94 H24 Z" fill="#c98d4f"></path><g transform="rotate(-24 56 70)"><rect x="18" y="54" width="62" height="30" rx="8" fill="#5B9A9A"></rect><rect x="74" y="48" width="14" height="42" rx="4" fill="#E3A72F"></rect></g><circle cx="40" cy="104" r="9" fill="#3e2412"></circle><circle cx="100" cy="38" r="11" fill="rgba(251,241,214,0.85)" stroke="#4d8586" stroke-width="3"></circle><circle cx="112" cy="68" r="8" fill="rgba(251,241,214,0.85)" stroke="#4d8586" stroke-width="3"></circle><circle cx="84" cy="16" r="6" fill="rgba(251,241,214,0.85)" stroke="#4d8586" stroke-width="3"></circle></g></symbol>
+<symbol id="t-mousse" viewBox="0 0 120 120"><g stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="60" cy="92" rx="54" ry="18" fill="#FBF1D6"></ellipse><circle cx="30" cy="78" r="17" fill="#F7EBCB"></circle><circle cx="60" cy="62" r="23" fill="#FBF1D6"></circle><circle cx="90" cy="76" r="16" fill="#F7EBCB"></circle><circle cx="70" cy="20" r="7" fill="rgba(251,241,214,0.85)" stroke="#4d8586" stroke-width="3"></circle></g></symbol>
+<pattern id="check2" width="26" height="26" patternUnits="userSpaceOnUse"><rect width="26" height="26" fill="#FBF1D6"></rect><rect width="13" height="13" fill="#3e2412"></rect><rect x="13" y="13" width="13" height="13" fill="#3e2412"></rect></pattern>
+<pattern id="dots4" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.5" fill="rgba(62,36,18,0.12)"></circle></pattern>
+</defs>
+</svg>
+
+<div style="position:absolute; top:26px; left:48px; display:flex; flex-direction:column; gap:14px; align-items:flex-start">
+<div style="font-family:'Caprasimo',serif; font-size:76px; line-height:1; color:#FBF1D6; -webkit-text-stroke:6px #3e2412; paint-order:stroke fill; letter-spacing:-1px; transform:rotate(-3deg); text-shadow:5px 5px 0 #E3A72F, 9px 9px 0 #C8561B">tends tes pièges</div>
+<div style="font-family:'Shrikhand',cursive; font-style:normal; font-size:17px; background:#FBF1D6; border:4px solid #3e2412; border-radius:999px; padding:6px 22px; box-shadow:4px 4px 0 #3e2412">Place-les sur la route de l’adversaire pour la manche suivante</div>
+</div>
+
+<div style="position:absolute; left:1030px; top:30px; width:378px; box-sizing:border-box; background:#FBF1D6; border:5px solid #3e2412; border-radius:16px; box-shadow:5px 5px 0 #3e2412; overflow:hidden">
+<div style="background:#7d5a8f; color:#FBF1D6; text-align:center; font-weight:700; font-size:14px; letter-spacing:5px; padding:5px 0">ADVERSAIRE · MANCHE 2</div>
+<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 18px 12px">
+<div style="display:flex; flex-direction:column; gap:2px">
+<span style="font-family:'Caprasimo',serif; font-size:30px; line-height:1.1">Équipe Lavande</span>
+<span style="font-weight:700; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:#7d5a8f">caisse violette</span>
+</div>
+<div style="text-align:center; line-height:1">
+<div style="font-family:'Caprasimo',serif; font-size:34px; color:#B5361F">512 m</div>
+<div style="font-weight:700; font-size:11px; letter-spacing:3px; margin-top:3px">RECORD</div>
+</div>
+</div>
+</div>
+
+<div style="position:absolute; left:48px; top:170px; width:1360px; height:380px; box-sizing:border-box; border:5px solid #3e2412; border-radius:24px; box-shadow:7px 7px 0 #3e2412; overflow:hidden; background:#F3E5C0">
+<svg viewBox="0 0 1350 370" width="1350" height="370" style="position:absolute; left:0; top:0" aria-label="Le parcours de l’adversaire avec les emplacements de pièges" role="img">
+<rect x="0" y="0" width="1350" height="370" fill="url(#dots4)"></rect>
+<rect x="0" y="0" width="1350" height="26" fill="#c98d4f"></rect>
+<path d="M0 13 H1350" stroke="rgba(62,36,18,0.25)" stroke-width="3"></path>
+<rect x="0" y="26" width="1350" height="10" fill="#E3A72F" stroke="#3e2412" stroke-width="4"></rect>
+
+<path d="{{ waterFill }}" fill="#5B9A9A"></path>
+<path d="{{ waterWave }}" fill="none" stroke="#3e2412" stroke-width="5" stroke-linecap="round"></path>
+<path d="{{ waterWave }}" fill="none" stroke="#FBF1D6" stroke-width="2.5" stroke-linecap="round"></path>
+<g font-family="Caprasimo, serif" font-size="20" fill="#FBF1D6" stroke="#3e2412" stroke-width="4" paint-order="stroke fill" text-anchor="middle">
+<text x="220" y="356">100 m</text>
+<text x="400" y="356">200 m</text>
+<text x="580" y="356">300 m</text>
+<text x="760" y="356">400 m</text>
+<text x="1120" y="356">600 m</text>
+</g>
+
+<rect x="1296" y="36" width="26" height="286" fill="url(#check2)" stroke="#3e2412" stroke-width="4"></rect>
+<text x="1309" y="356" text-anchor="middle" font-family="Caprasimo, serif" font-size="20" fill="#FBF1D6" stroke="#3e2412" stroke-width="4" paint-order="stroke fill">700 m</text>
+
+<path d="M140 120 C 300 30 480 40 640 130 S 880 250 961 312" fill="none" stroke="#7d5a8f" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16"></path>
+
+<g stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M961 322 V268" fill="none"></path>
+<path d="M961 268 L995 280 L961 292 Z" fill="#B5361F"></path>
+</g>
+<g transform="translate(961 244)">
+<rect x="-62" y="-16" width="124" height="30" rx="15" fill="#FBF1D6" stroke="#3e2412" stroke-width="4"></rect>
+<text x="0" y="6" text-anchor="middle" font-family="Caprasimo, serif" font-size="16" fill="#B5361F">Record 512 m</text>
+</g>
+
+<g fill="rgba(251,241,214,0.45)" stroke="#3e2412" stroke-width="3" stroke-dasharray="7 7">
+<circle cx="263" cy="71" r="30"></circle>
+<circle cx="517" cy="78" r="30"></circle>
+</g>
+<g fill="rgba(251,241,214,0.25)" stroke="#3e2412" stroke-width="3" stroke-dasharray="7 7" opacity="0.7">
+<circle cx="1080" cy="170" r="30"></circle>
+<circle cx="1200" cy="240" r="30"></circle>
+</g>
+<g font-family="Caprasimo, serif" font-size="34" fill="#3e2412" text-anchor="middle">
+<text x="263" y="83">+</text>
+<text x="517" y="90">+</text>
+<text x="1080" y="182" opacity="0.7">+</text>
+<text x="1200" y="252" opacity="0.7">+</text>
+</g>
+<text x="1140" y="124" text-anchor="middle" font-family="Shrikhand, cursive" font-size="15" fill="#3e2412">au-delà de son record</text>
+
+<circle cx="746" cy="188" r="36" fill="rgba(227,167,47,0.45)" stroke="#E3A72F" stroke-width="7"></circle>
+<circle cx="746" cy="188" r="36" fill="none" stroke="#3e2412" stroke-width="3" stroke-dasharray="7 7"></circle>
+<text x="746" y="200" text-anchor="middle" font-family="Caprasimo, serif" font-size="38" fill="#3e2412">+</text>
+
+<path d="M400 36 V72" fill="none" stroke="#3e2412" stroke-width="9"></path>
+<path d="M400 36 V72" fill="none" stroke="#C8561B" stroke-width="5"></path>
+<g>
+<circle cx="400" cy="108" r="36" fill="#FBF1D6" stroke="#3e2412" stroke-width="5"></circle>
+<use href="#t-pince" x="372" y="80" width="56" height="56"></use>
+</g>
+<g>
+<circle cx="640" cy="130" r="36" fill="#FBF1D6" stroke="#3e2412" stroke-width="5"></circle>
+<use href="#t-filet" x="612" y="102" width="56" height="56"></use>
+</g>
+<g>
+<circle cx="830" cy="235" r="36" fill="#FBF1D6" stroke="#3e2412" stroke-width="5"></circle>
+<use href="#t-clous" x="802" y="207" width="56" height="56"></use>
+</g>
+
+<g fill="rgba(251,241,214,0.3)" stroke="#E8D49A" stroke-width="3">
+<circle cx="60" cy="230" r="8"></circle>
+<circle cx="330" cy="200" r="6"></circle>
+<circle cx="560" cy="260" r="10"></circle>
+<circle cx="1000" cy="90" r="7"></circle>
+<circle cx="1230" cy="150" r="9"></circle>
+<circle cx="80" cy="300" r="6"></circle>
+</g>
+</svg>
+
+<div style="position:absolute; left:-100px; top:-15px; width:360px; height:330px; transform:scale(0.3)">
+<div style="position:absolute; left:14px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#7d5a8f"></div>
+<div style="position:absolute; left:312px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#7d5a8f"></div>
+<div style="position:absolute; left:30px; top:96px; width:300px; height:216px; box-sizing:border-box; border:8px solid #3e2412; border-radius:64px; background:#FBF1D6; box-shadow:inset 0 -16px 0 rgba(0,0,0,0.08)">
+<div style="position:absolute; left:78px; top:78px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:196px; top:78px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:34px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:118px; top:106px; width:60px; height:30px; box-sizing:border-box; border-bottom:8px solid #B5361F; border-radius:0 0 60px 60px"></div>
+</div>
+<svg viewBox="0 0 360 150" width="360" height="150" style="position:absolute; left:0; top:0" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-label="L’adversaire et sa caisse violette ailée" role="img">
+<path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path>
+<path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path>
+<g transform="translate(360 0) scale(-1 1)"><path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path><path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path></g>
+<rect x="84" y="20" width="192" height="116" rx="6" fill="#c98d4f"></rect>
+<path d="M84 62 H276 M84 100 H276" fill="none" stroke-width="3" opacity="0.35"></path>
+<rect x="84" y="20" width="192" height="28" fill="#7d5a8f"></rect>
+<rect x="118" y="62" width="124" height="42" rx="10" fill="#E3A72F"></rect>
+<text x="180" y="92" text-anchor="middle" font-family="Caprasimo, serif" font-size="22" fill="#3e2412" stroke="none">SAVON</text>
+</svg>
+</div>
+</div>
+
+<div style="position:absolute; left:48px; top:572px; width:1060px; height:206px; box-sizing:border-box; background:#F3E5C0; border:5px solid #3e2412; border-radius:24px; box-shadow:7px 7px 0 #3e2412; overflow:hidden; display:flex; flex-direction:column">
+<div style="background:#B5361F; color:#FBF1D6; font-weight:700; font-size:15px; letter-spacing:5px; padding:8px 20px">MES PIÈGES PRÊTS</div>
+<div style="display:flex; gap:12px; padding:14px 16px; flex:1">
+
+<div style="flex:1; min-width:0; box-sizing:border-box; background:#FBF1D6; border:4px solid #3e2412; border-radius:18px; box-shadow:4px 4px 0 #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px 4px">
+<svg width="60" height="60" viewBox="0 0 120 120" aria-hidden="true"><use href="#t-mousse"></use></svg>
+<div style="font-family:'Caprasimo',serif; font-size:14px; line-height:1.1; text-align:center">Flaque de mousse</div>
+<div style="font-family:'Caprasimo',serif; font-size:14px; color:#FBF1D6; background:#3e2412; border-radius:999px; padding:1px 12px">x2</div>
+</div>
+
+<div style="flex:1; min-width:0; box-sizing:border-box; background:#E3A72F; border:4px solid #3e2412; border-radius:18px; transform:translate(3px,3px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px 4px">
+<svg width="60" height="60" viewBox="0 0 120 120" aria-hidden="true"><use href="#t-clous"></use></svg>
+<div style="font-family:'Caprasimo',serif; font-size:14px; line-height:1.1; text-align:center">Planche à clous</div>
+<div style="font-family:'Caprasimo',serif; font-size:14px; color:#FBF1D6; background:#3e2412; border-radius:999px; padding:1px 12px">x1</div>
+</div>
+
+<div style="flex:1; min-width:0; box-sizing:border-box; background:#FBF1D6; border:4px solid #3e2412; border-radius:18px; box-shadow:4px 4px 0 #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px 4px">
+<svg width="60" height="60" viewBox="0 0 120 120" aria-hidden="true"><use href="#t-filet"></use></svg>
+<div style="font-family:'Caprasimo',serif; font-size:14px; line-height:1.1; text-align:center">Filet à linge</div>
+<div style="font-family:'Caprasimo',serif; font-size:14px; color:#FBF1D6; background:#3e2412; border-radius:999px; padding:1px 12px">x1</div>
+</div>
+
+<div style="flex:1; min-width:0; box-sizing:border-box; background:#FBF1D6; border:4px solid #3e2412; border-radius:18px; box-shadow:4px 4px 0 #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px 4px; opacity:0.45">
+<svg width="60" height="60" viewBox="0 0 120 120" aria-hidden="true"><use href="#t-canon"></use></svg>
+<div style="font-family:'Caprasimo',serif; font-size:14px; line-height:1.1; text-align:center">Canon à bulles</div>
+<div style="font-family:'Caprasimo',serif; font-size:14px; color:#FBF1D6; background:#3e2412; border-radius:999px; padding:1px 12px">x0</div>
+</div>
+
+<div style="flex:1; min-width:0; box-sizing:border-box; background:#FBF1D6; border:4px solid #3e2412; border-radius:18px; box-shadow:4px 4px 0 #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px 4px">
+<svg width="60" height="60" viewBox="0 0 120 120" aria-hidden="true"><use href="#t-pince"></use></svg>
+<div style="font-family:'Caprasimo',serif; font-size:14px; line-height:1.1; text-align:center">Pince à linge</div>
+<div style="font-family:'Caprasimo',serif; font-size:14px; color:#FBF1D6; background:#3e2412; border-radius:999px; padding:1px 12px">x2</div>
+</div>
+
+</div>
+</div>
+
+<div style="position:absolute; left:1126px; top:572px; width:282px; height:206px; box-sizing:border-box; background:#F3E5C0; border:5px solid #3e2412; border-radius:24px; box-shadow:7px 7px 0 #3e2412; overflow:hidden; display:flex; flex-direction:column">
+<div style="background:#7A8B2E; color:#FBF1D6; font-weight:700; font-size:15px; letter-spacing:5px; padding:8px 20px">À POSER</div>
+<div style="padding:8px 18px 12px; display:flex; flex-direction:column; align-items:center; gap:8px; flex:1">
+<div style="display:flex; align-items:baseline; gap:10px">
+<span style="font-family:'Caprasimo',serif; font-size:50px; line-height:1; color:#C8561B">3 / 4</span>
+<span style="font-family:'Shrikhand',cursive; font-style:normal; font-size:15px">posés</span>
+</div>
+<button style="width:100%; background:#E3A72F; border:5px solid #3e2412; border-radius:999px; box-shadow:5px 5px 0 #3e2412; padding:9px 0; font-family:'Caprasimo',serif; font-size:22px; letter-spacing:2px; color:#3e2412; cursor:pointer">Valider ▸</button>
+<div style="font-family:'Shrikhand',cursive; font-style:normal; font-size:13px; text-align:center; line-height:1.2">Ils attendent Lavande à la manche 2</div>
+</div>
+</div>
+
+<div style="position:absolute; left:0; right:0; bottom:8px; text-align:center; font-family:'Shrikhand',cursive; font-style:normal; font-size:16px; color:#FBF1D6; text-shadow:2px 2px 0 #3e2412">Satisfait ou remousse !</div>
+
+<div style="position:absolute; left:0; top:0; right:0; bottom:0; pointer-events:none; opacity:0.1; mix-blend-mode:multiply; background-image:radial-gradient(rgba(62,36,18,0.55) 1px, transparent 1.6px); background-size:5px 5px"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1456,"height":819}}'>
+class Component extends DCLogic {
+  renderVals() {
+    let w = 'M0 322';
+    for (let i = 0; i < 23; i++) w += ' q 30 -12 60 0 t 60 0';
+    return {
+      waterWave: w,
+      waterFill: w + ' L1500 322 V370 H0 Z'
+    };
+  }
+}
+</script>
+</body>
+</html>

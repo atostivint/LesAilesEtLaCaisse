@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Écran de score</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Josefin+Sans:wght@500;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="position:relative; width:1456px; height:819px; overflow:hidden; box-sizing:border-box; font-family:'Josefin Sans',sans-serif; color:#3e2412; background-color:#D9822B; background-image:linear-gradient(rgba(122,63,18,0.45) 0 2px, transparent 2px), linear-gradient(90deg, rgba(122,63,18,0.45) 0 2px, transparent 2px), radial-gradient(circle at 50% 50%, #C8561B 0 13%, transparent 14%), radial-gradient(circle at 50% 50%, transparent 0 40%, #D9822B 41%), repeating-conic-gradient(from 0deg at 50% 50%, #5d6a22 0 14deg, transparent 14deg 45deg); background-size:146px 146px">
+
+<svg viewBox="0 0 1456 470" width="1456" height="470" style="position:absolute; left:0; top:0" aria-hidden="true">
+<defs>
+<pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.5" fill="rgba(62,36,18,0.28)"></circle></pattern>
+</defs>
+<path d="M0 300 C180 140 380 130 560 190 C760 260 960 400 1160 396 C1300 392 1400 370 1456 340 V470 H0 Z" fill="#F3E5C0" stroke="#3e2412" stroke-width="5" stroke-linejoin="round"></path>
+<path d="M0 300 C180 140 380 130 560 190 C760 260 960 400 1160 396 C1300 392 1400 370 1456 340 V470 H0 Z" fill="url(#dots)"></path>
+<rect x="0" y="444" width="1456" height="30" fill="#5B9A9A"></rect>
+<path d="{{ wavePath }}" fill="none" stroke="#FBF1D6" stroke-width="7" stroke-linecap="round"></path>
+</svg>
+
+<div style="position:absolute; left:300px; top:70px; width:46px; height:46px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+<div style="position:absolute; left:1240px; top:60px; width:72px; height:72px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+<div style="position:absolute; left:1330px; top:190px; width:40px; height:40px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+<div style="position:absolute; left:420px; top:250px; width:34px; height:34px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+
+<div style="position:absolute; left:40px; top:30px; width:124px; height:124px; border-radius:50%; background:{{ m.badgeBg }}; border:5px solid #FBF1D6; box-shadow:0 0 0 4px #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(-12deg); color:{{ m.badgeInk }}; text-align:center; font-family:'Caprasimo',serif; line-height:1.05">
+<span style="font-size:20px">en</span>
+<span style="font-size:22px">couleurs !</span>
+</div>
+
+<sc-if value="{{ m.isExcellent }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute; left:540px; top:60px; width:42px; height:42px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:980px; top:210px; width:34px; height:34px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:900px; top:40px; width:56px; height:56px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:462px; top:150px; width:30px; height:30px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:712px; top:224px; width:10px; height:34px; background:#B5361F; border:3px solid #3e2412; transform:rotate(18deg)"></div>
+<div style="position:absolute; left:690px; top:244px; width:48px; height:48px; border-radius:50%; background:#E3A72F; border:4px solid #3e2412; display:flex; align-items:center; justify-content:center; font-family:'Caprasimo',serif; font-size:26px">1</div>
+</sc-if>
+<sc-if value="{{ m.isBon }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:940px; top:6px; font-family:'Caprasimo',serif; font-size:150px; line-height:1; color:#E3A72F; -webkit-text-stroke:7px #3e2412; paint-order:stroke fill; transform:rotate(12deg); text-shadow:5px 5px 0 #3e2412">?</div>
+<div style="position:absolute; left:540px; top:80px; width:36px; height:36px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+</sc-if>
+<sc-if value="{{ m.isMoyen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:990px; top:76px; width:30px; height:30px; background:#FBF1D6; border-left:5px solid #3e2412; border-bottom:5px solid #3e2412; transform:rotate(-30deg)"></div>
+<div style="position:absolute; left:996px; top:22px; width:200px; height:96px; box-sizing:border-box; background:#FBF1D6; border:5px solid #3e2412; border-radius:50%; display:flex; align-items:center; justify-content:center; gap:14px">
+<span style="width:16px; height:16px; border-radius:50%; background:#3e2412"></span>
+<span style="width:16px; height:16px; border-radius:50%; background:#3e2412"></span>
+<span style="width:16px; height:16px; border-radius:50%; background:#3e2412"></span>
+</div>
+</sc-if>
+<sc-if value="{{ m.isMauvais }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 210 150" width="210" height="150" style="position:absolute; left:1090px; top:14px" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+<path d="M40 88 Q8 88 12 60 Q16 36 44 40 Q50 10 86 12 Q114 2 128 30 Q162 24 170 56 Q194 62 186 82 Q182 94 162 92 H48 Z" fill="#C9D3D6"></path>
+<path d="M62 106 L54 130 M98 106 L90 134 M134 106 L126 130" fill="none" stroke="#3f7f8a" stroke-width="7"></path>
+</svg>
+</sc-if>
+<sc-if value="{{ m.isCata }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 120 180" width="120" height="180" style="position:absolute; left:210px; top:22px" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" aria-hidden="true">
+<polygon points="52,4 112,4 74,66 108,66 30,176 48,94 10,94" fill="#E3A72F"></polygon>
+</svg>
+<div style="position:absolute; left:1090px; top:-6px; font-family:'Caprasimo',serif; font-size:120px; line-height:1; color:#E3A72F; -webkit-text-stroke:7px #3e2412; paint-order:stroke fill; transform:rotate(8deg); text-shadow:5px 5px 0 #3e2412">!!</div>
+<div style="position:absolute; left:590px; top:210px; width:78px; height:78px; box-sizing:border-box; border-radius:50%; background:#FBF1D6; border:5px solid #3e2412"></div>
+<div style="position:absolute; left:660px; top:266px; width:96px; height:96px; box-sizing:border-box; border-radius:50%; background:#FBF1D6; border:5px solid #3e2412"></div>
+<div style="position:absolute; left:760px; top:318px; width:60px; height:60px; box-sizing:border-box; border-radius:50%; background:#FBF1D6; border:5px solid #3e2412"></div>
+<div style="position:absolute; left:546px; top:290px; width:52px; height:52px; box-sizing:border-box; border-radius:50%; background:#FBF1D6; border:5px solid #3e2412"></div>
+</sc-if>
+
+<sc-if value="{{ m.crateAlone }}" hint-placeholder-val="{{ false }}">
+<div style="{{ m.crateStyle }}">
+<svg viewBox="0 0 360 150" width="360" height="150" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+<path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path>
+<path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path>
+<g transform="translate(360 0) scale(-1 1)"><path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path><path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path></g>
+<rect x="84" y="20" width="192" height="116" rx="6" fill="#c98d4f"></rect>
+<path d="M84 62 H276 M84 100 H276" fill="none" stroke-width="3" opacity="0.35"></path>
+<rect x="84" y="20" width="192" height="28" fill="#C8561B"></rect>
+<rect x="118" y="62" width="124" height="42" rx="10" fill="#E3A72F"></rect>
+<text x="180" y="92" text-anchor="middle" font-family="Caprasimo, serif" font-size="22" fill="#3e2412" stroke="none">SAVON</text>
+</svg>
+</div>
+</sc-if>
+
+<div style="{{ m.soapStyle }}">
+<div style="position:absolute; left:14px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#C8561B"></div>
+<div style="position:absolute; left:312px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#C8561B"></div>
+<div style="position:absolute; left:30px; top:96px; width:300px; height:216px; box-sizing:border-box; border:8px solid #3e2412; border-radius:64px; background:#FBF1D6; box-shadow:inset 0 -16px 0 rgba(0,0,0,0.08)">
+
+<sc-if value="{{ m.isExcellent }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute; left:68px; top:80px; width:42px; height:22px; box-sizing:border-box; border-top:8px solid #3e2412; border-radius:42px 42px 0 0"></div>
+<div style="position:absolute; left:186px; top:80px; width:42px; height:22px; box-sizing:border-box; border-top:8px solid #3e2412; border-radius:42px 42px 0 0"></div>
+<div style="position:absolute; left:34px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:112px; top:108px; width:72px; height:40px; box-sizing:border-box; background:#8b1d12; border:6px solid #3e2412; border-radius:0 0 72px 72px"></div>
+</sc-if>
+<sc-if value="{{ m.isBon }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:78px; top:78px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:196px; top:78px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:34px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(120,120,120,0.35)"></div>
+<div style="position:absolute; left:208px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:108px; top:112px; width:80px; height:28px; box-sizing:border-box; border-bottom:8px solid #B5361F; border-radius:0 0 70px 70px; transform:rotate(-8deg)"></div>
+</sc-if>
+<sc-if value="{{ m.isMoyen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:60px; top:62px; width:54px; height:9px; border-radius:5px; background:#3e2412; transform:rotate(16deg)"></div>
+<div style="position:absolute; left:182px; top:62px; width:54px; height:9px; border-radius:5px; background:#3e2412; transform:rotate(-16deg)"></div>
+<div style="position:absolute; left:78px; top:84px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:196px; top:84px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:34px; top:116px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:116px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:120px; top:134px; width:56px; height:8px; border-radius:5px; background:#B5361F; transform:rotate(4deg)"></div>
+</sc-if>
+<sc-if value="{{ m.isMauvais }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:60px; top:64px; width:54px; height:9px; border-radius:5px; background:#3e2412; transform:rotate(-16deg)"></div>
+<div style="position:absolute; left:182px; top:64px; width:54px; height:9px; border-radius:5px; background:#3e2412; transform:rotate(16deg)"></div>
+<div style="position:absolute; left:78px; top:84px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:196px; top:84px; width:22px; height:22px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:74px; top:108px; width:20px; height:34px; box-sizing:border-box; border:4px solid #3e2412; border-radius:50% 50% 50% 50% / 30% 30% 70% 70%; background:#8fc3c9"></div>
+<div style="position:absolute; left:202px; top:108px; width:20px; height:34px; box-sizing:border-box; border:4px solid #3e2412; border-radius:50% 50% 50% 50% / 30% 30% 70% 70%; background:#8fc3c9"></div>
+<div style="position:absolute; left:34px; top:122px; width:44px; height:24px; border-radius:50%; background:rgba(120,120,120,0.35)"></div>
+<div style="position:absolute; left:218px; top:122px; width:44px; height:24px; border-radius:50%; background:rgba(120,120,120,0.35)"></div>
+<div style="position:absolute; left:118px; top:134px; width:60px; height:28px; box-sizing:border-box; border-top:8px solid #B5361F; border-radius:60px 60px 0 0"></div>
+</sc-if>
+<sc-if value="{{ m.isCata }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute; left:62px; top:58px; width:50px; height:50px; box-sizing:border-box; border-radius:50%; background:#FFFFFF; border:6px solid #3e2412"></div>
+<div style="position:absolute; left:184px; top:58px; width:50px; height:50px; box-sizing:border-box; border-radius:50%; background:#FFFFFF; border:6px solid #3e2412"></div>
+<div style="position:absolute; left:82px; top:76px; width:14px; height:14px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:200px; top:76px; width:14px; height:14px; border-radius:50%; background:#3e2412"></div>
+<div style="position:absolute; left:34px; top:116px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:116px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:124px; top:118px; width:48px; height:58px; box-sizing:border-box; background:#6b140c; border:6px solid #3e2412; border-radius:50%"></div>
+</sc-if>
+</div>
+
+<sc-if value="{{ m.crateOnSoap }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 360 150" width="360" height="150" style="position:absolute; left:0; top:0" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+<path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path>
+<path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path>
+<g transform="translate(360 0) scale(-1 1)"><path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path><path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path></g>
+<rect x="84" y="20" width="192" height="116" rx="6" fill="#c98d4f"></rect>
+<path d="M84 62 H276 M84 100 H276" fill="none" stroke-width="3" opacity="0.35"></path>
+<rect x="84" y="20" width="192" height="28" fill="#C8561B"></rect>
+<rect x="118" y="62" width="124" height="42" rx="10" fill="#E3A72F"></rect>
+<text x="180" y="92" text-anchor="middle" font-family="Caprasimo, serif" font-size="22" fill="#3e2412" stroke="none">SAVON</text>
+</svg>
+</sc-if>
+</div>
+
+<div style="position:absolute; left:0; right:0; top:470px; bottom:0; background:#F3E5C0; border-top:6px solid #3e2412"></div>
+
+<div style="position:absolute; left:56px; top:496px; width:900px; display:flex; flex-direction:column; gap:12px">
+<div style="display:flex; align-items:center; gap:18px">
+<div style="background:{{ m.accent }}; color:#FBF1D6; font-weight:700; font-size:19px; letter-spacing:4px; text-transform:uppercase; padding:8px 26px; border-radius:999px; border:4px solid #3e2412">{{ m.label }}</div>
+<div style="font-weight:700; font-size:20px; letter-spacing:4px; text-transform:uppercase">{{ m.series }}</div>
+</div>
+<div style="font-family:'Caprasimo',serif; font-size:44px; line-height:1.1; padding-bottom:12px; border-bottom:4px solid #3e2412">{{ m.quote }}</div>
+<div style="font-family:'Shrikhand',cursive; font-style:normal; font-size:32px; line-height:1.1; color:{{ m.accent }}">{{ m.tag }}</div>
+<div style="align-self:flex-start; background:{{ m.accent }}; color:#FBF1D6; font-weight:700; font-size:18px; letter-spacing:3px; padding:8px 22px; border-radius:12px; border:4px solid #3e2412"><span style="text-transform:uppercase">À suivre</span> ▸ {{ m.next }}</div>
+</div>
+
+<div style="position:absolute; left:1002px; top:494px; height:304px; border-left:4px dashed #3e2412"></div>
+
+<div style="position:absolute; left:1050px; top:494px; width:350px; display:flex; flex-direction:column; gap:14px; align-items:stretch">
+<div style="background:#FBF1D6; border:6px solid #3e2412; border-radius:18px; box-shadow:8px 8px 0 #3e2412; overflow:hidden">
+<div style="background:{{ m.accent }}; color:#FBF1D6; text-align:center; font-weight:700; font-size:19px; letter-spacing:7px; padding:8px 0">VOTRE SCORE</div>
+<div style="text-align:center; font-family:'Caprasimo',serif; font-size:100px; line-height:1.1; color:{{ m.accent }}; padding:6px 0 10px">000</div>
+</div>
+<button style="margin-top:6px; background:#3e2412; color:#FBF1D6; border:none; border-radius:999px; padding:16px 0; font-family:'Caprasimo',serif; font-size:30px; letter-spacing:3px; cursor:pointer">Rejouer</button>
+<div style="text-align:center; font-family:'Shrikhand',cursive; font-style:normal; font-size:21px">Satisfait ou remousse !</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":null,"default":"excellent"},"$preview":{"width":1456,"height":819}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOODS = {
+      excellent: { accent: '#7A8B2E', badgeBg: '#7A8B2E', badgeInk: '#FBF1D6', label: 'Score excellent', series: 'La gloire de Madame', quote: '« Éléonore a tout frotté. Même le passé de Gérard. »', tag: 'Plus blanc que blanc !', next: 'Le notaire arrive avec un chiffon.', soap: [740, 168, 14], crate: null },
+      bon: { accent: '#C8561B', badgeBg: '#C8561B', badgeInk: '#FBF1D6', label: 'Bon score', series: 'Les secrets de l’évier', quote: '« Propre, chéri. Presque trop propre. Qu’est-ce que tu caches ? »', tag: 'Ça brille, mais il reste une trace !', next: 'La facture du pressing.', soap: [730, 172, 12], crate: null },
+      moyen: { accent: '#7a4a22', badgeBg: '#7a4a22', badgeInk: '#FBF1D6', label: 'Score moyen', series: 'Passions mal rincées', quote: '« Il a frotté à moitié. Elle a pardonné à moitié. »', tag: 'À moitié propre, à moitié pardonné !', next: 'Philippe cache-t-il un second tablier ?', soap: [770, 176, 14], crate: null },
+      mauvais: { accent: '#3f7f8a', badgeBg: '#3f7f8a', badgeInk: '#FBF1D6', label: 'Mauvais score', series: 'Larmes et lessive', quote: '« Tu as fait tomber le savon, et notre mariage avec. »', tag: 'Une tache qui ne part pas à 30 degrés !', next: 'La tache partira-t-elle un jour ?', soap: [1010, 262, 24], crate: [560, 176, -26] },
+      catastrophe: { accent: '#B5361F', badgeBg: '#E3A72F', badgeInk: '#3e2412', label: 'Score catastrophique', series: 'Le grand désastre domestique', quote: '« QUI A OSÉ ? Henriette, tu as toujours jalousé mes rideaux ! »', tag: 'Aucune lessive ne lavera cet affront !', next: 'Une jumelle oubliée et un détachant miracle.', soap: [860, 176, 40], crate: [470, 76, -22] }
+    };
+    const key = this.props.mood && MOODS[this.props.mood] ? this.props.mood : 'excellent';
+    const d = MOODS[key];
+    let wave = 'M0 444';
+    for (let i = 0; i < 13; i++) wave += ' q 30 -14 60 0 t 60 0';
+    const soapStyle = 'position:absolute;left:' + (d.soap[0] - 180) + 'px;top:' + (d.soap[1] - 165) + 'px;width:360px;height:330px;transform:rotate(' + d.soap[2] + 'deg) scale(0.72)';
+    const crateStyle = d.crate ? 'position:absolute;left:' + (d.crate[0] - 180) + 'px;top:' + (d.crate[1] - 75) + 'px;width:360px;height:150px;transform:rotate(' + d.crate[2] + 'deg) scale(0.62)' : '';
+    return {
+      wavePath: wave,
+      m: {
+        accent: d.accent,
+        badgeBg: d.badgeBg,
+        badgeInk: d.badgeInk,
+        label: d.label,
+        series: d.series,
+        quote: d.quote,
+        tag: d.tag,
+        next: d.next,
+        soapStyle,
+        crateStyle,
+        crateAlone: !!d.crate,
+        crateOnSoap: !d.crate,
+        isExcellent: key === 'excellent',
+        isBon: key === 'bon',
+        isMoyen: key === 'moyen',
+        isMauvais: key === 'mauvais',
+        isCata: key === 'catastrophe'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
