@@ -6,7 +6,8 @@ extends Node2D
 ##  2. déplace les nœuds (savon, caméra) et passe les chiffres au HUD (hud.gd),
 ##  3. affiche le résultat.
 ## Les durées (secousse, délai avant de quitter l'écran de résultat, clignotement du savon,
-## lissage de la caméra) sont gérées par le moteur : Tween, Timer, AnimationPlayer, Camera2D.
+## lissage de la caméra, apparition des tronçons du parcours) sont gérées par le moteur :
+## Tween, Timer, AnimationPlayer, Camera2D.
 ##
 ## Déroulement d'un tour : READY (le savon attend en haut de la piste)
 ##   -> ESPACE -> RUN (piste, puis vol au jetpack : on MAINTIENT ESPACE pour monter)
@@ -40,6 +41,7 @@ const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 var state: State = State.READY
 var sim: FlightSim
 var tuning: Tuning
+var course: Course
 var result := {}
 var shake := 0.0               # secousse en cours (1 = max, un Tween la ramène à 0)
 var _shake_tween: Tween
@@ -50,16 +52,18 @@ var _shake_tween: Tween
 @onready var course_view: Node2D = $World/CourseView
 @onready var hud: CanvasLayer = $HUD
 @onready var return_delay: Timer = $ReturnDelay
+@onready var spawn_timer: Timer = $SpawnTimer
 @onready var blink: AnimationPlayer = $World/Soap/AnimationPlayer
 
 
 func _ready() -> void:
 	tuning = GameState.tuning
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
-	var course := Course.new(tuning, tuning.course_seed)
+	course = Course.new(tuning, tuning.course_seed)
 	sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
 	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
-	course_view.setup(tuning, course)
+	spawn_timer.wait_time = tuning.spawn_interval
+	_spawn_segment(tuning.course_start)  # le premier tronçon est déjà là quand le savon attend en haut de la piste
 	cam.make_current()
 	_fit_world_to_tuning()
 	_place_distance_markers()
@@ -97,6 +101,7 @@ func _input(event: InputEvent) -> void:
 		match state:
 			State.READY:
 				state = State.RUN
+				spawn_timer.start()
 				_shake(1.0)  # lâcher : coup de départ
 			State.RESULT:
 				if return_delay.is_stopped():
@@ -131,6 +136,7 @@ func _physics_process(dt: float) -> void:
 func _finish() -> void:
 	result = GameState.apply_result(sim.x, sim.phase == FlightSim.Phase.EXIT, sim.collected)
 	state = State.RESULT
+	spawn_timer.stop()
 	blink.stop()
 	soap.modulate = Color.WHITE
 	if sim.phase == FlightSim.Phase.STOPPED:
@@ -141,6 +147,18 @@ func _finish() -> void:
 
 func _on_return_delay_timeout() -> void:
 	hud.set_return_prompt(true)
+
+
+func _on_spawn_timer_timeout() -> void:
+	## Un nouveau tronçon (étagère, pièces, obstacle) apparaît devant le savon.
+	_spawn_segment(sim.x + tuning.spawn_ahead)
+
+
+func _spawn_segment(from_x: float) -> void:
+	if course.spawn_segment(from_x):
+		course_view.sync(tuning, course)
+	else:
+		spawn_timer.stop()  # ligne d'arrivée proche : plus rien à faire apparaître
 
 
 func _shake(strength: float) -> void:

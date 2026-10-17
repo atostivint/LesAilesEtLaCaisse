@@ -1,8 +1,9 @@
 class_name Course
 extends RefCounted
 ## Le parcours d'un vol : étagères (décor), pièces à rattraper (posées sur les étagères) et obstacles.
-## Classe PURE (aucun nœud), générée depuis une graine : la simulation, l'écran de vol
-## et le script d'équilibrage voient exactement le même parcours.
+## Classe PURE (aucun nœud), tirée d'une graine. Le parcours se construit tronçon par tronçon :
+## chaque appel à spawn_segment() ajoute une étagère (avec ses pièces) et, souvent, un obstacle.
+## Dans le jeu, c'est un Timer de vol.tscn qui l'appelle ; le script d'équilibrage l'appelle au même rythme.
 ##
 ## Repère : x vers la droite, y vers le HAUT (altitude au-dessus de l'eau), en mètres.
 ## Les étagères n'ont PAS de collision : elles servent seulement d'appui visuel aux pièces.
@@ -14,6 +15,7 @@ var shelves: Array[Rect2] = []   # (x, y du dessus, largeur, épaisseur) ; l'ép
 var pickups: Array[Dictionary] = []   # {"mat": id, "pos": Vector2}
 var obstacles: Array[Dictionary] = [] # {"kind": KIND_*, "rect": Rect2 (x, ybas, largeur, hauteur)}
 var seed_used := 0
+var next_free_x := 0.0           # fin du dernier tronçon : le suivant ne commence pas avant
 
 var _t: Tuning
 var _rng := RandomNumberGenerator.new()
@@ -21,22 +23,29 @@ var _rng := RandomNumberGenerator.new()
 
 func _init(tuning: Tuning, seed_value: int = 0) -> void:
 	_t = tuning
-	seed_used = seed_value if seed_value != 0 else int(Time.get_ticks_usec()) + 1
-	_rng.seed = seed_used
-	_generate()
+	if seed_value != 0:
+		_rng.seed = seed_value
+	else:
+		_rng.randomize()
+	seed_used = _rng.seed
+	next_free_x = _t.course_start
 
 
-func _generate() -> void:
-	var x := _t.course_start
-	while x < _t.door_x - 40.0:
-		var seg := _rng.randf_range(_t.segment_min, _t.segment_max)
-		var d := clampf(x / _t.door_x, 0.0, 1.0)  # difficulté 0..1
-		_make_shelf(x + seg * 0.05, seg * 0.45)
-		if _rng.randf() < lerpf(_t.obstacle_chance_start, _t.obstacle_chance_end, d):
-			_make_obstacle(x + seg * 0.62, d)
-			if _rng.randf() < _t.second_obstacle_end * d:
-				_make_obstacle(x + seg * 0.62 + 17.0, d)
-		x += seg
+func spawn_segment(from_x: float) -> bool:
+	## Ajoute un tronçon à partir de `from_x` (ou juste après le précédent s'il n'est pas fini).
+	## Renvoie false quand on est trop près de la ligne d'arrivée : il n'y a plus rien à ajouter.
+	var x := maxf(from_x, next_free_x)
+	if x >= _t.door_x - 40.0:
+		return false
+	var seg := _rng.randf_range(_t.segment_min, _t.segment_max)
+	var d := clampf(x / _t.door_x, 0.0, 1.0)  # difficulté 0..1
+	_make_shelf(x + seg * 0.05, seg * 0.45)
+	if _rng.randf() < lerpf(_t.obstacle_chance_start, _t.obstacle_chance_end, d):
+		_make_obstacle(x + seg * 0.62, d)
+		if _rng.randf() < _t.second_obstacle_end * d:
+			_make_obstacle(x + seg * 0.62 + 17.0, d)
+	next_free_x = x + seg
+	return true
 
 
 func _make_shelf(x: float, width: float) -> void:

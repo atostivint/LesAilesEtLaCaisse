@@ -117,7 +117,11 @@ func _geo(v: float, current: float) -> float:
 @export var course_seed: int = 0
 ## Distance avant la première étagère (m).
 @export_range(10.0, 200.0, 5.0) var course_start: float = 50.0
-## Longueur d'un tronçon (m) : une étagère et, souvent, un obstacle.
+## Temps (s) entre deux apparitions de tronçon (un Timer de vol.tscn). Un tronçon = une étagère et, souvent, un obstacle.
+@export_range(0.5, 10.0, 0.1) var spawn_interval: float = 3.0
+## Distance (m) devant le savon où apparaît chaque nouveau tronçon (au-delà de l'écran).
+@export_range(40.0, 200.0, 5.0) var spawn_ahead: float = 90.0
+## Longueur d'un tronçon (m).
 @export_range(20.0, 120.0, 1.0) var segment_min: float = 40.0
 @export_range(20.0, 120.0, 1.0) var segment_max: float = 52.0
 ## Chance d'un obstacle par tronçon au début, puis à la ligne d'arrivée (la difficulté monte).

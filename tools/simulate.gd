@@ -79,6 +79,9 @@ func run_bot(crate_id: String, seed_value: int, perfect: bool) -> Dictionary:
 	var course := Course.new(T, seed_value)
 	var sim := FlightSim.new(T.stats_for(crate_id), T, course)
 	var frames := 0
+	# Dans le jeu un Timer fait apparaître un tronçon toutes les `spawn_interval` secondes : ici on fait pareil.
+	course.spawn_segment(T.course_start)
+	var next_spawn := T.spawn_interval
 	# Joueur "humain" : il réagit avec un retard (la décision est appliquée `lag` images plus tard),
 	# regarde moins loin et ne vise que les pièces proches de son altitude.
 	var reaction := 0.0 if perfect else 0.5
@@ -97,6 +100,9 @@ func run_bot(crate_id: String, seed_value: int, perfect: bool) -> Dictionary:
 				queue.pop_front()
 		sim.step(Tuning.STEP, hold, tap)
 		frames += 1
+		if sim.time >= next_spawn:
+			next_spawn += T.spawn_interval
+			course.spawn_segment(sim.x + T.spawn_ahead)
 	return {"distance": sim.x, "door": sim.phase == FlightSim.Phase.EXIT, "collected": sim.collected, "hits": sim.hits, "time": sim.time}
 
 
@@ -115,7 +121,7 @@ func _decide(sim: FlightSim, reaction: float, perfect: bool) -> bool:
 	var best := -1
 	var best_d := 1e9
 	for i in sim.course.pickups.size():
-		if sim.taken[i] == 1:
+		if sim.is_taken(i):
 			continue
 		var p: Vector2 = sim.course.pickups[i]["pos"]
 		if p.x < sim.x or p.x > sim.x + 24.0:

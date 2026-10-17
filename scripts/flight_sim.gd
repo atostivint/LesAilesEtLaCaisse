@@ -25,7 +25,7 @@ var hits := 0               # pièges touchés
 var hit_flag := false       # vrai pendant l'image où un piège vient d'être touché
 var time := 0.0
 var collected := {}         # matériau -> quantité ramassée pendant ce vol
-var taken: PackedByteArray  # une case par pièce du parcours (1 = ramassée)
+var taken: PackedByteArray  # une case par pièce du parcours (1 = ramassée), qui grandit avec lui
 var new_pickups: Array[int] = []   # indices des pièces ramassées pendant la dernière image
 
 var t: Tuning
@@ -44,8 +44,6 @@ func _init(stats: Dictionary, tuning: Tuning, course_data: Course) -> void:
 	_mu = stats["mu"]
 	wings = stats["wings"]
 	max_wings = wings
-	taken = PackedByteArray()
-	taken.resize(course.pickups.size())
 	var p := t.ramp_point(0.0)
 	x = p.x
 	y = p.y
@@ -120,8 +118,9 @@ func _step_air(dt: float, thrust_held: bool) -> void:
 
 func _collect() -> void:
 	var r := t.soap_radius + 0.8
+	taken.resize(course.pickups.size())  # le parcours reçoit de nouvelles pièces pendant le vol
 	for i in course.pickups.size():
-		if taken[i] == 1:
+		if is_taken(i):
 			continue
 		var pos: Vector2 = course.pickups[i]["pos"]
 		if pos.x < x - 4.0:
@@ -153,6 +152,10 @@ func _check_obstacles() -> void:
 			if wings == 0:
 				broken = true
 			return
+
+
+func is_taken(pickup_index: int) -> bool:
+	return pickup_index < taken.size() and taken[pickup_index] == 1
 
 
 func speed() -> float:

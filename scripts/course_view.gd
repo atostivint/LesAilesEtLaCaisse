@@ -2,6 +2,7 @@ extends Node2D
 ## Pose le parcours (étagères, pièces, obstacles) dans le monde d'après un Course.
 ## Le dessin de chaque élément est dans sa scène (shelf, pince, clous, pickup) ; ce script les instancie
 ## et les place. Les collisions sont dans FlightSim.
+## Le parcours grandit pendant le vol : sync() ne crée que les éléments apparus depuis le dernier appel.
 
 const SHELF := preload("res://scenes/shelf.tscn")
 const PINCE := preload("res://scenes/pince.tscn")
@@ -9,18 +10,25 @@ const CLOUS := preload("res://scenes/clous.tscn")
 const PICKUP := preload("res://scenes/pickup.tscn")
 
 var _pickups: Array[Node2D] = []   # même ordre que course.pickups
+var _shelf_count := 0
+var _obstacle_count := 0
 
 
-func setup(tuning: Tuning, course: Course) -> void:
-	for sh in course.shelves:
+func sync(tuning: Tuning, course: Course) -> void:
+	for i in range(_shelf_count, course.shelves.size()):
+		var sh := course.shelves[i]
 		var shelf := SHELF.instantiate()
 		add_child(shelf)
 		shelf.setup(tuning.to_px(sh.position.x, sh.position.y), sh.size * tuning.ppm)
-	for o in course.obstacles:
+	_shelf_count = course.shelves.size()
+	for i in range(_obstacle_count, course.obstacles.size()):
+		var o := course.obstacles[i]
 		var obstacle: Control = (PINCE if o["kind"] == Course.KIND_PINCE else CLOUS).instantiate()
 		add_child(obstacle)
 		obstacle.setup(_rect_px(tuning, o["rect"]))
-	for p in course.pickups:
+	_obstacle_count = course.obstacles.size()
+	for i in range(_pickups.size(), course.pickups.size()):
+		var p := course.pickups[i]
 		var pickup := PICKUP.instantiate()
 		add_child(pickup)
 		pickup.setup(p["mat"], tuning.to_px(p["pos"].x, p["pos"].y))
