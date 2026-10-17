@@ -1,16 +1,16 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://8jsfvk8pa6ry"]
 
-[ext_resource type="Script" path="res://scripts/atelier.gd" id="1_aq6v4"]
+[ext_resource type="Script" uid="uid://dqi2od7qh767l" path="res://scripts/atelier.gd" id="1_aq6v4"]
 [ext_resource type="PackedScene" path="res://scenes/crate_row.tscn" id="2_row"]
+[ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
+[ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
 [ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
 [ext_resource type="Resource" path="res://data/crates/crayon.tres" id="c_crayon"]
-[ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
-[ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
 [ext_resource type="Resource" path="res://data/crates/poisson.tres" id="c_poisson"]
 
 [node name="Atelier" type="Control" unique_id=133071181]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_aq6v4")
@@ -44,23 +44,23 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Row_classique" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
+[node name="Row_classique" parent="Margin/Main/Rows" unique_id=1983609068 instance=ExtResource("2_row")]
 layout_mode = 2
 crate = ExtResource("c_classique")
 
-[node name="Row_crayon" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
+[node name="Row_crayon" parent="Margin/Main/Rows" unique_id=542431218 instance=ExtResource("2_row")]
 layout_mode = 2
 crate = ExtResource("c_crayon")
 
-[node name="Row_baignoire" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
+[node name="Row_baignoire" parent="Margin/Main/Rows" unique_id=916640391 instance=ExtResource("2_row")]
 layout_mode = 2
 crate = ExtResource("c_baignoire")
 
-[node name="Row_baguette" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
+[node name="Row_baguette" parent="Margin/Main/Rows" unique_id=1876348227 instance=ExtResource("2_row")]
 layout_mode = 2
 crate = ExtResource("c_baguette")
 
-[node name="Row_poisson" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
+[node name="Row_poisson" parent="Margin/Main/Rows" unique_id=890985404 instance=ExtResource("2_row")]
 layout_mode = 2
 crate = ExtResource("c_poisson")
 
