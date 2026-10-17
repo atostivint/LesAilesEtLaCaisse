@@ -6,7 +6,7 @@ extends Resource
 ## Unités : mètres, secondes. Seul `ppm` convertit les mètres en pixels pour l'affichage.
 ## Les caisses et les matériaux (valeurs provisoires) sont des Resources listées dans « Contenu ».
 
-const STEP := 1.0 / 60.0  # pas de simulation (60 images/s)
+const STEP := 1.0 / 60.0 # pas de simulation (60 images/s)
 
 ## Matériaux ramassés sur les étagères (apparaissent à partir de `from`, fréquence `weight`) et caisses à
 ## savon à débloquer (voir la page Notion « Mécaniques »). Ce sont des Resources : un fichier .tres par
@@ -86,7 +86,7 @@ func _geo(v: float, current: float) -> float:
 
 @export_group("Vol : jetpack")
 ## Vitesse de défilement de base (m/s) d'une caisse de poids 1.
-@export_range(5.0, 40.0, 0.5) var cruise_speed: float = 13.0
+@export_range(5.0, 100.0, 0.5) var cruise_speed: float = 60.0
 ## Vitesse de défilement en plus par point de poids au-dessus de 1 (m/s) : l'élan des caisses lourdes.
 @export_range(0.0, 6.0, 0.1) var cruise_per_weight: float = 1.5
 ## Vitesse à laquelle le savon rejoint sa vitesse de défilement après la piste (m/s²).
@@ -94,7 +94,7 @@ func _geo(v: float, current: float) -> float:
 ## Gravité en vol (m/s²).
 @export_range(5.0, 60.0, 0.5) var jet_gravity: float = 24.0
 ## Poussée du jetpack quand on maintient la touche (m/s²). Doit dépasser la gravité pour monter.
-@export_range(10.0, 100.0, 0.5) var jet_thrust: float = 100
+@export_range(10.0, 300.0, 0.5) var jet_thrust: float = 100
 ## Gravité en plus par point de poids au-dessus de 1 (0.12 = +12 %) : les caisses lourdes retombent plus vite.
 @export_range(0.0, 0.5, 0.01) var weight_gravity: float = 0.12
 ## Vitesse verticale maximale vers le haut (m/s).
@@ -116,7 +116,7 @@ func _geo(v: float, current: float) -> float:
 ## Graine du parcours. 0 = un parcours différent à chaque vol ; autre valeur = toujours le même.
 @export var course_seed: int = 0
 ## Distance avant la première étagère (m).
-@export_range(10.0, 200.0, 5.0) var course_start: float = 50.0
+@export_range(10.0, 200.0, 5.0) var course_start: float = 50
 ## Temps (s) entre deux apparitions de tronçon (un Timer de vol.tscn). Un tronçon = une étagère et, souvent, un obstacle.
 @export_range(0.5, 10.0, 0.1) var spawn_interval: float = 3.0
 ## Distance (m) devant le savon où apparaît chaque nouveau tronçon (au-delà de l'écran).
@@ -137,7 +137,7 @@ func stats_for(crate_id: String) -> Dictionary:
 	var c := crate(crate_id)
 	var w: int = c.poids
 	return {
-		"wings": wings_base + wings_per_solidity * c.solidite,
+		"wings": 1, # wings = HP
 		"cruise": cruise_speed + cruise_per_weight * (w - 1),
 		"gravity": jet_gravity * (1.0 + weight_gravity * (w - 1)),
 		"v0": ramp_v0,
@@ -178,7 +178,7 @@ func ramp_point(dist: float) -> Vector2:
 	var d := clampf(dist, 0.0, ramp_len)
 	var th0 := -deg_to_rad(ramp_top_deg)
 	var th1 := deg_to_rad(ramp_lip_deg)
-	var k := (th1 - th0) / ramp_len  # rad par mètre de piste
+	var k := (th1 - th0) / ramp_len # rad par mètre de piste
 	var th := th0 + k * d
 	if absf(k) < 0.00001:
 		return Vector2(d * cos(th0), ramp_start_h + d * sin(th0))

@@ -8,14 +8,14 @@ extends RefCounted
 ## Repère : x vers la droite, y vers le HAUT (altitude au-dessus de l'eau), en mètres.
 ## Les étagères n'ont PAS de collision : elles servent seulement d'appui visuel aux pièces.
 
-const KIND_PINCE := "pince"      # pince à linge pendue au meuble
-const KIND_CLOUS := "clous"      # planche à clous flottante
+const KIND_PINCE := "pince" # pince à linge pendue au meuble
+const KIND_CLOUS := "clous" # planche à clous flottante
 
-var shelves: Array[Rect2] = []   # (x, y du dessus, largeur, épaisseur) ; l'épaisseur va vers le bas
-var pickups: Array[Dictionary] = []   # {"mat": id, "pos": Vector2}
+var shelves: Array[Rect2] = [] # (x, y du dessus, largeur, épaisseur) ; l'épaisseur va vers le bas
+var pickups: Array[Dictionary] = [] # {"mat": id, "pos": Vector2}
 var obstacles: Array[Dictionary] = [] # {"kind": KIND_*, "rect": Rect2 (x, ybas, largeur, hauteur)}
 var seed_used := 0
-var next_free_x := 0.0           # fin du dernier tronçon : le suivant ne commence pas avant
+var next_free_x := 0.0 # fin du dernier tronçon : le suivant ne commence pas avant
 
 var _t: Tuning
 var _rng := RandomNumberGenerator.new()
@@ -38,12 +38,15 @@ func spawn_segment(from_x: float) -> bool:
 	if x >= _t.door_x - 40.0:
 		return false
 	var seg := _rng.randf_range(_t.segment_min, _t.segment_max)
-	var d := clampf(x / _t.door_x, 0.0, 1.0)  # difficulté 0..1
+	var d := clampf(x / _t.door_x, 0.0, 1.0) # difficulté 0..1
 	_make_shelf(x + seg * 0.05, seg * 0.45)
-	if _rng.randf() < lerpf(_t.obstacle_chance_start, _t.obstacle_chance_end, d):
-		_make_obstacle(x + seg * 0.62, d)
-		if _rng.randf() < _t.second_obstacle_end * d:
-			_make_obstacle(x + seg * 0.62 + 17.0, d)
+	_make_obstacle(x + seg * 0.62, d)
+	_make_obstacle(x + seg * 0.62 + 17.0, d)
+
+	_make_obstacle(x + seg * 0.62 + 17.0, d)
+	var rect: Rect2 = obstacles[-1]["rect"]
+	rect.position.y += 150
+
 	next_free_x = x + seg
 	return true
 
