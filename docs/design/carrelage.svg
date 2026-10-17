@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <pattern id="tile" width="200" height="200" patternUnits="userSpaceOnUse">
+      <!-- fond de la tuile -->
+      <rect width="200" height="200" fill="#b5601a"/>
+      <!-- joint -->
+      <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#6b3a12" stroke-width="3"/>
+      <!-- étoile à 8 branches : deux carrés superposés -->
+      <g transform="translate(100 100)">
+        <rect x="-66" y="-66" width="132" height="132" fill="#c9751f" stroke="#3f5a2e" stroke-width="5" stroke-linejoin="miter"/>
+        <rect x="-66" y="-66" width="132" height="132" fill="#c9751f" stroke="#3f5a2e" stroke-width="5" stroke-linejoin="miter" transform="rotate(45)"/>
+        <!-- masque intérieur pour effacer les traits qui se croisent -->
+        <rect x="-66" y="-66" width="132" height="132" fill="#c9751f" transform="rotate(45)"/>
+        <rect x="-62" y="-62" width="124" height="124" fill="#c9751f"/>
+        <!-- carrés concentriques -->
+        <rect x="-56" y="-56" width="112" height="112" fill="#a8541a"/>
+        <rect x="-48" y="-48" width="96" height="96" fill="#d98a32"/>
+        <rect x="-40" y="-40" width="80" height="80" fill="#a8541a"/>
+        <rect x="-32" y="-32" width="64" height="64" fill="#d98a32"/>
+        <rect x="-24" y="-24" width="48" height="48" fill="#a8541a"/>
+        <rect x="-16" y="-16" width="32" height="32" fill="#d98a32"/>
+        <rect x="-8" y="-8" width="16" height="16" fill="#8f4514"/>
+      </g>
+      <!-- petits triangles verts aux coins -->
+      <g fill="#3f5a2e">
+        <path d="M0 0 L16 0 L0 16 Z"/>
+        <path d="M200 0 L184 0 L200 16 Z"/>
+        <path d="M0 200 L16 200 L0 184 Z"/>
+        <path d="M200 200 L184 200 L200 184 Z"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="url(#tile)"/>
+</svg>
