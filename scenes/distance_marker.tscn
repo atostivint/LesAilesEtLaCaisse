@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/distance_marker.gd" id="1_marker"]
+
+[node name="DistanceMarker" type="Node2D"]
+script = ExtResource("1_marker")
+
+[node name="Pole" type="ColorRect" parent="."]
+offset_right = 4.0
+offset_bottom = 180.0
+color = Color(0.25, 0.25, 0.25, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 8.0
+offset_top = -34.0
+offset_right = 8.0
+offset_bottom = -34.0
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_font_sizes/font_size = 26

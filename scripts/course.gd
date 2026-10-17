@@ -55,16 +55,16 @@ func _make_shelf(x: float, width: float) -> void:
 func _pick_material(px: float) -> String:
 	## Tirage pondéré parmi les matériaux déjà disponibles à cette distance.
 	var total := 0.0
-	for m in Tuning.MATERIALS:
-		if px >= float(m["from"]):
-			total += float(m["weight"])
+	for m in _t.materials:
+		if px >= m.from:
+			total += m.weight
 	var r := _rng.randf() * total
-	for m in Tuning.MATERIALS:
-		if px >= float(m["from"]):
-			r -= float(m["weight"])
+	for m in _t.materials:
+		if px >= m.from:
+			r -= m.weight
 			if r <= 0.0:
-				return m["id"]
-	return Tuning.MATERIALS[0]["id"]
+				return m.id
+	return _t.materials[0].id
 
 
 func _make_obstacle(x: float, d: float) -> void:

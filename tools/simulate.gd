@@ -10,12 +10,12 @@ var T: Tuning = load("res://data/tuning.tres")
 
 func _init() -> void:
 	print("=== 1. Distance et récolte du bot, par caisse (%d vols chacune) ===" % RUNS)
-	for c in Tuning.CRATES:
+	for c in T.crates:
 		var dist := 0.0
 		var finished := 0
 		var got := {}
 		for i in RUNS:
-			var r := run_bot(c["id"], 1000 + i, true)
+			var r := run_bot(c.id, 1000 + i, true)
 			dist += r["distance"]
 			finished += 1 if r["door"] else 0
 			for m in r["collected"]:
@@ -23,17 +23,17 @@ func _init() -> void:
 		var per_run := {}
 		for m in got:
 			per_run[m] = snappedf(float(got[m]) / RUNS, 0.1)
-		print("%-10s : moy %5.0f / %d | arrivée %2d/%d | par vol %s" % [c["id"], dist / RUNS, int(T.door_x), finished, RUNS, str(per_run)])
+		print("%-10s : moy %5.0f / %d | arrivée %2d/%d | par vol %s" % [c.id, dist / RUNS, int(T.door_x), finished, RUNS, str(per_run)])
 
 	print("\n=== 2. Même chose avec un joueur moins précis (réagit tard) ===")
-	for c in Tuning.CRATES:
+	for c in T.crates:
 		var dist := 0.0
 		var finished := 0
 		for i in RUNS:
-			var r := run_bot(c["id"], 1000 + i, false)
+			var r := run_bot(c.id, 1000 + i, false)
 			dist += r["distance"]
 			finished += 1 if r["door"] else 0
-		print("%-10s : moy %5.0f | arrivée %2d/%d" % [c["id"], dist / RUNS, finished, RUNS])
+		print("%-10s : moy %5.0f | arrivée %2d/%d" % [c.id, dist / RUNS, finished, RUNS])
 
 	print("\n=== 3. Progression : on joue, on débloque dès qu'on peut (caisse la moins chère d'abord) ===")
 	progression(true)
@@ -51,25 +51,25 @@ func progression(perfect: bool) -> void:
 		var progress := true
 		while progress:
 			progress = false
-			for c in Tuning.CRATES:
-				if unlocked.has(c["id"]):
+			for c in T.crates:
+				if unlocked.has(c.id):
 					continue
 				var ok := true
-				for m in c["cost"]:
-					if int(stock.get(m, 0)) < int(c["cost"][m]):
+				for m in c.cost:
+					if int(stock.get(m, 0)) < int(c.cost[m]):
 						ok = false
 				if ok:
-					for m in c["cost"]:
-						stock[m] = int(stock.get(m, 0)) - int(c["cost"][m])
-					unlocked.append(c["id"])
-					equipped = c["id"]
-					print(">>> tour %2d : caisse débloquée : %s" % [turn, c["id"]])
+					for m in c.cost:
+						stock[m] = int(stock.get(m, 0)) - int(c.cost[m])
+					unlocked.append(c.id)
+					equipped = c.id
+					print(">>> tour %2d : caisse débloquée : %s" % [turn, c.id])
 					progress = true
 					break
 		var r := run_bot(equipped, 5000 + turn, perfect)
 		for m in r["collected"]:
 			stock[m] = int(stock.get(m, 0)) + int(r["collected"][m])
-		if unlocked.size() == Tuning.CRATES.size():
+		if unlocked.size() == T.crates.size():
 			print("=== toutes les caisses débloquées au tour %d ===" % turn)
 			return
 	print("=== pas toutes les caisses après 60 tours (stock %s) ===" % str(stock))
@@ -88,7 +88,7 @@ func run_bot(crate_id: String, seed_value: int, perfect: bool) -> Dictionary:
 		var tap := false
 		var hold := false
 		if sim.phase == FlightSim.Phase.RAMP:
-			tap = perfect and sim.s >= T.ramp_length() - T.takeoff_window * 0.5
+			tap = perfect and sim.s >= T.ramp_len - T.takeoff_window * 0.5
 			hold = true
 		else:
 			queue.append(_decide(sim, reaction, perfect))

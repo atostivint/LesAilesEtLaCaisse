@@ -23,10 +23,6 @@ func _ready() -> void:
 	reset()
 
 
-func stats(crate_id: String = equipped) -> Dictionary:
-	return tuning.stats_for(crate_id)
-
-
 func stock(mat: String) -> int:
 	return int(materials.get(mat, 0))
 
@@ -38,7 +34,7 @@ func is_unlocked(id: String) -> bool:
 func can_unlock(id: String) -> bool:
 	if is_unlocked(id):
 		return false
-	var cost: Dictionary = tuning.crate(id)["cost"]
+	var cost: Dictionary = tuning.crate(id).cost
 	for mat in cost:
 		if stock(mat) < int(cost[mat]):
 			return false
@@ -49,7 +45,7 @@ func unlock(id: String) -> void:
 	## Débloque une caisse (dépense les matériaux) et l'équipe tout de suite.
 	if not can_unlock(id):
 		return
-	var cost: Dictionary = tuning.crate(id)["cost"]
+	var cost: Dictionary = tuning.crate(id).cost
 	for mat in cost:
 		materials[mat] = stock(mat) - int(cost[mat])
 	unlocked.append(id)

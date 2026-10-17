@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CrateData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/crate_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "poisson"
+nom = "Caisse poisson"
+desc = "La plus lourde : très solide, très rapide."
+solidite = 2
+poids = 3
+cost = {
+"planche": 36,
+"plume": 14,
+"elastique": 12,
+"etoile": 6
+}
+color = Color(0.35, 0.6, 0.65, 1)

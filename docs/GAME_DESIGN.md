@@ -44,7 +44,7 @@ Matériaux (les 4 types du prototype) :
 
 Les clous, la corde, la peinture et le rideau de la maquette reviendront avec les pièges. Les bulles ne sont pas dans le prototype actuel.
 
-Les caisses sont inspirées des courses Red Bull. Solidité = nombre d'ailes en plus : une caisse a 2 ailes + sa solidité. Poids = élan : le savon défile plus vite (+1,5 m/s par point de poids au-dessus de 1), mais retombe plus vite (+12 % de gravité par point) et monte moins bien. Les coûts sont **provisoires** (`Tuning.CRATES`).
+Les caisses sont inspirées des courses Red Bull. Solidité = nombre d'ailes en plus : une caisse a 2 ailes + sa solidité. Poids = élan : le savon défile plus vite (+1,5 m/s par point de poids au-dessus de 1), mais retombe plus vite (+12 % de gravité par point) et monte moins bien. Les coûts sont **provisoires** (`data/crates/`).
 
 | Caisse | Description | Coût (matériaux) | Solidité / Poids |
 |---|---|---|---|

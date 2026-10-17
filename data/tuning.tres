@@ -1,6 +1,19 @@
-[gd_resource type="Resource" script_class="Tuning" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="Tuning" load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/tuning.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/material_data.gd" id="md"]
+[ext_resource type="Script" path="res://scripts/crate_data.gd" id="cd"]
+[ext_resource type="Resource" path="res://data/materials/planche.tres" id="m_planche"]
+[ext_resource type="Resource" path="res://data/materials/plume.tres" id="m_plume"]
+[ext_resource type="Resource" path="res://data/materials/elastique.tres" id="m_elastique"]
+[ext_resource type="Resource" path="res://data/materials/etoile.tres" id="m_etoile"]
+[ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
+[ext_resource type="Resource" path="res://data/crates/crayon.tres" id="c_crayon"]
+[ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
+[ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
+[ext_resource type="Resource" path="res://data/crates/poisson.tres" id="c_poisson"]
 
 [resource]
 script = ExtResource("1")
+materials = Array[ExtResource("md")]([ExtResource("m_planche"), ExtResource("m_plume"), ExtResource("m_elastique"), ExtResource("m_etoile")])
+crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson")])
