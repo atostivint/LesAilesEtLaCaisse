@@ -37,14 +37,17 @@ func _process(_delta: float) -> bool:
 	var gs = root.get_node("GameState")
 	if f == 10:
 		_shot("1_atelier")
-		gs.buy("bulles")
+		gs.materials = {"planche": 20, "plume": 5, "elastique": 1}
+		gs.last_run = {"distance": 412.0, "collected": {"planche": 8, "plume": 2}, "record": true, "door": false, "turn": 1}
+		gs.unlock("crayon")
 		current_scene.call("_refresh")
 	elif f == 20:
-		_shot("2_atelier_achat")
+		_shot("2_atelier_debloque")
 		change_scene_to_file("res://scenes/vol.tscn")
 	elif f == 40:
 		_shot("3_vol_pret")
 		_press("ui_accept")
+		Input.action_release("ui_accept")
 	elif f > 40 and current_scene.name == "Vol":
 		var v = current_scene
 		var sim: FlightSim = v.sim
@@ -54,24 +57,25 @@ func _process(_delta: float) -> bool:
 					_shot("4_piste")
 				if sim.s >= gs.tuning.ramp_length() - 1.5:
 					_press("ui_accept")
+					Input.action_release("ui_accept")
 			else:
-				if sim.phase == FlightSim.Phase.SLIDE and sim.contact != "":
-					_shot("5b_glisse")
-				if sim.time > 3.0 and sim.phase == FlightSim.Phase.AIR:
+				if sim.time > 4.0:
 					_shot("5_en_vol")
-				if sim.vy < -1.5:
-					Input.action_press("ui_up")
+				if sim.time > 9.0:
+					_shot("5b_en_vol_plus_loin")
+				# Pilote : maintient le jetpack quand le savon est sous ~12 m.
+				if sim.y + sim.vy * 0.25 < 12.0:
+					Input.action_press("ui_accept")
 				else:
-					Input.action_release("ui_up")
-				if sim.charges > 0 and sim.boost_left <= 0.0 and sim.y < 10.0:
-					_press("ui_accept")
+					Input.action_release("ui_accept")
 		elif v.state == 2:
+			Input.action_release("ui_accept")
 			result_t += _delta
 			if result_t > 0.8:
 				_shot("6_resultat")
-				print("distance=", v.result["distance"], " gain=", v.result["gain"], " coins=", gs.coins)
+				print("distance=", v.result["distance"], " récolte=", v.result["collected"])
 				return true
-	if f > 3000:
+	if f > 9000:
 		print("TIMEOUT")
 		return true
 	return false

@@ -1,9 +1,12 @@
 extends Control
-## ÉCRAN 1 : l'atelier. On dépense les pièces pour améliorer le savon, puis on le lance.
-## Les nœuds sont dans scenes/atelier.tscn (lignes d'amélioration = scenes/upgrade_row.tscn).
-## Ce script ne fait que remplir les textes et réagir aux boutons.
+## ÉCRAN 1 : l'atelier. On débloque de nouvelles caisses à savon avec les matériaux récoltés en vol,
+## on choisit celle qu'on équipe, puis on lance le savon.
+## Les nœuds fixes sont dans scenes/atelier.tscn ; les lignes de caisses (scenes/crate_row.tscn)
+## sont créées ici, une par caisse de Tuning.CRATES.
 
-@onready var coins_label: Label = %CoinsLabel
+const CRATE_ROW := preload("res://scenes/crate_row.tscn")
+
+@onready var stock_label: Label = %StockLabel
 @onready var info_label: Label = %InfoLabel
 @onready var launch_button: Button = %LaunchButton
 @onready var reset_button: Button = %ResetButton
@@ -11,8 +14,11 @@ extends Control
 
 
 func _ready() -> void:
-	for row in rows.get_children():
-		row.bought.connect(_refresh)
+	for c in Tuning.CRATES:
+		var row := CRATE_ROW.instantiate()
+		row.setup(c["id"])
+		row.changed.connect(_refresh)
+		rows.add_child(row)
 	launch_button.pressed.connect(_on_launch)
 	reset_button.pressed.connect(_on_reset)
 	launch_button.grab_focus()
@@ -20,17 +26,21 @@ func _ready() -> void:
 
 
 func _refresh() -> void:
-	coins_label.text = "Pièces : %d" % GameState.coins
+	var tuning: Tuning = GameState.tuning
+	var parts: Array[String] = []
+	for m in Tuning.MATERIALS:
+		parts.append("%s %d" % [m["nom"], GameState.stock(m["id"])])
+	stock_label.text = "Matériaux : " + "   ·   ".join(parts)
 	var lines: Array[String] = []
-	lines.append("Vol n° %d" % GameState.turn)
-	lines.append("Record : %s / %s" % [GameState.tuning.cm(GameState.best), GameState.tuning.cm(GameState.tuning.door_x)])
+	lines.append("Vol n° %d   ·   Caisse : %s" % [GameState.turn, tuning.crate(GameState.equipped)["nom"]])
+	lines.append("Record : %s / %s" % [tuning.cm(GameState.best), tuning.cm(tuning.door_x)])
 	if GameState.last_run.is_empty():
-		lines.append("Premier vol : achète une amélioration ou lance-toi tel quel.")
+		lines.append("Premier vol : ramasse des pièces sur les étagères pour débloquer d'autres caisses.")
 	else:
 		var r: Dictionary = GameState.last_run
-		lines.append("Dernier vol : %s, +%d pièces%s" % [GameState.tuning.cm(float(r["distance"])), int(r["gain"]), " (record !)" if r["record"] else ""])
+		lines.append("Dernier vol : %s, récolte : %s%s" % [tuning.cm(float(r["distance"])), tuning.collected_text(r["collected"]), " (record !)" if r["record"] else ""])
 	if GameState.won:
-		lines.append("ÉVADÉ au vol n° %d !" % GameState.won_turn)
+		lines.append("Ligne d'arrivée franchie au vol n° %d !" % GameState.won_turn)
 	info_label.text = "\n".join(lines)
 	for row in rows.get_children():
 		row.refresh()

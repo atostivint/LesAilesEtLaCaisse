@@ -4,15 +4,49 @@ extends Resource
 ## TOUS les réglages du jeu. Ouvre `data/tuning.tres` dans l'éditeur : tout est dans l'inspecteur,
 ## regroupé par thème, avec une info-bulle sur chaque valeur (survole le nom).
 ## Unités : mètres, secondes. Seul `ppm` convertit les mètres en pixels pour l'affichage.
+## Les caisses et les matériaux (valeurs provisoires) sont dans les constantes CRATES et MATERIALS.
 
 const STEP := 1.0 / 60.0  # pas de simulation (60 images/s)
 
-const UPGRADES := [
-	{"id": "poussee", "nom": "Poussée de départ", "desc": "Vitesse au lâcher de la piste"},
-	{"id": "bulles", "nom": "Jets de bulles", "desc": "Nombre de coups de propulsion en vol"},
-	{"id": "ailes", "nom": "Ailes", "desc": "Portance : planer plus longtemps"},
-	{"id": "glisse", "nom": "Glisse", "desc": "Moins de frottements (piste et air)"},
+## Matériaux ramassés sur les étagères. `from` = distance (unités internes) à partir de laquelle ils
+## apparaissent (la rareté du Notion : 100 / 200 / 300 / 400), `weight` = fréquence parmi les matériaux disponibles.
+## PROVISOIRE : la liste et les valeurs sont à équilibrer.
+const MATERIALS := [
+	{"id": "planche", "nom": "Planche", "from": 0.0, "weight": 6.0, "color": Color(0.79, 0.55, 0.31)},
+	{"id": "plume", "nom": "Plume", "from": 0.0, "weight": 3.0, "color": Color(0.98, 0.95, 0.84)},
+	{"id": "elastique", "nom": "Élastique", "from": 100.0, "weight": 2.5, "color": Color(0.9, 0.45, 0.55)},
+	{"id": "etoile", "nom": "Étoile", "from": 300.0, "weight": 1.5, "color": Color(0.95, 0.75, 0.2)},
 ]
+
+## Caisses à savon (voir la page Notion « Mécaniques »). `solidite` = ailes en plus (plumes encaissables),
+## `poids` = élan (le savon défile plus vite) mais retombe plus vite et monte moins bien.
+## `cost` = matériaux nécessaires pour la débloquer (PROVISOIRE). La caisse "classique" est gratuite.
+const CRATES := [
+	{"id": "classique", "nom": "Caisse classique", "desc": "La caisse de départ, ailes à plumes.",
+		"solidite": 1, "poids": 1, "cost": {}, "color": Color(0.6, 0.4, 0.2)},
+	{"id": "crayon", "nom": "Caisse crayon", "desc": "Propulsion par taille-crayon : plus solide.",
+		"solidite": 2, "poids": 1, "cost": {"planche": 8, "plume": 3}, "color": Color(0.9, 0.75, 0.2)},
+	{"id": "baignoire", "nom": "Caisse baignoire", "desc": "Ailes en rideau de douche : lourde, rapide, fragile.",
+		"solidite": 1, "poids": 2, "cost": {"planche": 14, "plume": 6, "elastique": 4}, "color": Color(0.85, 0.9, 0.9)},
+	{"id": "baguette", "nom": "Caisse baguette", "desc": "Ailes en croissants : solide et rapide.",
+		"solidite": 3, "poids": 2, "cost": {"planche": 24, "plume": 10, "elastique": 8, "etoile": 3}, "color": Color(0.85, 0.6, 0.3)},
+	{"id": "poisson", "nom": "Caisse poisson", "desc": "La plus lourde : très solide, très rapide.",
+		"solidite": 2, "poids": 3, "cost": {"planche": 36, "plume": 14, "elastique": 12, "etoile": 6}, "color": Color(0.35, 0.6, 0.65)},
+]
+
+
+func crate(id: String) -> Dictionary:
+	for c in CRATES:
+		if c["id"] == id:
+			return c
+	return CRATES[0]
+
+
+func material(id: String) -> Dictionary:
+	for m in MATERIALS:
+		if m["id"] == id:
+			return m
+	return MATERIALS[0]
 
 
 # Les réglages de géométrie passent par ce helper qui prévient la prévisualisation
@@ -29,14 +63,18 @@ func _geo(v: float, current: float) -> float:
 	set(v):
 		ppm = _geo(v, ppm)
 ## AFFICHAGE : centimètres affichés par unité interne. La physique reste en unités internes (notées "m"
-## dans l'inspecteur) ; seuls les textes du jeu sont convertis en cm. 10 = la porte à 700 s'affiche 7000 cm.
+## dans l'inspecteur) ; seuls les textes du jeu sont convertis en cm. 10 = une distance de 800 s'affiche 8000 cm.
 @export_range(1.0, 100.0, 1.0) var display_cm_per_unit: float = 10.0
-## Gravité (m/s²). Plus c'est haut, plus le savon retombe vite.
-@export_range(1.0, 30.0, 0.1) var gravity: float = 9.8
-## Distance de la porte de sortie = objectif du jeu (m).
-@export_range(100.0, 3000.0, 10.0) var door_x: float = 1400.0
+## Distance de la ligne d'arrivée = objectif du niveau (m).
+@export_range(100.0, 3000.0, 10.0) var door_x: float = 800.0
+## Hauteur du plafond (le bas du meuble) au-dessus de l'eau (m). Le savon ne peut pas le dépasser.
+@export_range(10.0, 60.0, 1.0) var ceiling: float = 28.0
 
 @export_group("Piste")
+## Gravité sur la piste (m/s²).
+@export_range(1.0, 30.0, 0.1) var gravity: float = 9.8
+## Vitesse au départ de la piste (m/s).
+@export_range(5.0, 40.0, 0.5) var ramp_v0: float = 18.0
 ## Hauteur du départ au-dessus de l'eau (m). Plus haut = plus de vitesse acquise.
 @export_range(0.0, 60.0, 0.5) var ramp_start_h: float = 10.0:
 	set(v):
@@ -56,10 +94,6 @@ func _geo(v: float, current: float) -> float:
 		ramp_lip_deg = _geo(v, ramp_lip_deg)
 ## Frottement sur la piste sans amélioration (0 = glisse parfaite).
 @export_range(0.0, 0.5, 0.005) var mu_base: float = 0.14
-## Frottement retiré à chaque niveau de Glisse.
-@export_range(0.0, 0.05, 0.001) var mu_per_level: float = 0.012
-## Frottement minimum, même au niveau max de Glisse.
-@export_range(0.0, 0.2, 0.005) var mu_min: float = 0.03
 ## Vitesse minimale sur la piste (m/s) : le savon ne s'arrête jamais.
 @export_range(0.0, 5.0, 0.1) var min_ramp_speed: float = 1.0
 ## Taille de la zone "bon décollage" = derniers mètres du tremplin (trait rouge).
@@ -69,139 +103,61 @@ func _geo(v: float, current: float) -> float:
 ## Vitesse gagnée (m/s) si on appuie ESPACE dans la zone de bon décollage.
 @export_range(0.0, 15.0, 0.5) var takeoff_bonus: float = 3.0
 
-@export_group("Vol : portance et traînée")
-## Incidence au repos (degrés) : à quel point le nez est levé sans rien toucher.
-@export_range(-10.0, 20.0, 0.5) var alpha0_deg: float = 5.0
-## Incidence max en tirant vers le haut (↑). Plus de portance mais plus de traînée.
-@export_range(0.0, 40.0, 0.5) var alpha_up_deg: float = 14.0
-## Incidence max en piquant (↓). Négative = on plonge et on gagne de la vitesse.
-@export_range(-40.0, 0.0, 0.5) var alpha_down_deg: float = -10.0
-## Vitesse de réaction de l'inclinaison (plus haut = plus nerveux).
-@export_range(1.0, 20.0, 0.5) var pitch_response: float = 6.0
-## Portance par radian d'incidence (pente de la courbe de portance).
-@export_range(0.0, 10.0, 0.1) var cl_slope: float = 5.0
-## Portance maximale (plafond, évite de monter à l'infini en tirant fort).
-@export_range(0.1, 3.0, 0.05) var cl_max: float = 1.2
-## FORCE DE LA PORTANCE (∝ vitesse²). Le réglage n°1 pour la distance de planée.
-@export_range(0.0, 0.1, 0.001) var lift_k: float = 0.022
-## Traînée de base (frottement de l'air quand on ne tire pas).
-@export_range(0.0, 1.0, 0.01) var cd0: float = 0.2
-## Traînée induite : le surcoût de freinage quand on tire fort (cabrer).
-@export_range(0.0, 1.0, 0.01) var cd_k: float = 0.1
-## FORCE DE LA TRAÎNÉE (∝ vitesse²). Le réglage n°2 : ce qui freine le savon.
-@export_range(0.0, 0.1, 0.001) var drag_k: float = 0.028
+@export_group("Vol : jetpack")
+## Vitesse de défilement de base (m/s) d'une caisse de poids 1.
+@export_range(5.0, 40.0, 0.5) var cruise_speed: float = 13.0
+## Vitesse de défilement en plus par point de poids au-dessus de 1 (m/s) : l'élan des caisses lourdes.
+@export_range(0.0, 6.0, 0.1) var cruise_per_weight: float = 1.5
+## Vitesse à laquelle le savon rejoint sa vitesse de défilement après la piste (m/s²).
+@export_range(0.5, 20.0, 0.5) var speed_ease: float = 3.0
+## Gravité en vol (m/s²).
+@export_range(5.0, 60.0, 0.5) var jet_gravity: float = 24.0
+## Poussée du jetpack quand on maintient la touche (m/s²). Doit dépasser la gravité pour monter.
+@export_range(10.0, 90.0, 0.5) var jet_thrust: float = 46.0
+## Gravité en plus par point de poids au-dessus de 1 (0.12 = +12 %) : les caisses lourdes retombent plus vite.
+@export_range(0.0, 0.5, 0.01) var weight_gravity: float = 0.12
+## Vitesse verticale maximale vers le haut (m/s).
+@export_range(2.0, 40.0, 0.5) var rise_max: float = 13.0
+## Vitesse verticale maximale vers le bas (m/s).
+@export_range(2.0, 40.0, 0.5) var fall_max: float = 16.0
+## Rayon du savon pour les collisions avec obstacles et pièces (m).
+@export_range(0.3, 3.0, 0.1) var soap_radius: float = 1.1
 
-@export_group("Vol : jets de bulles (propulsion)")
-## Accélération d'un jet (m/s²). Gain de vitesse ≈ poussée × durée.
-@export_range(0.0, 60.0, 0.5) var thrust: float = 10.0
-## Durée d'un jet (secondes).
-@export_range(0.1, 5.0, 0.1) var boost_duration: float = 1.0
+@export_group("Caisses")
+## Ailes (plumes) d'une caisse de solidité 0.
+@export_range(0, 6) var wings_base: int = 2
+## Ailes en plus par point de solidité.
+@export_range(0, 3) var wings_per_solidity: int = 1
+## Temps d'invulnérabilité après un piège touché (s).
+@export_range(0.2, 4.0, 0.1) var invuln_time: float = 1.2
 
-@export_group("Atterrissage et glisse")
-## Part de la vitesse de chute rendue en rebond sur le ventre (0 = aucun rebond, 1 = balle parfaite).
-@export_range(0.0, 0.95, 0.01) var bounce_restitution: float = 0.55
-## Ricochet : relance verticale (m/s) par m/s de vitesse horizontale, comme un caillou qui ricoche.
-## Elle diminue à chaque rebond. 0 = le rebond ne dépend que de la vitesse de chute.
-@export_range(0.0, 1.0, 0.01) var bounce_skip: float = 0.3
-## Frottement au contact : vitesse horizontale perdue par unité de choc (0 = patine, 1 = accroche).
-@export_range(0.0, 1.5, 0.01) var bounce_friction: float = 0.35
-## Nombre maximum de rebonds avant de passer à la glisse.
-@export_range(0, 10) var max_bounces: int = 4
-## En dessous de cette vitesse de chute (m/s), plus de rebond : le savon se pose et glisse.
-@export_range(0.1, 6.0, 0.1) var bounce_min_speed: float = 1.5
-## Vitesse horizontale perdue à l'impact selon la raideur de la descente (0 = rien perdu).
-@export_range(0.0, 5.0, 0.1) var impact_loss: float = 1.5
-## Part minimale de vitesse horizontale conservée, même sur un impact très raide.
-@export_range(0.0, 1.0, 0.05) var impact_keep_min: float = 0.2
-## Rotation donnée par la vitesse de chute à l'impact (rad/s par m/s). Chute rapide = le nez plonge.
-@export_range(0.0, 1.0, 0.01) var touchdown_spin: float = 0.12
-## Frottement quand le VENTRE du savon glisse (m/s²) : bas = glisse très loin.
-@export_range(0.0, 20.0, 0.1) var belly_friction: float = 3.0
-## Frottement en plus quand la CAISSE traîne dans l'eau (m/s²) : haut = arrêt net.
-@export_range(0.0, 60.0, 0.5) var crate_friction: float = 18.0
-## Inclinaison (degrés, nez en haut) où la caisse commence à toucher l'eau.
-@export_range(0.0, 60.0, 0.5) var crate_start_deg: float = 8.0
-## Inclinaison où la caisse freine à fond.
-@export_range(0.0, 80.0, 0.5) var crate_full_deg: float = 20.0
-## Frottement en plus quand le NEZ pique dans l'eau (m/s²).
-@export_range(0.0, 60.0, 0.5) var dig_friction: float = 10.0
-## Inclinaison (degrés, nez en bas) où le nez commence à piquer.
-@export_range(0.0, 60.0, 0.5) var dig_start_deg: float = 10.0
-## Inclinaison où le nez pique à fond.
-@export_range(0.0, 80.0, 0.5) var dig_full_deg: float = 30.0
-## Force qui remet le savon à plat dans l'eau (flottabilité).
-@export_range(0.0, 30.0, 0.5) var level_stiffness: float = 8.0
-## Amortissement de la rotation (plus haut = bascule moins longtemps).
-@export_range(0.0, 10.0, 0.1) var level_damping: float = 3.0
-## Couple des flèches ↑/↓ pour redresser ou basculer le savon pendant la glisse.
-@export_range(0.0, 20.0, 0.5) var slide_pitch_torque: float = 5.0
-## Bousculade d'un jet de bulles : couple qui fait plonger le nez (rad/s²). 0 = aucune bascule.
-@export_range(0.0, 20.0, 0.5) var jet_torque: float = 4.0
-## En dessous de cette vitesse (m/s), le savon est considéré arrêté.
-@export_range(0.1, 5.0, 0.1) var stop_speed: float = 1.0
-
-@export_group("Améliorations")
-## Niveau maximum de chaque amélioration.
-@export_range(1, 20) var max_level: int = 8
-## Vitesse au lâcher sans amélioration (m/s).
-@export_range(0.0, 30.0, 0.5) var v0_base: float = 22.0
-## Vitesse au lâcher gagnée par niveau de Poussée (m/s).
-@export_range(0.0, 10.0, 0.1) var v0_per_level: float = 2.0
-## Jets de bulles au niveau 0.
-@export_range(0, 10) var charges_base: int = 1
-## Portance en plus par niveau d'Ailes (0.25 = +25 % du niveau de base).
-@export_range(0.0, 1.0, 0.01) var lift_per_level: float = 0.25
-## Traînée en moins par niveau de Glisse.
-@export_range(0.0, 0.2, 0.005) var drag_per_level: float = 0.05
-## Traînée minimale (multiplicateur), même au niveau max.
-@export_range(0.05, 1.0, 0.05) var drag_min: float = 0.5
-
-@export_group("Économie")
-## Pièces au tout début.
-@export_range(0, 500) var start_coins: int = 35
-## Prix du niveau 1 d'une amélioration.
-@export_range(1.0, 500.0, 1.0) var cost_base: float = 30.0
-## Multiplicateur de prix à chaque niveau (1.5 = +50 %).
-@export_range(1.0, 3.0, 0.05) var cost_growth: float = 1.5
-## Pièces gagnées par mètre parcouru.
-@export_range(0.0, 5.0, 0.05) var coin_per_m: float = 0.35
-## Pièces gagnées à chaque vol, quoi qu'il arrive.
-@export_range(0, 200) var flat_reward: int = 5
-## Bonus de pièces pour un nouveau record.
-@export_range(0, 500) var record_bonus: int = 15
-## Bonus de pièces pour avoir franchi la porte.
-@export_range(0, 1000) var door_bonus: int = 100
-
+@export_group("Parcours")
+## Graine du parcours. 0 = un parcours différent à chaque vol ; autre valeur = toujours le même.
+@export var course_seed: int = 0
+## Distance avant la première étagère (m).
+@export_range(10.0, 200.0, 5.0) var course_start: float = 50.0
+## Longueur d'un tronçon (m) : une étagère et, souvent, un obstacle.
+@export_range(20.0, 120.0, 1.0) var segment_min: float = 40.0
+@export_range(20.0, 120.0, 1.0) var segment_max: float = 52.0
+## Chance d'un obstacle par tronçon au début, puis à la ligne d'arrivée (la difficulté monte).
+@export_range(0.0, 1.0, 0.05) var obstacle_chance_start: float = 0.5
+@export_range(0.0, 1.0, 0.05) var obstacle_chance_end: float = 1.0
+## Chance d'un deuxième obstacle dans le tronçon, à la ligne d'arrivée (0 au début).
+@export_range(0.0, 1.0, 0.05) var second_obstacle_end: float = 0.8
 
 # --- Calculs dérivés (pas des réglages) ----------------------------------------
 
-func stats_for(levels: Dictionary) -> Dictionary:
-	## Transforme les niveaux d'amélioration en valeurs utilisées par la physique.
-	var lp: int = levels["poussee"]
-	var lb: int = levels["bulles"]
-	var la: int = levels["ailes"]
-	var lg: int = levels["glisse"]
+func stats_for(crate_id: String) -> Dictionary:
+	## Transforme une caisse en valeurs utilisées par la physique.
+	var c := crate(crate_id)
+	var w: int = c["poids"]
 	return {
-		"v0": v0_base + v0_per_level * lp,
-		"charges": charges_base + lb,
-		"lift": 1.0 + lift_per_level * la,
-		"drag": maxf(drag_min, 1.0 - drag_per_level * lg),
-		"mu": maxf(mu_min, mu_base - mu_per_level * lg),
+		"wings": wings_base + wings_per_solidity * int(c["solidite"]),
+		"cruise": cruise_speed + cruise_per_weight * (w - 1),
+		"gravity": jet_gravity * (1.0 + weight_gravity * (w - 1)),
+		"v0": ramp_v0,
+		"mu": mu_base,
 	}
-
-
-func cost_for(level: int) -> int:
-	## Prix pour passer de `level` à `level + 1`.
-	return int(round(cost_base * pow(cost_growth, level)))
-
-
-func reward_for(distance: float, is_record: bool, reached_door: bool) -> int:
-	var gain := int(distance * coin_per_m) + flat_reward
-	if is_record:
-		gain += record_bonus
-	if reached_door:
-		gain += door_bonus
-	return gain
 
 
 func cm(v: float) -> String:
@@ -213,21 +169,14 @@ func cm_speed(v: float) -> String:
 	return "%d cm/s" % int(v * display_cm_per_unit)
 
 
-func value_text(id: String, level: int) -> String:
-	## Valeur d'une amélioration à un niveau donné (pour l'atelier).
-	var lv := {"poussee": 0, "bulles": 0, "ailes": 0, "glisse": 0}
-	lv[id] = level
-	var st := stats_for(lv)
-	match id:
-		"poussee":
-			return cm_speed(float(st["v0"]))
-		"bulles":
-			return "%d jets" % int(st["charges"])
-		"ailes":
-			return "portance x%.2f" % float(st["lift"])
-		"glisse":
-			return "traînée x%.2f" % float(st["drag"])
-	return ""
+func collected_text(collected: Dictionary) -> String:
+	## "5 planches, 2 plumes" (ou "rien") pour l'atelier et l'écran de vol.
+	var parts: Array[String] = []
+	for m in MATERIALS:
+		var n := int(collected.get(m["id"], 0))
+		if n > 0:
+			parts.append("%d %s%s" % [n, String(m["nom"]).to_lower(), "s" if n > 1 else ""])
+	return "rien" if parts.is_empty() else ", ".join(parts)
 
 
 # --- Géométrie de la piste (partagée par la simulation et la prévisualisation) ---
