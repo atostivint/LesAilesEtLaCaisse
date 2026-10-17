@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CrateData" format=3 uid="uid://wklgwujstrxr"]
+
+[ext_resource type="Script" uid="uid://f6gyud804v5v" path="res://scripts/crate_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "cercueil"
+nom = "Caisse cercueil"
+solidite = 2
+cost = {
+"planche": 8,
+"plume": 3
+}
+color = Color(0.9, 0.75, 0.2, 1)
