@@ -46,8 +46,8 @@ func _process(_delta: float) -> bool:
 		change_scene_to_file("res://scenes/vol.tscn")
 	elif f == 40:
 		_shot("3_vol_pret")
-		_press("ui_accept")
-		Input.action_release("ui_accept")
+		_press("thrust")
+		Input.action_release("thrust")
 	elif f > 40 and current_scene.name == "Vol":
 		var v = current_scene
 		var sim: FlightSim = v.sim
@@ -56,8 +56,8 @@ func _process(_delta: float) -> bool:
 				if sim.s > 8.0:
 					_shot("4_piste")
 				if sim.s >= gs.tuning.ramp_len - 1.5:
-					_press("ui_accept")
-					Input.action_release("ui_accept")
+					_press("thrust")
+					Input.action_release("thrust")
 			else:
 				if sim.time > 4.0:
 					_shot("5_en_vol")
@@ -65,17 +65,17 @@ func _process(_delta: float) -> bool:
 					_shot("5b_en_vol_plus_loin")
 				# Pilote : maintient le jetpack quand le savon est sous ~12 m.
 				if sim.y + sim.vy * 0.25 < 12.0:
-					Input.action_press("ui_accept")
+					Input.action_press("thrust")
 				else:
-					Input.action_release("ui_accept")
+					Input.action_release("thrust")
 		elif v.state == 2:
-			Input.action_release("ui_accept")
+			Input.action_release("thrust")
 			result_t += _delta
 			if result_t > 0.8:
 				_shot("6_resultat")
 				print("distance=", v.result["distance"], " récolte=", v.result["collected"])
 				return true
-	if f > 9000:
+	if Engine.get_physics_frames() > 9000:
 		print("TIMEOUT")
 		return true
 	return false

@@ -1,9 +1,12 @@
 extends Node2D
 ## ÉCRAN 2 : le vol. Les nœuds sont dans scenes/vol.tscn (arbre visible dans l'éditeur).
-## Ce script ne calcule PAS la physique (c'est FlightSim) : il
+## Ce script ne calcule PAS la physique (c'est FlightSim, une classe pure : le script d'équilibrage
+## la fait tourner sans fenêtre, plus vite que le temps réel) : il
 ##  1. transmet les touches à la simulation,
 ##  2. déplace les nœuds (savon, caméra) et passe les chiffres au HUD (hud.gd),
 ##  3. affiche le résultat.
+## Les durées (secousse, délai avant de quitter l'écran de résultat, clignotement du savon,
+## lissage de la caméra) sont gérées par le moteur : Tween, Timer, AnimationPlayer, Camera2D.
 ##
 ## Déroulement d'un tour : READY (le savon attend en haut de la piste)
 ##   -> ESPACE -> RUN (piste, puis vol au jetpack : on MAINTIENT ESPACE pour monter)
@@ -37,17 +40,17 @@ const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 var state: State = State.READY
 var sim: FlightSim
 var tuning: Tuning
-var action_buffer := false     # ESPACE pressé depuis la dernière image physique
 var result := {}
-var result_time := 0.0
-var popup_time := 0.0          # affichage "BON DÉCOLLAGE"
-var shake := 0.0               # secousse en cours (1 = max, retombe à 0)
+var shake := 0.0               # secousse en cours (1 = max, un Tween la ramène à 0)
+var _shake_tween: Tween
 
 @onready var cam: Camera2D = $Camera2D
 @onready var soap: Node2D = $World/Soap
 @onready var flame: Node2D = $World/Soap/Flame
 @onready var course_view: Node2D = $World/CourseView
 @onready var hud: CanvasLayer = $HUD
+@onready var return_delay: Timer = $ReturnDelay
+@onready var blink: AnimationPlayer = $World/Soap/AnimationPlayer
 
 
 func _ready() -> void:
@@ -60,7 +63,8 @@ func _ready() -> void:
 	cam.make_current()
 	_fit_world_to_tuning()
 	_place_distance_markers()
-	_update_visuals(0.0, true)
+	_update_visuals()
+	cam.reset_smoothing()  # la caméra démarre sur le savon, sans glisser depuis l'origine
 
 
 func _fit_world_to_tuning() -> void:
@@ -84,26 +88,19 @@ func _place_distance_markers() -> void:
 
 # --- Entrées -------------------------------------------------------------------
 
+## Action "thrust" (Projet > Réglages > Contrôles) : ESPACE, ENTRÉE, flèche haut, W ou clic gauche.
+
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+	if event.is_action_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://scenes/atelier.tscn")
-		return
-	if event.is_action_pressed("ui_accept") and not event.is_echo():
+	elif event.is_action_pressed("thrust"):
 		match state:
 			State.READY:
 				state = State.RUN
-				shake = 1.0  # lâcher : coup de départ
-			State.RUN:
-				action_buffer = true  # consommé par la prochaine image physique
+				_shake(1.0)  # lâcher : coup de départ
 			State.RESULT:
-				if result_time > 0.5:
+				if return_delay.is_stopped():
 					get_tree().change_scene_to_file("res://scenes/atelier.tscn")
-
-
-func _thrust_held() -> bool:
-	## Jetpack : ESPACE / ENTRÉE, flèche haut, W ou clic gauche maintenus.
-	return Input.is_action_pressed("ui_accept") or Input.is_action_pressed("ui_up") \
-		or Input.is_key_pressed(KEY_W) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 
 # --- Boucle --------------------------------------------------------------------
@@ -113,17 +110,20 @@ func _physics_process(dt: float) -> void:
 		return
 	var was_perfect := sim.perfect_takeoff
 	var was_phase := sim.phase
-	sim.step(dt, _thrust_held(), action_buffer)
-	action_buffer = false
+	sim.step(dt, Input.is_action_pressed("thrust"), Input.is_action_just_pressed("thrust"))
 	if sim.hit_flag:
-		shake = 1.0  # piège touché
+		_shake(1.0)  # piège touché
+		blink.play("blink")
+	if sim.invuln <= 0.0 and blink.is_playing():
+		blink.stop()
+		soap.modulate = Color.WHITE
 	if not sim.new_pickups.is_empty():
-		shake = maxf(shake, 0.15)  # petite tape quand on ramasse une pièce
+		_shake(0.15)  # petite tape quand on ramasse une pièce
 		course_view.collect(sim.new_pickups)
 	if was_phase == FlightSim.Phase.RAMP and sim.phase == FlightSim.Phase.AIR:
-		shake = maxf(shake, 0.6)  # décollage
+		_shake(0.6)  # décollage
 	if sim.perfect_takeoff and not was_perfect:
-		popup_time = 1.6
+		hud.show_popup("BON DÉCOLLAGE ! +%s" % tuning.cm_speed(tuning.takeoff_bonus), 1.6)
 	if sim.phase >= FlightSim.Phase.STOPPED:
 		_finish()
 
@@ -131,22 +131,32 @@ func _physics_process(dt: float) -> void:
 func _finish() -> void:
 	result = GameState.apply_result(sim.x, sim.phase == FlightSim.Phase.EXIT, sim.collected)
 	state = State.RESULT
-	result_time = 0.0
+	blink.stop()
+	soap.modulate = Color.WHITE
 	if sim.phase == FlightSim.Phase.STOPPED:
-		shake = 1.0  # plouf
+		_shake(1.0)  # plouf
 	hud.show_result(_result_text())
+	return_delay.start()  # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
 
 
-func _process(delta: float) -> void:
-	popup_time -= delta
-	shake = maxf(0.0, shake - delta / shake_decay)
-	if state == State.RESULT:
-		result_time += delta
-		hud.set_return_prompt(result_time > 0.5)
-	_update_visuals(delta, false)
+func _on_return_delay_timeout() -> void:
+	hud.set_return_prompt(true)
 
 
-func _update_visuals(delta: float, snap: bool) -> void:
+func _shake(strength: float) -> void:
+	## Secousse de caméra : démarre à `strength` (jamais moins que la secousse en cours) et retombe à 0.
+	shake = maxf(shake, strength)
+	if _shake_tween:
+		_shake_tween.kill()
+	_shake_tween = create_tween()
+	_shake_tween.tween_property(self, "shake", 0.0, shake_decay * shake)
+
+
+func _process(_delta: float) -> void:
+	_update_visuals()
+
+
+func _update_visuals() -> void:
 	# Savon : position et rotation (y de l'écran va vers le bas, donc rotation inversée).
 	var p := tuning.to_px(sim.x, sim.y)
 	var on_ramp := sim.phase == FlightSim.Phase.RAMP
@@ -155,16 +165,13 @@ func _update_visuals(delta: float, snap: bool) -> void:
 	# Sur la piste le savon suit la pente ; en vol son nez suit la montée / la descente, adouci.
 	soap.rotation = -tuning.ramp_slope(sim.s) if on_ramp else -atan2(sim.vy, maxf(sim.vx, 1.0)) * 0.6
 	flame.visible = sim.thrusting and state == State.RUN
-	# Clignote pendant l'invulnérabilité après un piège.
-	soap.modulate.a = 0.35 if sim.invuln > 0.0 and int(sim.time * 12.0) % 2 == 0 else 1.0
 
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
-	var target := Vector2(p.x + cam_lead + sim.speed() * cam_speed_lead, -tuning.ceiling * tuning.ppm * 0.5 + 20.0)
-	cam.position = target if snap else cam.position.lerp(target, 1.0 - exp(-6.0 * delta))
+	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).
+	cam.position = Vector2(p.x + cam_lead + sim.speed() * cam_speed_lead, -tuning.ceiling * tuning.ppm * 0.5 + 20.0)
 	cam.offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * shake_strength * shake
 
 	hud.update_run(sim, tuning)
-	hud.set_popup("BON DÉCOLLAGE ! +%s" % tuning.cm_speed(tuning.takeoff_bonus) if popup_time > 0.0 else "")
 	hud.set_hint(_hint())
 
 

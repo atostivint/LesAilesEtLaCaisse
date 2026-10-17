@@ -10,6 +10,12 @@
 script = ExtResource("1_cigbo")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1074435888]
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="ReturnDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="World" type="Node2D" parent="." unique_id=1399815642]
 
@@ -169,3 +175,5 @@ theme_override_font_sizes/font_size = 34
 text = "
 ENTRÉE : retour à l'atelier"
 horizontal_alignment = 1
+
+[connection signal="timeout" from="ReturnDelay" to="." method="_on_return_delay_timeout"]
