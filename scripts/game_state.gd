@@ -23,10 +23,6 @@ func _ready() -> void:
 	reset()
 
 
-func stats(crate_id: String = equipped) -> Dictionary:
-	return tuning.stats_for(crate_id)
-
-
 func stock(mat: String) -> int:
 	return int(materials.get(mat, 0))
 

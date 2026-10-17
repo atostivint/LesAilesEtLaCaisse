@@ -10,12 +10,13 @@ const STEP := 1.0 / 60.0  # pas de simulation (60 images/s)
 
 ## Matériaux ramassés sur les étagères. `from` = distance (unités internes) à partir de laquelle ils
 ## apparaissent (la rareté du Notion : 100 / 200 / 300 / 400), `weight` = fréquence parmi les matériaux disponibles.
+## L'apparence de chaque pièce est dans scenes/pickup.tscn (un enfant par id).
 ## PROVISOIRE : la liste et les valeurs sont à équilibrer.
 const MATERIALS := [
-	{"id": "planche", "nom": "Planche", "from": 0.0, "weight": 6.0, "color": Color(0.79, 0.55, 0.31)},
-	{"id": "plume", "nom": "Plume", "from": 0.0, "weight": 3.0, "color": Color(0.98, 0.95, 0.84)},
-	{"id": "elastique", "nom": "Élastique", "from": 100.0, "weight": 2.5, "color": Color(0.9, 0.45, 0.55)},
-	{"id": "etoile", "nom": "Étoile", "from": 300.0, "weight": 1.5, "color": Color(0.95, 0.75, 0.2)},
+	{"id": "planche", "nom": "Planche", "from": 0.0, "weight": 6.0},
+	{"id": "plume", "nom": "Plume", "from": 0.0, "weight": 3.0},
+	{"id": "elastique", "nom": "Élastique", "from": 100.0, "weight": 2.5},
+	{"id": "etoile", "nom": "Étoile", "from": 300.0, "weight": 1.5},
 ]
 
 ## Caisses à savon (voir la page Notion « Mécaniques »). `solidite` = ailes en plus (plumes encaissables),
@@ -180,10 +181,6 @@ func collected_text(collected: Dictionary) -> String:
 
 
 # --- Géométrie de la piste (partagée par la simulation et la prévisualisation) ---
-
-func ramp_length() -> float:
-	return ramp_len
-
 
 func ramp_slope(dist: float) -> float:
 	## Angle de la piste en radians (positif = elle monte) à `dist` mètres du départ.

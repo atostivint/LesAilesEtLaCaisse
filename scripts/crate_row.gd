@@ -1,11 +1,12 @@
 extends HBoxContainer
-## Une ligne de l'atelier = une caisse à savon (scène crate_row.tscn, une instance par caisse,
-## créées par atelier.gd). Affiche son coût, ses stats et son état : verrouillée, à débloquer,
+## Une ligne de l'atelier = une caisse à savon (scène crate_row.tscn, une instance par caisse
+## dans atelier.tscn : on choisit la caisse avec `crate_id`). Affiche son coût, ses stats et son état : verrouillée, à débloquer,
 ## débloquée (à équiper) ou équipée.
 
 signal changed
 
-var crate_id := ""
+## Id de la caisse (voir Tuning.CRATES).
+@export var crate_id := ""
 
 @onready var swatch: ColorRect = %Swatch
 @onready var name_label: Label = %NameLabel
@@ -13,10 +14,6 @@ var crate_id := ""
 @onready var cost_label: Label = %CostLabel
 @onready var stats_label: Label = %StatsLabel
 @onready var action_button: Button = %ActionButton
-
-
-func setup(id: String) -> void:
-	crate_id = id
 
 
 func _ready() -> void:

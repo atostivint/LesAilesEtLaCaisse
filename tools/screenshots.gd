@@ -55,7 +55,7 @@ func _process(_delta: float) -> bool:
 			if sim.phase == FlightSim.Phase.RAMP:
 				if sim.s > 8.0:
 					_shot("4_piste")
-				if sim.s >= gs.tuning.ramp_length() - 1.5:
+				if sim.s >= gs.tuning.ramp_len - 1.5:
 					_press("ui_accept")
 					Input.action_release("ui_accept")
 			else:

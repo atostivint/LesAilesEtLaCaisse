@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[sub_resource type="StyleBoxFlat" id="Style_badge"]
+bg_color = Color(0.89, 0.655, 0.184, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.243, 0.141, 0.071, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+
+[node name="WarningBadge" type="Panel"]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+theme_override_styles/panel = SubResource("Style_badge")
+
+[node name="Mark" type="Label" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(0.243, 0.141, 0.071, 1)
+theme_override_font_sizes/font_size = 20
+text = "!"
+horizontal_alignment = 1
+vertical_alignment = 1

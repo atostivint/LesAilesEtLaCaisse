@@ -1,0 +1,69 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_obs"]
+[ext_resource type="PackedScene" path="res://scenes/warning_badge.tscn" id="2_badge"]
+
+[sub_resource type="StyleBoxFlat" id="Style_body"]
+bg_color = Color(0.784, 0.337, 0.106, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.243, 0.141, 0.071, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_tip"]
+bg_color = Color(0.71, 0.212, 0.122, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="Pince" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 160.0
+script = ExtResource("1_obs")
+
+[node name="Body" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("Style_body")
+
+[node name="Spring" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1.5
+offset_right = 1.5
+offset_bottom = -36.0
+color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="Tip" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+theme_override_styles/panel = SubResource("Style_tip")
+
+[node name="BadgeAnchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+
+[node name="WarningBadge" parent="BadgeAnchor" instance=ExtResource("2_badge")]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 13.0
+offset_right = 13.0
+offset_bottom = 39.0
