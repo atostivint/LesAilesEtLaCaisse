@@ -5,8 +5,8 @@
 [ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
 [ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
 [ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
-[ext_resource type="Resource" path="res://data/crates/crayon.tres" id="c_crayon"]
-[ext_resource type="Resource" path="res://data/crates/poisson.tres" id="c_poisson"]
+[ext_resource type="Resource" path="res://data/crates/cercueil.tres" id="c_cercueil"]
+[ext_resource type="Resource" path="res://data/crates/dollar.tres" id="c_dollar"]
 
 [node name="Atelier" type="Control" unique_id=133071181]
 layout_mode = 3
@@ -48,9 +48,9 @@ theme_override_constants/separation = 2
 layout_mode = 2
 crate = ExtResource("c_classique")
 
-[node name="Row_crayon" parent="Margin/Main/Rows" unique_id=542431218 instance=ExtResource("2_row")]
+[node name="Row_cercueil" parent="Margin/Main/Rows" unique_id=542431218 instance=ExtResource("2_row")]
 layout_mode = 2
-crate = ExtResource("c_crayon")
+crate = ExtResource("c_cercueil")
 
 [node name="Row_baignoire" parent="Margin/Main/Rows" unique_id=916640391 instance=ExtResource("2_row")]
 layout_mode = 2
@@ -60,9 +60,9 @@ crate = ExtResource("c_baignoire")
 layout_mode = 2
 crate = ExtResource("c_baguette")
 
-[node name="Row_poisson" parent="Margin/Main/Rows" unique_id=890985404 instance=ExtResource("2_row")]
+[node name="Row_dollar" parent="Margin/Main/Rows" unique_id=890985404 instance=ExtResource("2_row")]
 layout_mode = 2
-crate = ExtResource("c_poisson")
+crate = ExtResource("c_dollar")
 
 [node name="InfoLabel" type="Label" parent="Margin/Main" unique_id=1188278786]
 unique_name_in_owner = true

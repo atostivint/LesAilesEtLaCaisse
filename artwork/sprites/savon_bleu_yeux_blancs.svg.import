@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1kbbmr1mxmf8"
-path="res://.godot/imported/savon_bleu_yeux.svg-6d7bcfd8c92d4629f4441e2cf2a2fdce.ctex"
+uid="uid://cxuba43e4c00v"
+path="res://.godot/imported/savon_bleu_yeux_blancs.svg-210a58d6a5b7e99cf5c633a1a54000fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://artwork/sprites/savon_bleu_yeux.svg"
-dest_files=["res://.godot/imported/savon_bleu_yeux.svg-6d7bcfd8c92d4629f4441e2cf2a2fdce.ctex"]
+source_file="res://artwork/sprites/savon_bleu_yeux_blancs.svg"
+dest_files=["res://.godot/imported/savon_bleu_yeux_blancs.svg-210a58d6a5b7e99cf5c633a1a54000fd.ctex"]
 
 [params]
 

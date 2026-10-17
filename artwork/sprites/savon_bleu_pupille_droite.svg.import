@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm1rsv2p26tag"
-path="res://.godot/imported/savon_bleu_yeux_inquiets.svg-814023ebdda1f6cf90413a90d49e63b7.ctex"
+uid="uid://dy3thawbe65cp"
+path="res://.godot/imported/savon_bleu_pupille_droite.svg-e0b5273259d0d21fbe4783a95754d1ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://artwork/sprites/savon_bleu_yeux_inquiets.svg"
-dest_files=["res://.godot/imported/savon_bleu_yeux_inquiets.svg-814023ebdda1f6cf90413a90d49e63b7.ctex"]
+source_file="res://artwork/sprites/savon_bleu_pupille_droite.svg"
+dest_files=["res://.godot/imported/savon_bleu_pupille_droite.svg-e0b5273259d0d21fbe4783a95754d1ea.ctex"]
 
 [params]
 
