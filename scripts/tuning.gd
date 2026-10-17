@@ -94,7 +94,7 @@ func _geo(v: float, current: float) -> float:
 ## Gravité en vol (m/s²).
 @export_range(5.0, 60.0, 0.5) var jet_gravity: float = 24.0
 ## Poussée du jetpack quand on maintient la touche (m/s²). Doit dépasser la gravité pour monter.
-@export_range(10.0, 90.0, 0.5) var jet_thrust: float = 46.0
+@export_range(10.0, 100.0, 0.5) var jet_thrust: float = 100
 ## Gravité en plus par point de poids au-dessus de 1 (0.12 = +12 %) : les caisses lourdes retombent plus vite.
 @export_range(0.0, 0.5, 0.01) var weight_gravity: float = 0.12
 ## Vitesse verticale maximale vers le haut (m/s).
