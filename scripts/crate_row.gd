@@ -8,7 +8,7 @@ signal changed
 ## La caisse affichée (fichier de data/crates/).
 @export var crate: CrateData
 
-@onready var swatch: ColorRect = %Swatch
+@onready var icon: TextureRect = %Icon
 @onready var name_label: Label = %NameLabel
 @onready var desc_label: Label = %DescLabel
 @onready var cost_label: Label = %CostLabel
@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func refresh() -> void:
-	swatch.color = crate.color
+	icon.texture = crate.texture
 	name_label.text = crate.nom
 	desc_label.text = crate.desc
 	stats_label.text = "Solidité %s\nPoids %s" % [_pips(crate.solidite), _pips(crate.poids)]
