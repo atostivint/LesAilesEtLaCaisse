@@ -4,50 +4,30 @@ extends Resource
 ## TOUS les réglages du jeu. Ouvre `data/tuning.tres` dans l'éditeur : tout est dans l'inspecteur,
 ## regroupé par thème, avec une info-bulle sur chaque valeur (survole le nom).
 ## Unités : mètres, secondes. Seul `ppm` convertit les mètres en pixels pour l'affichage.
-## Les caisses et les matériaux (valeurs provisoires) sont dans les constantes CRATES et MATERIALS.
+## Les caisses et les matériaux (valeurs provisoires) sont des Resources listées dans « Contenu ».
 
 const STEP := 1.0 / 60.0  # pas de simulation (60 images/s)
 
-## Matériaux ramassés sur les étagères. `from` = distance (unités internes) à partir de laquelle ils
-## apparaissent (la rareté du Notion : 100 / 200 / 300 / 400), `weight` = fréquence parmi les matériaux disponibles.
-## L'apparence de chaque pièce est dans scenes/pickup.tscn (un enfant par id).
-## PROVISOIRE : la liste et les valeurs sont à équilibrer.
-const MATERIALS := [
-	{"id": "planche", "nom": "Planche", "from": 0.0, "weight": 6.0},
-	{"id": "plume", "nom": "Plume", "from": 0.0, "weight": 3.0},
-	{"id": "elastique", "nom": "Élastique", "from": 100.0, "weight": 2.5},
-	{"id": "etoile", "nom": "Étoile", "from": 300.0, "weight": 1.5},
-]
-
-## Caisses à savon (voir la page Notion « Mécaniques »). `solidite` = ailes en plus (plumes encaissables),
-## `poids` = élan (le savon défile plus vite) mais retombe plus vite et monte moins bien.
-## `cost` = matériaux nécessaires pour la débloquer (PROVISOIRE). La caisse "classique" est gratuite.
-const CRATES := [
-	{"id": "classique", "nom": "Caisse classique", "desc": "La caisse de départ, ailes à plumes.",
-		"solidite": 1, "poids": 1, "cost": {}, "color": Color(0.6, 0.4, 0.2)},
-	{"id": "crayon", "nom": "Caisse crayon", "desc": "Propulsion par taille-crayon : plus solide.",
-		"solidite": 2, "poids": 1, "cost": {"planche": 8, "plume": 3}, "color": Color(0.9, 0.75, 0.2)},
-	{"id": "baignoire", "nom": "Caisse baignoire", "desc": "Ailes en rideau de douche : lourde, rapide, fragile.",
-		"solidite": 1, "poids": 2, "cost": {"planche": 14, "plume": 6, "elastique": 4}, "color": Color(0.85, 0.9, 0.9)},
-	{"id": "baguette", "nom": "Caisse baguette", "desc": "Ailes en croissants : solide et rapide.",
-		"solidite": 3, "poids": 2, "cost": {"planche": 24, "plume": 10, "elastique": 8, "etoile": 3}, "color": Color(0.85, 0.6, 0.3)},
-	{"id": "poisson", "nom": "Caisse poisson", "desc": "La plus lourde : très solide, très rapide.",
-		"solidite": 2, "poids": 3, "cost": {"planche": 36, "plume": 14, "elastique": 12, "etoile": 6}, "color": Color(0.35, 0.6, 0.65)},
-]
+## Matériaux ramassés sur les étagères (apparaissent à partir de `from`, fréquence `weight`) et caisses à
+## savon à débloquer (voir la page Notion « Mécaniques »). Ce sont des Resources : un fichier .tres par
+## élément dans data/materials/ et data/crates/, éditable dans l'inspecteur. PROVISOIRE : à équilibrer.
+@export_group("Contenu")
+@export var materials: Array[MaterialData] = []
+@export var crates: Array[CrateData] = []
 
 
-func crate(id: String) -> Dictionary:
-	for c in CRATES:
-		if c["id"] == id:
+func crate(id: String) -> CrateData:
+	for c in crates:
+		if c.id == id:
 			return c
-	return CRATES[0]
+	return crates[0]
 
 
-func material(id: String) -> Dictionary:
-	for m in MATERIALS:
-		if m["id"] == id:
+func material(id: String) -> MaterialData:
+	for m in materials:
+		if m.id == id:
 			return m
-	return MATERIALS[0]
+	return materials[0]
 
 
 # Les réglages de géométrie passent par ce helper qui prévient la prévisualisation
@@ -151,9 +131,9 @@ func _geo(v: float, current: float) -> float:
 func stats_for(crate_id: String) -> Dictionary:
 	## Transforme une caisse en valeurs utilisées par la physique.
 	var c := crate(crate_id)
-	var w: int = c["poids"]
+	var w: int = c.poids
 	return {
-		"wings": wings_base + wings_per_solidity * int(c["solidite"]),
+		"wings": wings_base + wings_per_solidity * c.solidite,
 		"cruise": cruise_speed + cruise_per_weight * (w - 1),
 		"gravity": jet_gravity * (1.0 + weight_gravity * (w - 1)),
 		"v0": ramp_v0,
@@ -173,10 +153,10 @@ func cm_speed(v: float) -> String:
 func collected_text(collected: Dictionary) -> String:
 	## "5 planches, 2 plumes" (ou "rien") pour l'atelier et l'écran de vol.
 	var parts: Array[String] = []
-	for m in MATERIALS:
-		var n := int(collected.get(m["id"], 0))
+	for m in materials:
+		var n := int(collected.get(m.id, 0))
 		if n > 0:
-			parts.append("%d %s%s" % [n, String(m["nom"]).to_lower(), "s" if n > 1 else ""])
+			parts.append("%d %s%s" % [n, m.nom.to_lower(), "s" if n > 1 else ""])
 	return "rien" if parts.is_empty() else ", ".join(parts)
 
 

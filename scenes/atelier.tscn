@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/atelier.gd" id="1_aq6v4"]
 [ext_resource type="PackedScene" path="res://scenes/crate_row.tscn" id="2_row"]
+[ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
+[ext_resource type="Resource" path="res://data/crates/crayon.tres" id="c_crayon"]
+[ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
+[ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
+[ext_resource type="Resource" path="res://data/crates/poisson.tres" id="c_poisson"]
 
 [node name="Atelier" type="Control" unique_id=133071181]
 layout_mode = 3
@@ -41,23 +46,23 @@ theme_override_constants/separation = 2
 
 [node name="Row_classique" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
 layout_mode = 2
-crate_id = "classique"
+crate = ExtResource("c_classique")
 
 [node name="Row_crayon" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
 layout_mode = 2
-crate_id = "crayon"
+crate = ExtResource("c_crayon")
 
 [node name="Row_baignoire" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
 layout_mode = 2
-crate_id = "baignoire"
+crate = ExtResource("c_baignoire")
 
 [node name="Row_baguette" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
 layout_mode = 2
-crate_id = "baguette"
+crate = ExtResource("c_baguette")
 
 [node name="Row_poisson" parent="Margin/Main/Rows" instance=ExtResource("2_row")]
 layout_mode = 2
-crate_id = "poisson"
+crate = ExtResource("c_poisson")
 
 [node name="InfoLabel" type="Label" parent="Margin/Main" unique_id=1188278786]
 unique_name_in_owner = true

@@ -55,7 +55,7 @@ func _ready() -> void:
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
 	var course := Course.new(tuning, tuning.course_seed)
 	sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
-	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id)["color"]
+	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
 	course_view.setup(tuning, course)
 	cam.make_current()
 	_fit_world_to_tuning()

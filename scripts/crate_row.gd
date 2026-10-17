@@ -1,12 +1,12 @@
 extends HBoxContainer
 ## Une ligne de l'atelier = une caisse à savon (scène crate_row.tscn, une instance par caisse
-## dans atelier.tscn : on choisit la caisse avec `crate_id`). Affiche son coût, ses stats et son état : verrouillée, à débloquer,
+## dans atelier.tscn : on choisit la caisse avec `crate`). Affiche son coût, ses stats et son état : verrouillée, à débloquer,
 ## débloquée (à équiper) ou équipée.
 
 signal changed
 
-## Id de la caisse (voir Tuning.CRATES).
-@export var crate_id := ""
+## La caisse affichée (fichier de data/crates/).
+@export var crate: CrateData
 
 @onready var swatch: ColorRect = %Swatch
 @onready var name_label: Label = %NameLabel
@@ -22,21 +22,19 @@ func _ready() -> void:
 
 
 func refresh() -> void:
-	var tuning: Tuning = GameState.tuning
-	var c := tuning.crate(crate_id)
-	swatch.color = c["color"]
-	name_label.text = c["nom"]
-	desc_label.text = c["desc"]
-	stats_label.text = "Solidité %s\nPoids %s" % [_pips(int(c["solidite"])), _pips(int(c["poids"]))]
-	if GameState.is_unlocked(crate_id):
+	swatch.color = crate.color
+	name_label.text = crate.nom
+	desc_label.text = crate.desc
+	stats_label.text = "Solidité %s\nPoids %s" % [_pips(crate.solidite), _pips(crate.poids)]
+	if GameState.is_unlocked(crate.id):
 		cost_label.text = "Débloquée"
-		var is_equipped := GameState.equipped == crate_id
+		var is_equipped := GameState.equipped == crate.id
 		action_button.text = "Équipée" if is_equipped else "Équiper"
 		action_button.disabled = is_equipped
 	else:
-		cost_label.text = _cost_text(c["cost"])
+		cost_label.text = _cost_text(crate.cost)
 		action_button.text = "Débloquer"
-		action_button.disabled = not GameState.can_unlock(crate_id)
+		action_button.disabled = not GameState.can_unlock(crate.id)
 
 
 func _pips(n: int) -> String:
@@ -46,13 +44,13 @@ func _pips(n: int) -> String:
 func _cost_text(cost: Dictionary) -> String:
 	var parts: Array[String] = []
 	for mat in cost:
-		parts.append("%s %d/%d" % [GameState.tuning.material(mat)["nom"], GameState.stock(mat), int(cost[mat])])
+		parts.append("%s %d/%d" % [GameState.tuning.material(mat).nom, GameState.stock(mat), int(cost[mat])])
 	return "  ·  ".join(parts)
 
 
 func _on_action() -> void:
-	if GameState.is_unlocked(crate_id):
-		GameState.equip(crate_id)
+	if GameState.is_unlocked(crate.id):
+		GameState.equip(crate.id)
 	else:
-		GameState.unlock(crate_id)
+		GameState.unlock(crate.id)
 	changed.emit()
