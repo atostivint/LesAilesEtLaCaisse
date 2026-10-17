@@ -88,7 +88,7 @@ func run_bot(crate_id: String, seed_value: int, perfect: bool) -> Dictionary:
 		var tap := false
 		var hold := false
 		if sim.phase == FlightSim.Phase.RAMP:
-			tap = perfect and sim.s >= T.ramp_length() - T.takeoff_window * 0.5
+			tap = perfect and sim.s >= T.ramp_len - T.takeoff_window * 0.5
 			hold = true
 		else:
 			queue.append(_decide(sim, reaction, perfect))

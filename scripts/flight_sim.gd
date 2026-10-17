@@ -23,7 +23,6 @@ var broken := false         # plus d'ailes : le jetpack ne marche plus, le savon
 var invuln := 0.0           # temps d'invulnérabilité restant après un piège
 var hits := 0               # pièges touchés
 var hit_flag := false       # vrai pendant l'image où un piège vient d'être touché
-var max_altitude := 0.0
 var time := 0.0
 var collected := {}         # matériau -> quantité ramassée pendant ce vol
 var taken: PackedByteArray  # une case par pièce du parcours (1 = ramassée)
@@ -71,11 +70,11 @@ func _step_ramp(dt: float, tap: bool) -> void:
 	var accel := -t.gravity * sin(slope) - _mu * t.gravity * cos(slope)
 	ramp_speed = maxf(ramp_speed + accel * dt, t.min_ramp_speed)
 	# Bon décollage : un appui dans les derniers mètres du tremplin = coup de reins.
-	if tap and not perfect_takeoff and s >= t.ramp_length() - t.takeoff_window:
+	if tap and not perfect_takeoff and s >= t.ramp_len - t.takeoff_window:
 		perfect_takeoff = true
 		ramp_speed += t.takeoff_bonus
 	s += ramp_speed * dt
-	if s >= t.ramp_length():
+	if s >= t.ramp_len:
 		_take_off()
 		return
 	var p := t.ramp_point(s)
@@ -84,13 +83,12 @@ func _step_ramp(dt: float, tap: bool) -> void:
 
 
 func _take_off() -> void:
-	var p := t.ramp_point(t.ramp_length())
-	var b := t.ramp_slope(t.ramp_length())
+	var p := t.ramp_point(t.ramp_len)
+	var b := t.ramp_slope(t.ramp_len)
 	x = p.x
 	y = p.y
 	vx = ramp_speed * cos(b)
 	vy = ramp_speed * sin(b)
-	max_altitude = y
 	phase = Phase.AIR
 
 
@@ -103,7 +101,6 @@ func _step_air(dt: float, thrust_held: bool) -> void:
 	vx = move_toward(vx, _cruise, t.speed_ease * dt)
 	x += vx * dt
 	y += vy * dt
-	max_altitude = maxf(max_altitude, y)
 	# Le plafond (le meuble) arrête la montée sans faire de mal.
 	if y > t.ceiling:
 		y = t.ceiling

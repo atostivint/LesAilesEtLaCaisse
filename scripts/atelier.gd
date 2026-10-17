@@ -1,10 +1,8 @@
 extends Control
 ## ÉCRAN 1 : l'atelier. On débloque de nouvelles caisses à savon avec les matériaux récoltés en vol,
 ## on choisit celle qu'on équipe, puis on lance le savon.
-## Les nœuds fixes sont dans scenes/atelier.tscn ; les lignes de caisses (scenes/crate_row.tscn)
-## sont créées ici, une par caisse de Tuning.CRATES.
-
-const CRATE_ROW := preload("res://scenes/crate_row.tscn")
+## Tous les nœuds sont dans scenes/atelier.tscn, y compris une ligne de caisse (crate_row.tscn) par
+## caisse de Tuning.CRATES : pour ajouter une caisse, ajoute-la dans Tuning.CRATES puis une ligne ici.
 
 @onready var stock_label: Label = %StockLabel
 @onready var info_label: Label = %InfoLabel
@@ -14,11 +12,8 @@ const CRATE_ROW := preload("res://scenes/crate_row.tscn")
 
 
 func _ready() -> void:
-	for c in Tuning.CRATES:
-		var row := CRATE_ROW.instantiate()
-		row.setup(c["id"])
+	for row in rows.get_children():
 		row.changed.connect(_refresh)
-		rows.add_child(row)
 	launch_button.pressed.connect(_on_launch)
 	reset_button.pressed.connect(_on_reset)
 	launch_button.grab_focus()

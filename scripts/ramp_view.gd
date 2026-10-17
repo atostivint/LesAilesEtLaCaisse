@@ -30,10 +30,10 @@ func rebuild() -> void:
 	var n := 48
 	var curve := PackedVector2Array()
 	for i in n + 1:
-		var m := tuning.ramp_point(tuning.ramp_length() * i / n)
+		var m := tuning.ramp_point(tuning.ramp_len * i / n)
 		curve.append(tuning.to_px(m.x, m.y))
 	var start := tuning.ramp_point(0.0)
-	var end := tuning.ramp_point(tuning.ramp_length())
+	var end := tuning.ramp_point(tuning.ramp_len)
 	if body != null:
 		var poly := PackedVector2Array([tuning.to_px(start.x, 0.0)])
 		poly.append_array(curve)
@@ -41,7 +41,7 @@ func rebuild() -> void:
 		body.polygon = poly
 	if zone != null:
 		var zpts := PackedVector2Array()
-		var z0 := tuning.ramp_length() - tuning.takeoff_window
+		var z0 := tuning.ramp_len - tuning.takeoff_window
 		for i in 9:
 			var m := tuning.ramp_point(z0 + tuning.takeoff_window * i / 8.0)
 			zpts.append(tuning.to_px(m.x, m.y))

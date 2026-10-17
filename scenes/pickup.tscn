@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_pickup"]
+
+[sub_resource type="StyleBoxFlat" id="Style_planche"]
+bg_color = Color(0.79, 0.55, 0.31, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="Pickup" type="Node2D"]
+script = ExtResource("1_pickup")
+
+[node name="planche" type="Node2D" parent="."]
+
+[node name="Board" type="Panel" parent="planche"]
+offset_left = -17.0
+offset_top = -7.0
+offset_right = 17.0
+offset_bottom = 7.0
+theme_override_styles/panel = SubResource("Style_planche")
+
+[node name="NailLeft" type="Polygon2D" parent="planche"]
+position = Vector2(-9, 0)
+color = Color(0.243, 0.141, 0.071, 1)
+polygon = PackedVector2Array(1.8, 0.0, 1.27, 1.27, 0.0, 1.8, -1.27, 1.27, -1.8, 0.0, -1.27, -1.27, -0.0, -1.8, 1.27, -1.27)
+
+[node name="NailRight" type="Polygon2D" parent="planche"]
+position = Vector2(9, 0)
+color = Color(0.243, 0.141, 0.071, 1)
+polygon = PackedVector2Array(1.8, 0.0, 1.27, 1.27, 0.0, 1.8, -1.27, 1.27, -1.8, 0.0, -1.27, -1.27, -0.0, -1.8, 1.27, -1.27)
+
+[node name="plume" type="Node2D" parent="."]
+
+[node name="Vane" type="Polygon2D" parent="plume"]
+color = Color(0.98, 0.95, 0.84, 1)
+polygon = PackedVector2Array(7.43, 5.08, 2.76, 10.7, -2.33, 14.68, -7.07, 16.43, -10.73, 15.68, -12.75, 12.54, -12.84, 7.5, -10.97, 1.31, -7.43, -5.08, -2.76, -10.7, 2.33, -14.68, 7.07, -16.43, 10.73, -15.68, 12.75, -12.54, 12.84, -7.5, 10.97, -1.31)
+
+[node name="Outline" type="Line2D" parent="plume"]
+points = PackedVector2Array(7.43, 5.08, 2.76, 10.7, -2.33, 14.68, -7.07, 16.43, -10.73, 15.68, -12.75, 12.54, -12.84, 7.5, -10.97, 1.31, -7.43, -5.08, -2.76, -10.7, 2.33, -14.68, 7.07, -16.43, 10.73, -15.68, 12.75, -12.54, 12.84, -7.5, 10.97, -1.31)
+closed = true
+width = 3.0
+default_color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="Quill" type="Line2D" parent="plume"]
+points = PackedVector2Array(-9, 9, 9, -9)
+width = 2.0
+default_color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="elastique" type="Node2D" parent="."]
+
+[node name="Border" type="Line2D" parent="elastique"]
+points = PackedVector2Array(12.0, 0.0, 11.41, 3.71, 9.71, 7.05, 7.05, 9.71, 3.71, 11.41, 0.0, 12.0, -3.71, 11.41, -7.05, 9.71, -9.71, 7.05, -11.41, 3.71, -12.0, 0.0, -11.41, -3.71, -9.71, -7.05, -7.05, -9.71, -3.71, -11.41, -0.0, -12.0, 3.71, -11.41, 7.05, -9.71, 9.71, -7.05, 11.41, -3.71)
+closed = true
+width = 9.0
+default_color = Color(0.243, 0.141, 0.071, 1)
+
+[node name="Band" type="Line2D" parent="elastique"]
+points = PackedVector2Array(12.0, 0.0, 11.41, 3.71, 9.71, 7.05, 7.05, 9.71, 3.71, 11.41, 0.0, 12.0, -3.71, 11.41, -7.05, 9.71, -9.71, 7.05, -11.41, 3.71, -12.0, 0.0, -11.41, -3.71, -9.71, -7.05, -7.05, -9.71, -3.71, -11.41, -0.0, -12.0, 3.71, -11.41, 7.05, -9.71, 9.71, -7.05, 11.41, -3.71)
+closed = true
+width = 5.0
+default_color = Color(0.9, 0.45, 0.55, 1)
+
+[node name="etoile" type="Node2D" parent="."]
+
+[node name="Star" type="Polygon2D" parent="etoile"]
+color = Color(0.95, 0.75, 0.2, 1)
+polygon = PackedVector2Array(0.0, -18.0, 4.7, -6.47, 17.12, -5.56, 7.61, 2.47, 10.58, 14.56, 0.0, 8.0, -10.58, 14.56, -7.61, 2.47, -17.12, -5.56, -4.7, -6.47)
+
+[node name="Outline" type="Line2D" parent="etoile"]
+points = PackedVector2Array(0.0, -18.0, 4.7, -6.47, 17.12, -5.56, 7.61, 2.47, 10.58, 14.56, 0.0, 8.0, -10.58, 14.56, -7.61, 2.47, -17.12, -5.56, -4.7, -6.47)
+closed = true
+width = 3.0
+default_color = Color(0.243, 0.141, 0.071, 1)

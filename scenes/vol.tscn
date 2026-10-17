@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/ramp_view.gd" id="2_7gj8h"]
 [ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="3_soap"]
 [ext_resource type="Script" path="res://scripts/course_view.gd" id="4_course"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="6_hud"]
 
 [node name="Vol" type="Node2D" unique_id=1588220501]
 script = ExtResource("1_cigbo")
@@ -20,6 +21,15 @@ color = Color(0.3, 0.33, 0.38, 1)
 
 [node name="Ceiling" type="ColorRect" parent="World"]
 color = Color(0.89, 0.65, 0.18, 1)
+
+[node name="Edge" type="ColorRect" parent="World/Ceiling"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+color = Color(0.243, 0.141, 0.071, 1)
 
 [node name="Door" type="ColorRect" parent="World" unique_id=459955246]
 offset_right = 280.0
@@ -51,6 +61,8 @@ script = ExtResource("4_course")
 [node name="Soap" parent="World" unique_id=1752697870 instance=ExtResource("3_soap")]
 scale = Vector2(1.6, 1.6)
 
+[node name="Markers" type="Node2D" parent="World"]
+
 [node name="Water" type="ColorRect" parent="World" unique_id=1774601618]
 offset_left = -1500.0
 offset_right = 16500.0
@@ -58,6 +70,7 @@ offset_bottom = 1500.0
 color = Color(0.2, 0.5, 0.8, 0.75)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=179056453]
+script = ExtResource("6_hud")
 
 [node name="Info" type="VBoxContainer" parent="HUD" unique_id=1860357653]
 custom_minimum_size = Vector2(380, 0)
@@ -84,7 +97,7 @@ custom_minimum_size = Vector2(380, 18)
 layout_mode = 2
 show_percentage = false
 
-[node name="AltitudeLabel" type="Label" parent="HUD/Info" unique_id=1463190815]
+[node name="CollectedLabel" type="Label" parent="HUD/Info" unique_id=1463190815]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
@@ -96,17 +109,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Vitesse"
 
-[node name="ChargesLabel" type="Label" parent="HUD/Info" unique_id=1317626863]
+[node name="WingsLabel" type="Label" parent="HUD/Info" unique_id=1317626863]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Jets"
-
-[node name="ContactLabel" type="Label" parent="HUD/Info"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "Contact"
 
 [node name="HintLabel" type="Label" parent="HUD" unique_id=1148664528]
 unique_name_in_owner = true
@@ -144,9 +151,21 @@ anchor_bottom = 1.0
 [node name="Panel" type="PanelContainer" parent="HUD/ResultRoot/Center" unique_id=1479140753]
 layout_mode = 2
 
-[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel" unique_id=1833884195]
+[node name="Box" type="VBoxContainer" parent="HUD/ResultRoot/Center/Panel"]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+
+[node name="ReturnLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "
+ENTRÉE : retour à l'atelier"
 horizontal_alignment = 1

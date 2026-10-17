@@ -20,8 +20,8 @@ Le premier import crée le dossier `.godot/` (cache local, ignoré par git). C'e
 
 | Dossier | Contenu |
 |---|---|
-| `scenes/` | Scènes : `atelier` (déblocage et choix des caisses), `vol` (la course au jetpack), `crate_row` (une ligne de caisse dans l'atelier), `soap` |
-| `scripts/` | Code GDScript : `game_state.gd` (autoload global), `flight_sim.gd` (physique du vol), `course.gd` (parcours généré depuis une graine), `course_view.gd` (dessin du parcours), `crate_row.gd` (ligne de caisse de l'atelier) |
+| `scenes/` | Scènes : `atelier` (déblocage et choix des caisses, une ligne `crate_row` par caisse), `vol` (la course au jetpack, avec son HUD) et les éléments du décor, chacun dessiné dans sa scène : `soap`, `shelf`, `pince`, `clous`, `warning_badge`, `pickup`, `distance_marker` |
+| `scripts/` | Code GDScript : `game_state.gd` (autoload global), `flight_sim.gd` (physique du vol), `course.gd` (parcours généré depuis une graine), `course_view.gd` (place les scènes du parcours), `vol.gd` et `hud.gd` (écran de vol et interface), `atelier.gd` et `crate_row.gd` (atelier), plus de petits scripts attachés aux scènes du décor |
 | `data/tuning.tres` | Valeurs d'équilibrage, modifiables dans l'inspecteur de Godot. Les caisses et les matériaux sont dans les constantes `CRATES` et `MATERIALS` de `scripts/tuning.gd` |
 | `tools/` | Scripts utilitaires : simulation d'équilibrage et captures d'écran automatiques |
 | `docs/` | Document de conception et maquettes |
