@@ -15,10 +15,10 @@ static func make() -> Tuning:
 	]
 	tuning.crates = [
 		load("res://data/crates/classique.tres"),
-		load("res://data/crates/crayon.tres"),
+		load("res://data/crates/cercueil.tres"),
 		load("res://data/crates/baignoire.tres"),
 		load("res://data/crates/baguette.tres"),
-		load("res://data/crates/poisson.tres"),
+		load("res://data/crates/dollar.tres"),
 	]
 
 	# Monde

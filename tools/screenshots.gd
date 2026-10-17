@@ -39,7 +39,7 @@ func _process(_delta: float) -> bool:
 		_shot("1_atelier")
 		gs.materials = {"planche": 20, "plume": 5, "elastique": 1}
 		gs.last_run = {"distance": 412.0, "collected": {"planche": 8, "plume": 2}, "record": true, "door": false, "turn": 1}
-		gs.unlock("crayon")
+		gs.unlock("cercueil")
 		current_scene.call("_refresh")
 	elif f == 20:
 		_shot("2_atelier_debloque")

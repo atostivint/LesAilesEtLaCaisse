@@ -35,7 +35,7 @@ const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 @export_range(0.05, 1.5, 0.05) var shake_decay := 0.45
 
 @export_group("Test rapide (F6 sur cette scène)")
-## Si rempli (ex. "poisson"), ignore la caisse équipée à l'atelier : on teste le vol avec cette caisse.
+## Si rempli (ex. "dollar"), ignore la caisse équipée à l'atelier : on teste le vol avec cette caisse.
 @export var test_crate := ""
 
 var state: State = State.READY
