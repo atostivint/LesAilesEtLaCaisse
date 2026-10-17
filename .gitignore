@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Captures et fichiers système
+/captures/
+.DS_Store
+*.translation
