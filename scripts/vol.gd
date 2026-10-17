@@ -47,8 +47,7 @@ var shake := 0.0               # secousse en cours (1 = max, un Tween la ramène
 var _shake_tween: Tween
 
 @onready var cam: Camera2D = $Camera2D
-@onready var soap: Node2D = $World/Soap
-@onready var flame: Node2D = $World/Soap/Flame
+@onready var soap: Soap = $World/Soap
 @onready var course_view: Node2D = $World/CourseView
 @onready var hud: CanvasLayer = $HUD
 @onready var return_delay: Timer = $ReturnDelay
@@ -61,7 +60,7 @@ func _ready() -> void:
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
 	course = Course.new(tuning, tuning.course_seed)
 	sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
-	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
+	soap.set_crate_texture(tuning.crate(crate_id).texture)
 	spawn_timer.wait_time = tuning.spawn_interval
 	_spawn_segment(tuning.course_start)  # le premier tronçon est déjà là quand le savon attend en haut de la piste
 	cam.make_current()
@@ -182,7 +181,7 @@ func _update_visuals() -> void:
 	soap.position = p - Vector2(0, soap_lift if on_ramp else 0.0)
 	# Sur la piste le savon suit la pente ; en vol son nez suit la montée / la descente, adouci.
 	soap.rotation = -tuning.ramp_slope(sim.s) if on_ramp else -atan2(sim.vy, maxf(sim.vx, 1.0)) * 0.6
-	flame.visible = sim.thrusting and state == State.RUN
+	soap.thrusting = sim.thrusting and state == State.RUN  # jet maintenu : les ailes battent plus vite
 
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
 	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).
