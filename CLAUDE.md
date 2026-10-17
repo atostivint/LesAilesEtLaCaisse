@@ -14,6 +14,8 @@ Exemples de tâches simples :
 - Lancer le projet et récupérer la sortie de debug
 - Mise à jour de documentation simple
 
+Les opérations git de routine (commit, push, pull) sont **toujours** déléguées à un sous-agent Haiku quand l'utilisateur demande « commit et push ». Les décisions restent à l'agent principal (ex. branche inexistante, conflit) ; le sous-agent exécute.
+
 Consignes :
 - Donner à chaque sous-agent un brief complet et autonome (fichiers concernés, résultat attendu).
 - Lancer en parallèle les tâches indépendantes.
