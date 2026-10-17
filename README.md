@@ -20,15 +20,15 @@ Le premier import crée le dossier `.godot/` (cache local, ignoré par git). C'e
 
 | Dossier | Contenu |
 |---|---|
-| `scenes/` | Scènes : `atelier` (menu/améliorations), `vol` (la course), `soap`, `upgrade_row` |
-| `scripts/` | Code GDScript (`game_state.gd` est un autoload global, `flight_sim.gd` la physique du vol) |
-| `data/tuning.tres` | Valeurs d'équilibrage, modifiables dans l'inspecteur de Godot |
+| `scenes/` | Scènes : `atelier` (déblocage et choix des caisses), `vol` (la course au jetpack), `crate_row` (une ligne de caisse dans l'atelier), `soap` |
+| `scripts/` | Code GDScript : `game_state.gd` (autoload global), `flight_sim.gd` (physique du vol), `course.gd` (parcours généré depuis une graine), `course_view.gd` (dessin du parcours), `crate_row.gd` (ligne de caisse de l'atelier) |
+| `data/tuning.tres` | Valeurs d'équilibrage, modifiables dans l'inspecteur de Godot. Les caisses et les matériaux sont dans les constantes `CRATES` et `MATERIALS` de `scripts/tuning.gd` |
 | `tools/` | Scripts utilitaires : simulation d'équilibrage et captures d'écran automatiques |
 | `docs/` | Document de conception et maquettes |
 
 ## Outils d'équilibrage
 
-Simulation sans interface (un bot joue à la place du joueur) pour estimer les distances selon le niveau des améliorations :
+Simulation sans interface (un bot joue chaque caisse à la place du joueur) pour estimer le nombre de tours nécessaires pour tout débloquer :
 
 ```bash
 godot --headless --path . -s tools/simulate.gd

@@ -10,41 +10,53 @@ Nom du jeu : **Les ailes et la caisse**. Sous-titre sur l'écran titre : "Course
 
 ## Boucle de jeu
 
-1. Atelier : je fabrique des caisses et des pièges avec les matériaux récoltés.
+1. Atelier : je débloque de nouvelles caisses à savon avec les matériaux récoltés, puis j'équipe celle que je veux.
 2. Équipes : je choisis l'équipe du savon (cosmétique) et la couleur du savon.
-3. Course : descente de piste, décollage, vol.
-4. En vol : rattraper des pièces, prendre des boosters (jets de bulles), éviter des pièges.
-5. Fin : le savon tombe dans l'eau savonneuse après trop de pièges (plus d'ailes), ou franchit la ligne d'arrivée.
-6. Score (5 niveaux d'écran), retour à l'atelier avec les pièces récoltées.
-7. Pose des pièges : je place mes pièges sur la route de l'adversaire pour la manche suivante (4 par manche pour l'instant), il fait de même pour moi.
+3. Course : descente de la piste de départ (un court prologue), décollage, vol.
+4. En vol : je maintiens la touche de jetpack pour monter et je la relâche pour retomber. Je rattrape des matériaux sur les étagères et j'évite les obstacles.
+5. Fin : le savon tombe dans l'eau savonneuse (le vol s'arrête), ou franchit la ligne d'arrivée. Un obstacle retire une aile ; sans aile, le jetpack ne marche plus et le savon tombe.
+6. Score (5 niveaux d'écran), retour à l'atelier avec les matériaux récoltés (ils sont gardés même après une chute).
+7. Pose des pièges (hors prototype actuel) : je place mes pièges sur la route de l'adversaire pour la manche suivante (4 par manche pour l'instant), il fait de même pour moi.
 
 ## Vol (écran principal du jeu)
 
-- Défilement horizontal vers la droite. Le savon est en l'air, légèrement incliné vers le haut.
-- Haut de l'écran : liseret du bas d'un meuble (planche de bois, filet moutarde, feston crème). Bas de l'écran : eau savonneuse (vagues bleu canard, écume). Quelques bulles discrètes flottent toujours autour.
-- HUD : distance parcourue (ex. 412 m), distance jusqu'à la ligne d'arrivée avec barre de progression (ex. 288 m sur 700 m), ailes restantes (3 plumes, une par piège encaissé avant la chute), récolte (planches, étoiles, plumes).
-- Repères de distance (fanions 400, 500, 600 m) sur la ligne d'eau, ligne d'arrivée en ruban à damier au bout (700 m).
-- Éléments à rattraper (pièces pour l'atelier) : planche, plume, étoile dorée. Ne pas en mettre trop.
-- Boosters : jet de bulles (chevrons et grosses bulles).
-- Pièges à éviter : pince à linge géante pendue au meuble, planche à clous flottante, etc. Marqués d'une pastille "!".
+- Prologue : la piste de départ est courte. Le savon descend le tremplin. Un appui sur ESPACE dans la zone rouge (les derniers mètres du tremplin) donne un bonus de vitesse au décollage.
+- Vol au jetpack, sur le principe de Jetpack Joyride ou de Flappy : on **maintient** ESPACE (ou flèche haut, W, clic gauche) pour monter, on **relâche** pour retomber.
+- Défilement horizontal vers la droite. Le savon est en l'air. Sa vitesse de défilement dépend de la caisse : une caisse lourde défile plus vite, mais retombe plus vite (voir Atelier).
+- Plafond : le bas d'un meuble. Il arrête la montée sans faire de mal.
+- Haut de l'écran : liseret du bas d'un meuble (planche de bois, filet moutarde, feston crème). Bas de l'écran : eau savonneuse (vagues bleu canard, écume). Tomber dans l'eau termine le vol. Quelques bulles discrètes flottent toujours autour.
+- Étagères : des étagères portent 2 à 4 pièces typées : planche, plume, élastique, étoile. Les étagères n'ont pas de collision : elles servent seulement d'appui visuel. Les matériaux rares n'apparaissent que plus loin : élastique à partir de 100 m, étoile à partir de 300 m (c'est la « rareté » de la page Notion). Ne pas en mettre trop.
+- Obstacles : pince à linge pendue au meuble (de plus en plus longue avec la distance) et planche à clous flottante. Chaque obstacle touché retire une aile (plume), puis le savon est invulnérable pendant 1,2 s. À zéro aile, le jetpack ne marche plus et le savon tombe. La densité d'obstacles monte avec la distance : au début, la moitié des tronçons ont un obstacle ; vers la ligne d'arrivée, chaque tronçon en a un, souvent deux.
+- HUD : distance parcourue (ex. 412 m dans la maquette), distance jusqu'à la ligne d'arrivée avec barre de progression (ex. 288 m sur 700 m dans la maquette), ailes restantes (3 avec la caisse classique, davantage avec les caisses solides), matériaux ramassés pendant le vol.
+- Repères de distance (fanions 400, 500, 600 m dans la maquette) sur la ligne d'eau. Ligne d'arrivée en ruban à damier au bout : 800 m dans le prototype (`door_x`), 700 m dans la maquette.
+- Boosters : jet de bulles (chevrons et grosses bulles). Hors prototype actuel.
 
-## Atelier (inventaire et craft)
+## Atelier (déblocage des caisses)
 
-Deux onglets : **Caisses** et **Pièges**. Même sac de matériaux pour les deux.
+L'atelier sert à **débloquer de nouvelles caisses à savon** avec les matériaux récoltés en vol, puis à choisir celle qu'on équipe. Une caisse débloquée est équipée tout de suite. La caisse de départ (classique, ailes à plumes) est gratuite et déjà débloquée. Les matériaux commencent à zéro, et ceux qu'on ramasse sont gardés même après une chute.
 
-Matériaux (stock de départ de la maquette) : planches de pin 14, clous 40, corde 5, peinture rouge 3, bulles 6, étoiles dorées 2, plumes 16 (ex "roues"), rideau de douche 3.
+Matériaux (les 4 types du prototype) :
 
-La caisse de départ (caisse classique avec ailes à plumes) est gratuite et ne se fabrique pas. Les caisses à thème sont inspirées des courses Red Bull :
+- **Planche** : la plus fréquente, disponible dès le départ.
+- **Plume** : disponible dès le départ.
+- **Élastique** : à partir de 100 m.
+- **Étoile** : à partir de 300 m, la plus rare.
 
-| Caisse | Système de vol | Coût | Solidité / Glisse / Vol |
+Les clous, la corde, la peinture et le rideau de la maquette reviendront avec les pièges. Les bulles ne sont pas dans le prototype actuel.
+
+Les caisses sont inspirées des courses Red Bull. Solidité = nombre d'ailes en plus : une caisse a 2 ailes + sa solidité. Poids = élan : le savon défile plus vite (+1,5 m/s par point de poids au-dessus de 1), mais retombe plus vite (+12 % de gravité par point) et monte moins bien. Les coûts sont **provisoires** (`Tuning.CRATES`).
+
+| Caisse | Description | Coût (matériaux) | Solidité / Poids |
 |---|---|---|---|
-| La Baignoire | ailes en rideau de douche | 6 planches, 4 plumes, 1 rideau, 2 bulles | 3 / 3 / 4 |
-| Le Crayon géant | propulsion par taille-crayon | 5 planches, 8 clous, 4 plumes, 2 peintures | 2 / 5 / 3 |
-| Le Sachet de nuggets | parachute en papier gras | 4 planches, 4 plumes, 1 rideau, 1 peinture | 2 / 3 / 5 |
-| La Machine à laver | essorage turbo | 7 planches, 12 clous, 4 plumes, 3 bulles | 5 / 2 / 3 |
-| La Baguette géante | ailes en croissants | 3 planches, 2 cordes, 4 plumes, 1 étoile | 2 / 4 / 4 |
+| Caisse classique | La caisse de départ, ailes à plumes. | gratuite | 1 / 1 |
+| Caisse crayon | Propulsion par taille-crayon : plus solide. | 8 planches, 3 plumes | 2 / 1 |
+| Caisse baignoire | Ailes en rideau de douche : lourde, rapide, fragile. | 14 planches, 6 plumes, 4 élastiques | 1 / 2 |
+| Caisse baguette | Ailes en croissants : solide et rapide. | 24 planches, 10 plumes, 8 élastiques, 3 étoiles | 3 / 2 |
+| Caisse poisson | La plus lourde : très solide, très rapide. | 36 planches, 14 plumes, 12 élastiques, 6 étoiles | 2 / 3 |
 
-Pièges (jauges Gêne / Surprise / Durée) :
+### Pièges (hors prototype actuel)
+
+Dans la maquette, l'atelier a deux onglets, **Caisses** et **Pièges**, avec le même sac de matériaux. Les pièges ne sont pas dans le prototype actuel. Le tableau ci-dessous est la maquette (jauges Gêne / Surprise / Durée) :
 
 | Piège | Effet | Coût | Jauges |
 |---|---|---|---|
@@ -54,7 +66,7 @@ Pièges (jauges Gêne / Surprise / Durée) :
 | Le Canon à bulles | nuage de mousse qui masque la pente | 4 planches, 4 bulles, 4 clous | 3 / 5 / 3 |
 | La Pince à linge géante | accroche la caisse et la fait pendre | 3 planches, 4 clous, 1 corde, 1 peinture | 4 / 3 / 5 |
 
-Tous les coûts, jauges, limites (4 pièges par manche, 3 ailes) et le record de 512 m de l'écran de pose sont des **valeurs provisoires** de maquette, à équilibrer.
+Les coûts, jauges, limites (4 pièges par manche) et le record de 512 m de l'écran de pose sont des **valeurs provisoires** de maquette, à équilibrer.
 
 ## Équipes savon (cosmétiques uniquement)
 
@@ -85,7 +97,7 @@ Cinq niveaux selon la distance, avec le même savon et sa caisse ailée, et un t
 
 Chaque écran a un score en "000", un bouton "Rejouer" et la mention "Satisfait ou remousse !". Les expressions du savon changent selon le niveau (ravi, content, mitigé, en larmes, paniqué). Sur "mauvais" et "catastrophe" la caisse se détache du savon.
 
-## Écran de pose des pièges
+## Écran de pose des pièges (hors prototype actuel)
 
 Vue de côté de la route de l'adversaire : meuble en haut, eau en bas, règle de distance (0 à 700 m), drapeau du record, ligne d'arrivée, trajectoire en pointillés, 8 emplacements (certains au-delà du record de l'adversaire). Inventaire des pièges prêts en bas (quantités, un piège sélectionné), compteur "3 / 4 posés" et bouton "Valider".
 
@@ -117,8 +129,6 @@ Ces fichiers sont des maquettes, pas du code de jeu : ils servent de référence
 
 ## Questions ouvertes
 
-- Vue 2D de côté confirmée pour le vol ; comment se passe le décollage depuis la piste ?
-- Durée d'une partie et longueur totale du parcours (700 m dans la maquette) ?
-- Équilibrage des matériaux, coûts, jauges et nombre de pièges par manche.
+- Durée d'une partie et longueur totale du parcours (800 m dans le prototype, 700 m dans la maquette) ?
+- Équilibrage des coûts des caisses, des matériaux, de la densité d'obstacles et, plus tard, des jauges et du nombre de pièges par manche.
 - Mode adversaire : asynchrone (pièges posés pour la manche suivante) ou en direct ? Solo contre IA, ou entre amis ?
-- Budget de customisation (pièces, énergie) ou libre ?
