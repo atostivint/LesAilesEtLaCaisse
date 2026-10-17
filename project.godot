@@ -13,9 +13,16 @@ config_version=5
 config/name="LesAilesEtLaCaisse"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://scenes/atelier.tscn"
+
+[autoload]
+
+GameState="*res://scripts/game_state.gd"
 
 [display]
 
+window/size/viewport_width=1456
+window/size/viewport_height=819
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

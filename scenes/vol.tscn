@@ -1,0 +1,145 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/vol.gd" id="1_cigbo"]
+[ext_resource type="Script" path="res://scripts/ramp_view.gd" id="2_7gj8h"]
+[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="3_soap"]
+
+[node name="Vol" type="Node2D" unique_id=1588220501]
+script = ExtResource("1_cigbo")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1074435888]
+
+[node name="World" type="Node2D" parent="." unique_id=1399815642]
+
+[node name="Wall" type="ColorRect" parent="World" unique_id=1834995362]
+offset_left = -1500.0
+offset_top = -3000.0
+offset_right = 16500.0
+color = Color(0.3, 0.33, 0.38, 1)
+
+[node name="Door" type="ColorRect" parent="World" unique_id=459955246]
+offset_right = 280.0
+offset_bottom = 520.0
+color = Color(0.35, 0.65, 0.35, 1)
+
+[node name="DoorLabel" type="Label" parent="World/Door" unique_id=1885338230]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 20.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 40
+text = "SORTIE"
+
+[node name="Ramp" type="Node2D" parent="World" unique_id=90448846]
+script = ExtResource("2_7gj8h")
+
+[node name="Body" type="Polygon2D" parent="World/Ramp" unique_id=666631301]
+color = Color(0.55, 0.55, 0.6, 1)
+
+[node name="TakeoffZone" type="Line2D" parent="World/Ramp" unique_id=439090581]
+width = 9.0
+default_color = Color(0.85, 0.15, 0.15, 1)
+
+[node name="Soap" parent="World" unique_id=1752697870 instance=ExtResource("3_soap")]
+scale = Vector2(1.6, 1.6)
+
+[node name="Water" type="ColorRect" parent="World" unique_id=1774601618]
+offset_left = -1500.0
+offset_right = 16500.0
+offset_bottom = 1500.0
+color = Color(0.2, 0.5, 0.8, 0.75)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=179056453]
+
+[node name="Info" type="VBoxContainer" parent="HUD" unique_id=1860357653]
+custom_minimum_size = Vector2(380, 0)
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="DistanceLabel" type="Label" parent="HUD/Info" unique_id=959585672]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Distance"
+
+[node name="ExitLabel" type="Label" parent="HUD/Info" unique_id=622303187]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sortie"
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/Info" unique_id=1457324909]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 18)
+layout_mode = 2
+show_percentage = false
+
+[node name="AltitudeLabel" type="Label" parent="HUD/Info" unique_id=1463190815]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Altitude"
+
+[node name="SpeedLabel" type="Label" parent="HUD/Info" unique_id=1829946610]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Vitesse"
+
+[node name="ChargesLabel" type="Label" parent="HUD/Info" unique_id=1317626863]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Jets"
+
+[node name="ContactLabel" type="Label" parent="HUD/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Contact"
+
+[node name="HintLabel" type="Label" parent="HUD" unique_id=1148664528]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -24.0
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PopupLabel" type="Label" parent="HUD" unique_id=555262592]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 200.0
+theme_override_font_sizes/font_size = 54
+horizontal_alignment = 1
+
+[node name="ResultRoot" type="Control" parent="HUD" unique_id=159788654]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="HUD/ResultRoot" unique_id=412937300]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="HUD/ResultRoot/Center" unique_id=1479140753]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel" unique_id=1833884195]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1

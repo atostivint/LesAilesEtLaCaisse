@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/atelier.gd" id="1_aq6v4"]
+[ext_resource type="PackedScene" path="res://scenes/upgrade_row.tscn" id="2_h61bo"]
+[ext_resource type="Script" path="res://scripts/upgrade_row.gd" id="3_d7vij"]
+
+[node name="Atelier" type="Control" unique_id=133071181]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_aq6v4")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=2021053165]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Main" type="VBoxContainer" parent="Margin" unique_id=1266608017]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="Margin/Main" unique_id=2051179732]
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "ATELIER"
+
+[node name="CoinsLabel" type="Label" parent="Margin/Main" unique_id=60340424]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Pièces : 0"
+
+[node name="Rows" type="VBoxContainer" parent="Margin/Main" unique_id=1812678103]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Row_poussee" type="HBoxContainer" parent="Margin/Main/Rows" unique_id=1149967628 instance=ExtResource("2_h61bo")]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("3_d7vij")
+
+[node name="Row_bulles" type="HBoxContainer" parent="Margin/Main/Rows" unique_id=617438841 instance=ExtResource("2_h61bo")]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("3_d7vij")
+upgrade_id = "bulles"
+
+[node name="Row_ailes" type="HBoxContainer" parent="Margin/Main/Rows" unique_id=467617680 instance=ExtResource("2_h61bo")]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("3_d7vij")
+upgrade_id = "ailes"
+
+[node name="Row_glisse" type="HBoxContainer" parent="Margin/Main/Rows" unique_id=205923097 instance=ExtResource("2_h61bo")]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("3_d7vij")
+upgrade_id = "glisse"
+
+[node name="InfoLabel" type="Label" parent="Margin/Main" unique_id=1188278786]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+
+[node name="Buttons" type="HBoxContainer" parent="Margin/Main" unique_id=1655910468]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LaunchButton" type="Button" parent="Margin/Main/Buttons" unique_id=667341]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(520, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "LANCER LE SAVON !"
+
+[node name="ResetButton" type="Button" parent="Margin/Main/Buttons" unique_id=1815394585]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Recommencer à zéro"

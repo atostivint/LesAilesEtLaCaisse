@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/upgrade_row.gd" id="1_5lhp2"]
+
+[node name="UpgradeRow" type="HBoxContainer" unique_id=1149967628]
+theme_override_constants/separation = 20
+script = ExtResource("1_5lhp2")
+
+[node name="Texts" type="VBoxContainer" parent="." unique_id=2022618345]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="Texts" unique_id=502561251]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Nom"
+
+[node name="DescLabel" type="Label" parent="Texts" unique_id=1608688571]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Description"
+
+[node name="ValueLabel" type="Label" parent="Texts" unique_id=1295460241]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Valeur"
+
+[node name="PipsLabel" type="Label" parent="." unique_id=1413047503]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "□□□□□□□□"
+
+[node name="BuyButton" type="Button" parent="." unique_id=146914828]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 56)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "Acheter"
