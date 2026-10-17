@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Équipes, page perso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Josefin+Sans:wght@500;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+a{text-decoration:none}
+</style>
+</helmet>
+<div style="position:relative; width:1456px; height:819px; overflow:hidden; box-sizing:border-box; font-family:'Josefin Sans',sans-serif; color:#3e2412; background-color:#D9822B; background-image:linear-gradient(rgba(122,63,18,0.45) 0 2px, transparent 2px), linear-gradient(90deg, rgba(122,63,18,0.45) 0 2px, transparent 2px), radial-gradient(circle at 50% 50%, #C8561B 0 13%, transparent 14%), radial-gradient(circle at 50% 50%, transparent 0 40%, #D9822B 41%), repeating-conic-gradient(from 0deg at 50% 50%, #5d6a22 0 14deg, transparent 14deg 45deg); background-size:146px 146px">
+
+<div style="position:absolute; top:26px; left:48px; right:48px; display:flex; justify-content:space-between; align-items:flex-start">
+<div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start">
+<div style="font-family:'Caprasimo',serif; font-size:76px; line-height:1; color:#FBF1D6; -webkit-text-stroke:6px #3e2412; paint-order:stroke fill; letter-spacing:-1px; transform:rotate(-3deg); text-shadow:5px 5px 0 #E3A72F, 9px 9px 0 #C8561B">équipes</div>
+<div style="font-family:'Shrikhand',cursive; font-style:normal; font-size:17px; color:#3e2412; background:#FBF1D6; border:4px solid #3e2412; border-radius:999px; padding:6px 22px; box-shadow:4px 4px 0 #3e2412">Choisis ton camp, puis la couleur de ton savon</div>
+</div>
+<a href="Main.dc.html" style="display:block; background:#E3A72F; border:5px solid #3e2412; border-radius:999px; padding:14px 30px; box-shadow:5px 5px 0 #3e2412; font-family:'Caprasimo',serif; font-size:21px; letter-spacing:1px; color:#3e2412">◂ Atelier</a>
+</div>
+
+<div style="position:absolute; left:640px; top:10px; width:150px; height:150px; transform:rotate(-10deg)">
+<div style="{{ burstOuter }}"></div>
+<div style="{{ burstInner }}"></div>
+<div style="position:absolute; left:0; top:0; right:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:'Caprasimo',serif; color:#3e2412; line-height:1">
+<span style="font-size:23px">Nouveau !</span>
+<span style="font-size:14px; margin-top:5px">en couleurs</span>
+</div>
+</div>
+
+<div style="position:absolute; top:190px; left:48px; bottom:40px; width:610px; box-sizing:border-box; border:5px solid #3e2412; border-radius:24px; box-shadow:7px 7px 0 #3e2412; overflow:hidden; background:repeating-conic-gradient(from 0deg at 50% 80%, #E3A72F 0 6deg, #EDB94A 6deg 12deg)">
+<div style="position:absolute; left:-60px; right:-60px; bottom:30px; height:330px; background:#F3E5C0; border:4px solid #3e2412; border-radius:50% 50% 0 0 / 100% 100% 0 0"></div>
+<div style="position:absolute; left:-60px; right:-60px; bottom:30px; height:330px; border-radius:50% 50% 0 0 / 100% 100% 0 0; background-image:radial-gradient(rgba(62,36,18,0.28) 1.4px, transparent 2px); background-size:9px 9px"></div>
+<div style="position:absolute; left:0; right:0; bottom:0; height:62px; background:#5B9A9A; border-top:7px solid #FBF1D6"></div>
+<div style="position:absolute; left:470px; top:60px; width:56px; height:56px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:190px; top:70px; width:34px; height:34px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:520px; top:200px; width:30px; height:30px; background:#FBF1D6; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+<div style="position:absolute; left:380px; top:30px; width:52px; height:52px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+<div style="position:absolute; left:545px; top:120px; width:34px; height:34px; border-radius:50%; border:4px solid #FBF1D6; background:rgba(251,241,214,0.3)"></div>
+<div style="position:absolute; left:290px; top:350px; width:26px; height:26px; border-radius:50%; border:3px solid #FBF1D6; background:rgba(251,241,214,0.4)"></div>
+
+<div style="position:absolute; left:24px; top:22px; width:128px; height:128px; border-radius:50%; background:{{ sel.accent }}; border:5px solid #FBF1D6; box-shadow:0 0 0 4px #3e2412; display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(-12deg); color:#FBF1D6; text-align:center; font-family:'Caprasimo',serif; line-height:1.05">
+<span style="font-size:15px; letter-spacing:1px">équipe</span>
+<span style="font-size:20px; padding:0 8px">{{ sel.badge }}</span>
+</div>
+
+<div style="position:absolute; left:140px; top:96px; width:360px; height:330px; transform:rotate(-12deg)">
+<div style="{{ sel.strapL }}"></div>
+<div style="{{ sel.strapR }}"></div>
+<div style="{{ sel.bodyStyle }}">
+<div style="{{ sel.eyeL }}"></div>
+<div style="{{ sel.eyeR }}"></div>
+<div style="position:absolute; left:34px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:118px; top:106px; width:60px; height:30px; border-bottom:7px solid #B5361F; border-radius:0 0 60px 60px; box-sizing:border-box"></div>
+
+<sc-if value="{{ sel.isLav }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-lav"><path d="M20 38 L20 9" fill="none" stroke-width="2" stroke-linecap="round"></path><ellipse cx="20" cy="8" rx="2.8" ry="5"></ellipse><ellipse cx="15.5" cy="14" rx="3" ry="5.5" transform="rotate(-25 15.5 14)"></ellipse><ellipse cx="24.5" cy="14" rx="3" ry="5.5" transform="rotate(25 24.5 14)"></ellipse><ellipse cx="15" cy="22" rx="3" ry="5.5" transform="rotate(-25 15 22)"></ellipse><ellipse cx="25" cy="22" rx="3" ry="5.5" transform="rotate(25 25 22)"></ellipse><ellipse cx="15.5" cy="30" rx="2.6" ry="5" transform="rotate(-25 15.5 30)"></ellipse><ellipse cx="24.5" cy="30" rx="2.6" ry="5" transform="rotate(25 24.5 30)"></ellipse></g>
+</defs>
+<use href="#gl-lav" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-lav" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-lav" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-lav" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+<sc-if value="{{ sel.isAlep }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-alep"><path d="M20 38 L20 20" fill="none" stroke-width="2" stroke-linecap="round"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 34) rotate(-42)"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 34) rotate(42)"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 31) scale(1.05)"></path><circle cx="11" cy="36" r="2.6"></circle><circle cx="29" cy="36" r="2.6"></circle></g>
+</defs>
+<use href="#gl-alep" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-alep" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-alep" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-alep" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+<sc-if value="{{ sel.isMars }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-mars"><path d="M8 35 Q20 30 33 10" fill="none" stroke-width="2" stroke-linecap="round"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(13 32) rotate(-70)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(14 32) rotate(15)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(21 26) rotate(-70)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(22 26) rotate(15)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(28 17) rotate(-70)"></path><ellipse cx="12" cy="22" rx="3.6" ry="4.6"></ellipse><ellipse cx="30" cy="30" rx="3.6" ry="4.6"></ellipse></g>
+</defs>
+<use href="#gl-mars" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-mars" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-mars" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-mars" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+<sc-if value="{{ sel.isNoir }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-noir"><path d="M20 4 C28 16 31 21 31 26 A11 11 0 0 1 9 26 C9 21 12 16 20 4Z"></path><circle cx="33" cy="12" r="3" fill="none" stroke-width="2"></circle><circle cx="8" cy="10" r="2" fill="none" stroke-width="2"></circle></g>
+</defs>
+<use href="#gl-noir" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-noir" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-noir" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-noir" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+<sc-if value="{{ sel.isCast }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-cast"><path d="M7 36 V13 H13 V18 H17 V13 H23 V18 H27 V13 H33 V36 Z"></path><path d="M16.5 36 V28 A3.5 3.5 0 0 1 23.5 28 V36" fill="none" stroke="#FBF1D6" stroke-width="2"></path><path d="M20 13 V3 H29 L26 6 L29 9 H20" stroke-width="1.5"></path></g>
+</defs>
+<use href="#gl-cast" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-cast" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-cast" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-cast" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+<sc-if value="{{ sel.isGly }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 284 200" width="284" height="200" style="position:absolute; left:0; top:0; pointer-events:none" fill="{{ sel.ink }}" stroke="{{ sel.ink }}" stroke-width="1" aria-hidden="true">
+<defs>
+<g id="gl-gly"><path d="M18 4 L22 16 L34 20 L22 24 L18 36 L14 24 L2 20 L14 16Z"></path><path d="M32 4 L33.5 8.5 L38 10 L33.5 11.5 L32 16 L30.5 11.5 L26 10 L30.5 8.5Z"></path></g>
+</defs>
+<use href="#gl-gly" transform="translate(10 36) rotate(-14 20 20)"></use>
+<use href="#gl-gly" transform="translate(236 36) rotate(12 20 20)"></use>
+<use href="#gl-gly" transform="translate(8 148) rotate(10 20 20)"></use>
+<use href="#gl-gly" transform="translate(238 148) rotate(-10 20 20)"></use>
+</svg>
+</sc-if>
+</div>
+<svg viewBox="0 0 360 150" width="360" height="150" style="position:absolute; left:0; top:-6px; pointer-events:none" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+<path d="M70 92 C42 100 14 92 -4 54 C20 64 42 62 70 54 Z" fill="#FBF1D6"></path>
+<path d="M70 54 C48 52 26 40 14 14 C34 26 50 26 70 26 Z" fill="#FBF1D6"></path>
+<g transform="translate(360 0) scale(-1 1)"><path d="M70 92 C42 100 14 92 -4 54 C20 64 42 62 70 54 Z" fill="#FBF1D6"></path><path d="M70 54 C48 52 26 40 14 14 C34 26 50 26 70 26 Z" fill="#FBF1D6"></path></g>
+</svg>
+<div style="position:absolute; left:64px; top:4px; width:232px; height:118px; box-sizing:border-box; border:6px solid #3e2412; border-radius:8px; overflow:hidden; background:repeating-linear-gradient(0deg,#c98d4f 0 26px,rgba(0,0,0,0.2) 26px 28px)">
+<div style="{{ sel.bandStyle }}"></div>
+<div style="{{ sel.sideL }}"></div>
+<div style="{{ sel.sideR }}"></div>
+<div style="{{ sel.labelStyle }}">Savon</div>
+</div>
+</div>
+
+<div style="position:absolute; left:24px; right:24px; bottom:84px; background:#FBF1D6; border:5px solid #3e2412; border-radius:20px; box-shadow:5px 5px 0 #3e2412; padding:12px 18px; display:flex; flex-direction:column; gap:4px">
+<div style="font-family:'Caprasimo',serif; font-size:27px; line-height:1.1">{{ sel.name }}</div>
+<div style="font-family:'Shrikhand',cursive; font-style:normal; font-size:15px; color:#C8561B">{{ sel.quip }}</div>
+<div style="align-self:flex-start; margin-top:4px; font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#FBF1D6; background:{{ sel.accent }}; border-radius:999px; padding:4px 14px">Caisse {{ sel.colorName }}</div>
+</div>
+</div>
+
+<div style="position:absolute; top:190px; left:682px; right:48px; bottom:40px; background:#F3E5C0; border:5px solid #3e2412; border-radius:24px; box-shadow:7px 7px 0 #3e2412; overflow:hidden; display:flex; flex-direction:column">
+<div style="background:#7A8B2E; color:#FBF1D6; font-weight:700; font-size:15px; letter-spacing:5px; padding:9px 20px">CHOISIS TON ÉQUIPE</div>
+<div style="padding:16px 18px 0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px">
+<sc-for list="{{ teams }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="{{ t.cardStyle }}">
+<span style="{{ t.crateStyle }}">
+<span style="{{ t.bandStyle }}"></span>
+<span style="{{ t.sideL }}"></span>
+<span style="{{ t.sideR }}"></span>
+</span>
+<span style="display:flex; flex-direction:column; gap:4px; text-align:left; min-width:0; flex:1">
+<span style="font-family:'Caprasimo',serif; font-size:16px; line-height:1.15">{{ t.name }}</span>
+<span style="font-family:'Shrikhand',cursive; font-style:normal; font-size:12px; line-height:1.25; color:#C8561B">{{ t.quip }}</span>
+</span>
+<span style="flex:none; display:flex; width:36px; height:36px">
+<sc-if value="{{ t.isLav }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M20 38 L20 9" fill="none" stroke-width="2" stroke-linecap="round"></path><ellipse cx="20" cy="8" rx="2.8" ry="5"></ellipse><ellipse cx="15.5" cy="14" rx="3" ry="5.5" transform="rotate(-25 15.5 14)"></ellipse><ellipse cx="24.5" cy="14" rx="3" ry="5.5" transform="rotate(25 24.5 14)"></ellipse><ellipse cx="15" cy="22" rx="3" ry="5.5" transform="rotate(-25 15 22)"></ellipse><ellipse cx="25" cy="22" rx="3" ry="5.5" transform="rotate(25 25 22)"></ellipse><ellipse cx="15.5" cy="30" rx="2.6" ry="5" transform="rotate(-25 15.5 30)"></ellipse><ellipse cx="24.5" cy="30" rx="2.6" ry="5" transform="rotate(25 24.5 30)"></ellipse></svg>
+</sc-if>
+<sc-if value="{{ t.isAlep }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M20 38 L20 20" fill="none" stroke-width="2" stroke-linecap="round"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 34) rotate(-42)"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 34) rotate(42)"></path><path d="M0 0 C-6 -7 -6 -15 0 -23 C6 -15 6 -7 0 0Z" transform="translate(20 31) scale(1.05)"></path><circle cx="11" cy="36" r="2.6"></circle><circle cx="29" cy="36" r="2.6"></circle></svg>
+</sc-if>
+<sc-if value="{{ t.isMars }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M8 35 Q20 30 33 10" fill="none" stroke-width="2" stroke-linecap="round"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(13 32) rotate(-70)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(14 32) rotate(15)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(21 26) rotate(-70)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(22 26) rotate(15)"></path><path d="M0 0 C-2.5 -5 -2.5 -10 0 -15 C2.5 -10 2.5 -5 0 0Z" transform="translate(28 17) rotate(-70)"></path><ellipse cx="12" cy="22" rx="3.6" ry="4.6"></ellipse><ellipse cx="30" cy="30" rx="3.6" ry="4.6"></ellipse></svg>
+</sc-if>
+<sc-if value="{{ t.isNoir }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M20 4 C28 16 31 21 31 26 A11 11 0 0 1 9 26 C9 21 12 16 20 4Z"></path><circle cx="33" cy="12" r="3" fill="none" stroke-width="2"></circle><circle cx="8" cy="10" r="2" fill="none" stroke-width="2"></circle></svg>
+</sc-if>
+<sc-if value="{{ t.isCast }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M7 36 V13 H13 V18 H17 V13 H23 V18 H27 V13 H33 V36 Z"></path><path d="M16.5 36 V28 A3.5 3.5 0 0 1 23.5 28 V36" fill="none" stroke="#FBF1D6" stroke-width="2"></path><path d="M20 13 V3 H29 L26 6 L29 9 H20" stroke-width="1.5"></path></svg>
+</sc-if>
+<sc-if value="{{ t.isGly }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="36" height="36" fill="#3e2412" stroke="#3e2412" stroke-width="1" aria-hidden="true"><path d="M18 4 L22 16 L34 20 L22 24 L18 36 L14 24 L2 20 L14 16Z"></path><path d="M32 4 L33.5 8.5 L38 10 L33.5 11.5 L32 16 L30.5 11.5 L26 10 L30.5 8.5Z"></path></svg>
+</sc-if>
+</span>
+</button>
+</sc-for>
+</div>
+<div style="padding:16px 18px 0; display:flex; flex-direction:column; gap:8px">
+<div style="font-weight:700; font-size:13px; letter-spacing:4px">COULEUR DU SAVON</div>
+<div style="display:flex; gap:12px; flex-wrap:wrap; padding:4px 6px 6px">
+<sc-for list="{{ colors }}" as="c" hint-placeholder-count="8">
+<button onClick="{{ c.pick }}" aria-label="{{ c.name }}" style="{{ c.style }}"></button>
+</sc-for>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="margin:0 18px; border-top:3px dashed #3e2412"></div>
+<div style="padding:14px 18px 16px; display:flex; align-items:center; gap:24px">
+<div style="flex:1; font-family:'Shrikhand',cursive; font-style:normal; font-size:13px; line-height:1.35; color:#C8561B">Une équipe change l’allure de la caisse, pas ses capacités : tout le monde glisse et vole pareil.</div>
+<div style="width:250px; flex:none; display:flex; flex-direction:column; gap:6px; align-items:stretch">
+<button onClick="{{ confirm }}" style="background:#E3A72F; border:5px solid #3e2412; border-radius:999px; box-shadow:5px 5px 0 #3e2412; padding:14px 0; font-family:'Caprasimo',serif; font-size:19px; letter-spacing:1px; color:#3e2412; cursor:pointer">Valider mon savon</button>
+<div style="text-align:center; font-family:'Shrikhand',cursive; font-style:normal; font-size:13px; color:#7A8B2E; min-height:18px">{{ msg }}</div>
+</div>
+</div>
+</div>
+
+<div style="position:absolute; left:0; right:0; bottom:8px; text-align:center; font-family:'Shrikhand',cursive; font-style:normal; font-size:16px; color:#FBF1D6; text-shadow:2px 2px 0 #3e2412">Satisfait ou remousse !</div>
+
+<div style="position:absolute; left:0; top:0; right:0; bottom:0; pointer-events:none; opacity:0.1; mix-blend-mode:multiply; background-image:radial-gradient(rgba(62,36,18,0.55) 1px, transparent 1.6px); background-size:5px 5px"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1456,"height":819}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'marseille', soap: 'creme', msg: '' };
+  }
+  renderVals() {
+    const star = (n, ro, ri) => {
+      const pts = [];
+      for (let i = 0; i < n * 2; i++) {
+        const a = (i * Math.PI) / n - Math.PI / 2;
+        const r = i % 2 === 0 ? ro : ri;
+        pts.push((50 + r * Math.cos(a)).toFixed(1) + '% ' + (50 + r * Math.sin(a)).toFixed(1) + '%');
+      }
+      return 'polygon(' + pts.join(',') + ')';
+    };
+    const TEAMS = [
+      { id: 'alep', name: 'Savon d’Alep', badge: 'Alep', quip: '« Patient comme le laurier. »', accent: '#5f7a2a', colorName: 'vert laurier' },
+      { id: 'marseille', name: 'Savon de Marseille', badge: 'Marseille', quip: '« Ça mousse, ça marche, ça dure. »', accent: '#3a6f9a', colorName: 'bleue' },
+      { id: 'noir', name: 'Savon noir', badge: 'Noir', quip: '« Je frotte, tu oublies. »', accent: '#44403c', colorName: 'anthracite' },
+      { id: 'castille', name: 'Savon de Castille', badge: 'Castille', quip: '« Plus blanc que blanc, promis. »', accent: '#B5361F', colorName: 'rouge' },
+      { id: 'glycerine', name: 'Savon de glycérine', badge: 'Glycérine', quip: '« On voit à travers mes intentions. »', accent: '#E8942A', colorName: 'orange' },
+      { id: 'lavande', name: 'Savon à la lavande', badge: 'Lavande', quip: '« Je sens bon la victoire. »', accent: '#7d5a8f', colorName: 'violette' }
+    ];
+    const SOAPS = [
+      { id: 'creme', name: 'Crème', c: '#F7EBCB' },
+      { id: 'rose', name: 'Rose poudré', c: '#E8A5A0' },
+      { id: 'jaune', name: 'Jaune soleil', c: '#EBC24A' },
+      { id: 'vert', name: 'Vert avocat', c: '#A8B85C' },
+      { id: 'bleu', name: 'Bleu poudre', c: '#9FC3C4' },
+      { id: 'lilas', name: 'Lilas', c: '#B9A0C8' },
+      { id: 'orange', name: 'Orange', c: '#E89A4C' },
+      { id: 'charbon', name: 'Charbon', c: '#3E2A22' }
+    ];
+    const s = this.state;
+    const sel = TEAMS.find((t) => t.id === s.sel);
+    const soap = SOAPS.find((c) => c.id === s.soap);
+    const dark = s.soap === 'charbon';
+    const teams = TEAMS.map((t) => {
+      const on = t.id === s.sel;
+      return {
+        name: t.name,
+        quip: t.quip,
+        isLav: t.id === 'lavande',
+        isAlep: t.id === 'alep',
+        isMars: t.id === 'marseille',
+        isNoir: t.id === 'noir',
+        isCast: t.id === 'castille',
+        isGly: t.id === 'glycerine',
+        cardStyle: 'display:flex;align-items:center;gap:12px;box-sizing:border-box;width:100%;height:100px;padding:8px 12px;cursor:pointer;color:#3e2412;border:4px solid #3e2412;border-radius:18px;box-shadow:' + (on ? 'none' : '4px 4px 0 #3e2412') + ';background:' + (on ? '#E3A72F' : '#FBF1D6') + ';transform:' + (on ? 'translate(3px,3px)' : 'none'),
+        crateStyle: 'flex:none;position:relative;display:block;width:62px;height:50px;box-sizing:border-box;border:4px solid #3e2412;border-radius:6px;overflow:hidden;background:repeating-linear-gradient(0deg,#c98d4f 0 12px,rgba(0,0,0,0.2) 12px 14px)',
+        bandStyle: 'position:absolute;left:0;right:0;top:0;height:13px;border-bottom:3px solid #3e2412;background:' + t.accent,
+        sideL: 'position:absolute;left:0;top:0;bottom:0;width:11px;border-right:3px solid #3e2412;background:' + t.accent,
+        sideR: 'position:absolute;right:0;top:0;bottom:0;width:11px;border-left:3px solid #3e2412;background:' + t.accent,
+        pick: () => this.setState({ sel: t.id, msg: '' })
+      };
+    });
+    const colors = SOAPS.map((c) => ({
+      name: c.name,
+      style: 'width:40px;height:40px;box-sizing:border-box;border-radius:50%;border:4px solid #3e2412;cursor:pointer;padding:0;background:' + c.c + ';box-shadow:' + (c.id === s.soap ? '0 0 0 4px #E3A72F, 0 0 0 7px #3e2412' : 'none'),
+      pick: () => this.setState({ soap: c.id, msg: '' })
+    }));
+    const eye = (left) => 'position:absolute;left:' + left + 'px;top:78px;width:22px;height:22px;border-radius:50%;background:' + (dark ? '#FBF1D6' : '#3e2412');
+    return {
+      teams, colors,
+      burstOuter: 'position:absolute;left:0;top:0;right:0;bottom:0;background:#3e2412;clip-path:' + star(16, 50, 41),
+      burstInner: 'position:absolute;left:0;top:0;right:0;bottom:0;background:#E3A72F;clip-path:' + star(16, 44, 36),
+      msg: s.msg,
+      sel: {
+        name: sel.name,
+        badge: sel.badge,
+        quip: sel.quip,
+        accent: sel.accent,
+        colorName: sel.colorName,
+        ink: dark ? 'rgba(251,241,214,0.5)' : 'rgba(62,36,18,0.34)',
+        eyeL: eye(78),
+        eyeR: eye(196),
+        isLav: sel.id === 'lavande',
+        isAlep: sel.id === 'alep',
+        isMars: sel.id === 'marseille',
+        isNoir: sel.id === 'noir',
+        isCast: sel.id === 'castille',
+        isGly: sel.id === 'glycerine',
+        strapL: 'position:absolute;left:14px;top:112px;width:34px;height:150px;border:5px solid #3e2412;border-radius:16px;background:' + sel.accent,
+        strapR: 'position:absolute;left:312px;top:112px;width:34px;height:150px;border:5px solid #3e2412;border-radius:16px;background:' + sel.accent,
+        bodyStyle: 'position:absolute;left:30px;top:96px;width:300px;height:216px;box-sizing:border-box;border:8px solid #3e2412;border-radius:64px;overflow:hidden;background:' + soap.c + ';box-shadow:inset 0 -16px 0 rgba(0,0,0,0.1)',
+        bandStyle: 'position:absolute;left:0;right:0;top:0;height:26px;border-bottom:5px solid #3e2412;background:' + sel.accent,
+        sideL: 'position:absolute;left:0;top:0;bottom:0;width:24px;border-right:5px solid #3e2412;background:' + sel.accent,
+        sideR: 'position:absolute;right:0;top:0;bottom:0;width:24px;border-left:5px solid #3e2412;background:' + sel.accent,
+        labelStyle: 'position:absolute;left:36px;right:36px;top:40px;height:36px;display:flex;align-items:center;justify-content:center;border:4px solid #3e2412;border-radius:10px;font-family:\'Caprasimo\',serif;font-size:19px;letter-spacing:1px;color:#3e2412;background:#E3A72F'
+      },
+      confirm: () => this.setState({ msg: sel.name + ', ' + soap.name.toLowerCase() + ' : validé !' })
+    };
+  }
+}
+</script>
+</body>
+</html>

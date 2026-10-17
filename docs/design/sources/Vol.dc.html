@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Écran de vol</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Josefin+Sans:wght@500;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position:relative; width:1456px; height:819px; overflow:hidden; box-sizing:border-box; font-family:'Josefin Sans',sans-serif; color:#3e2412; background-color:#D9822B; background-image:linear-gradient(rgba(122,63,18,0.45) 0 2px, transparent 2px), linear-gradient(90deg, rgba(122,63,18,0.45) 0 2px, transparent 2px), radial-gradient(circle at 50% 50%, #C8561B 0 13%, transparent 14%), radial-gradient(circle at 50% 50%, transparent 0 40%, #D9822B 41%), repeating-conic-gradient(from 0deg at 50% 50%, #5d6a22 0 14deg, transparent 14deg 45deg); background-size:146px 146px">
+
+<div style="position:absolute; left:0; top:0; right:0; bottom:0; background:rgba(243,229,192,0.3)"></div>
+
+<div style="position:absolute; left:0; top:0; right:0; height:38px; background:repeating-linear-gradient(90deg,#c98d4f 0 150px,#b27536 150px 153px)"></div>
+<div style="position:absolute; left:0; top:38px; right:0; height:12px; box-sizing:border-box; background:#E3A72F; border-top:4px solid #3e2412"></div>
+
+<svg viewBox="0 0 1456 819" width="1456" height="819" style="position:absolute; left:0; top:0" aria-label="Le savon vole avec sa caisse ailée, entre pièces, booster et pièges" role="img">
+<defs>
+<pattern id="dots3" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.5" fill="rgba(62,36,18,0.18)"></circle></pattern>
+<pattern id="check" width="32" height="32" patternUnits="userSpaceOnUse"><rect width="32" height="32" fill="#FBF1D6"></rect><rect width="16" height="16" fill="#3e2412"></rect><rect x="16" y="16" width="16" height="16" fill="#3e2412"></rect></pattern>
+</defs>
+
+<path d="{{ apronPath }}" fill="#F3E5C0" stroke="#3e2412" stroke-width="5" stroke-linejoin="round"></path>
+<path d="M0 0 H1456" stroke="#3e2412" stroke-width="0"></path>
+
+<path d="M620 430 C 760 340 880 300 960 322 C 1020 338 1060 358 1090 380" fill="none" stroke="#FBF1D6" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16" opacity="0.9"></path>
+
+<g fill="none" stroke="#FBF1D6" stroke-width="7" stroke-linecap="round" opacity="0.9">
+<path d="M120 470 H250"></path>
+<path d="M80 520 H230"></path>
+<path d="M150 570 H270"></path>
+</g>
+
+<g transform="translate(1270 0)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M0 50 V236" fill="none" stroke-width="9"></path>
+<path d="M0 50 V236" fill="none" stroke="#C8561B" stroke-width="5"></path>
+<g transform="rotate(7 0 240)">
+<path d="M-32 240 H32 V300 L24 366 H-24 L-32 300 Z" fill="#c98d4f"></path>
+<path d="M0 290 V366" fill="none" stroke-width="3"></path>
+<rect x="-40" y="288" width="80" height="16" rx="8" fill="#E3A72F"></rect>
+<circle cx="0" cy="296" r="6" fill="#9a9ca4" stroke-width="3"></circle>
+<path d="M-18 316 H-8 M8 316 H18 M-16 336 H-8 M8 336 H16" fill="none" stroke-width="3" opacity="0.4"></path>
+</g>
+</g>
+<g transform="translate(1190 262)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round">
+<circle r="22" fill="#B5361F"></circle>
+<text x="0" y="9" text-anchor="middle" font-family="Caprasimo, serif" font-size="28" fill="#FBF1D6" stroke="none">!</text>
+</g>
+
+<g transform="translate(1120 640) rotate(-7)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M-90 8 L-78 -44 L-66 8 Z" fill="#9a9ca4"></path>
+<path d="M-48 8 L-36 -44 L-24 8 Z" fill="#9a9ca4"></path>
+<path d="M-6 8 L6 -44 L18 8 Z" fill="#9a9ca4"></path>
+<path d="M36 8 L48 -44 L60 8 Z" fill="#9a9ca4"></path>
+<rect x="-104" y="8" width="176" height="28" rx="5" fill="#c98d4f"></rect>
+<path d="M-104 22 H72" fill="none" stroke-width="3" opacity="0.35"></path>
+</g>
+<g transform="translate(1000 600)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round">
+<circle r="22" fill="#B5361F"></circle>
+<text x="0" y="9" text-anchor="middle" font-family="Caprasimo, serif" font-size="28" fill="#FBF1D6" stroke="none">!</text>
+</g>
+
+<g transform="translate(1090 380)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<circle r="74" fill="rgba(251,241,214,0.4)" stroke="#FBF1D6" stroke-width="4" stroke-dasharray="3 10"></circle>
+<g fill="none" stroke-width="10" stroke="#3e2412">
+<polyline points="-76,-26 -52,0 -76,26"></polyline>
+<polyline points="-48,-26 -24,0 -48,26"></polyline>
+</g>
+<g fill="none" stroke-width="5" stroke="#E3A72F">
+<polyline points="-76,-26 -52,0 -76,26"></polyline>
+<polyline points="-48,-26 -24,0 -48,26"></polyline>
+</g>
+<circle cx="14" cy="-4" r="30" fill="rgba(251,241,214,0.85)" stroke="#4d8586"></circle>
+<circle cx="52" cy="-30" r="18" fill="rgba(251,241,214,0.85)" stroke="#4d8586"></circle>
+<circle cx="58" cy="20" r="22" fill="rgba(251,241,214,0.85)" stroke="#4d8586"></circle>
+<circle cx="26" cy="38" r="12" fill="rgba(251,241,214,0.85)" stroke="#4d8586"></circle>
+<path d="M2 -16 Q10 -26 22 -22" fill="none" stroke="#4d8586" stroke-width="3"></path>
+</g>
+
+<g transform="translate(800 362) rotate(-14)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<circle r="42" fill="rgba(251,241,214,0.35)" stroke="#FBF1D6" stroke-width="3" stroke-dasharray="3 9"></circle>
+<rect x="-28" y="-15" width="56" height="30" rx="4" fill="#c98d4f"></rect>
+<path d="M-28 -3 H28 M-28 7 H28" fill="none" stroke-width="3" opacity="0.4"></path>
+</g>
+<g transform="translate(884 302) rotate(24)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<circle r="42" fill="rgba(251,241,214,0.35)" stroke="#FBF1D6" stroke-width="3" stroke-dasharray="3 9"></circle>
+<path d="M-6 26 Q-26 4 -8 -24 Q10 -32 18 -26 Q22 0 8 20 Q2 28 -6 26 Z" fill="#FBF1D6"></path>
+<path d="M-14 30 L12 -22" fill="none" stroke-width="3"></path>
+</g>
+<g transform="translate(964 326)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round">
+<circle r="42" fill="rgba(251,241,214,0.35)" stroke="#FBF1D6" stroke-width="3" stroke-dasharray="3 9"></circle>
+<polygon points="0,-28 7.1,-9.7 26.6,-8.7 11.4,3.7 16.5,22.7 0,12 -16.5,22.7 -11.4,3.7 -26.6,-8.7 -7.1,-9.7" fill="#E3A72F"></polygon>
+</g>
+<g transform="translate(700 600)" stroke="#3e2412" stroke-width="4" stroke-linejoin="round">
+<circle r="42" fill="rgba(251,241,214,0.35)" stroke="#FBF1D6" stroke-width="3" stroke-dasharray="3 9"></circle>
+<polygon points="0,-28 7.1,-9.7 26.6,-8.7 11.4,3.7 16.5,22.7 0,12 -16.5,22.7 -11.4,3.7 -26.6,-8.7 -7.1,-9.7" fill="#E3A72F"></polygon>
+</g>
+
+<g fill="rgba(251,241,214,0.25)" stroke="#FBF1D6" stroke-width="3">
+<circle cx="150" cy="190" r="9"></circle>
+<circle cx="420" cy="200" r="6"></circle>
+<circle cx="560" cy="150" r="12"></circle>
+<circle cx="700" cy="210" r="7"></circle>
+<circle cx="1010" cy="160" r="9"></circle>
+<circle cx="1180" cy="520" r="7"></circle>
+<circle cx="1380" cy="430" r="12"></circle>
+<circle cx="1300" cy="600" r="6"></circle>
+<circle cx="610" cy="520" r="8"></circle>
+<circle cx="920" cy="470" r="6"></circle>
+<circle cx="260" cy="620" r="10"></circle>
+<circle cx="480" cy="650" r="6"></circle>
+<circle cx="880" cy="650" r="9"></circle>
+<circle cx="70" cy="560" r="7"></circle>
+</g>
+
+<rect x="1384" y="50" width="32" height="688" fill="url(#check)" stroke="#3e2412" stroke-width="5"></rect>
+<path d="{{ waterFill }}" fill="#5B9A9A"></path>
+<path d="{{ waterWave }}" fill="none" stroke="#3e2412" stroke-width="5" stroke-linecap="round"></path>
+<path d="{{ waterWave }}" fill="none" stroke="#FBF1D6" stroke-width="2.5" stroke-linecap="round"></path>
+<path d="{{ waterWave2 }}" fill="none" stroke="#4d8586" stroke-width="5" stroke-linecap="round"></path>
+<g fill="rgba(251,241,214,0.8)" stroke="#FBF1D6" stroke-width="3">
+<circle cx="120" cy="748" r="9"></circle>
+<circle cx="150" cy="760" r="5"></circle>
+<circle cx="520" cy="752" r="11"></circle>
+<circle cx="548" cy="768" r="6"></circle>
+<circle cx="930" cy="750" r="8"></circle>
+<circle cx="1260" cy="756" r="12"></circle>
+<circle cx="1290" cy="772" r="6"></circle>
+</g>
+<g stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M432 740 V698" fill="none"></path>
+<path d="M432 698 L458 708 L432 718 Z" fill="#E3A72F"></path>
+</g>
+<text x="432" y="800" text-anchor="middle" font-family="Caprasimo, serif" font-size="24" fill="#FBF1D6" stroke="#3e2412" stroke-width="5" paint-order="stroke fill">400 m</text>
+<g stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M752 740 V698" fill="none"></path>
+<path d="M752 698 L778 708 L752 718 Z" fill="#E3A72F"></path>
+</g>
+<text x="752" y="800" text-anchor="middle" font-family="Caprasimo, serif" font-size="24" fill="#FBF1D6" stroke="#3e2412" stroke-width="5" paint-order="stroke fill">500 m</text>
+<g stroke="#3e2412" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<path d="M1072 740 V698" fill="none"></path>
+<path d="M1072 698 L1098 708 L1072 718 Z" fill="#E3A72F"></path>
+</g>
+<text x="1072" y="800" text-anchor="middle" font-family="Caprasimo, serif" font-size="24" fill="#FBF1D6" stroke="#3e2412" stroke-width="5" paint-order="stroke fill">600 m</text>
+<text x="1332" y="800" text-anchor="middle" font-family="Caprasimo, serif" font-size="24" fill="#FBF1D6" stroke="#3e2412" stroke-width="5" paint-order="stroke fill">700 m</text>
+</svg>
+
+<div style="position:absolute; left:280px; top:275px; width:360px; height:330px; transform:rotate(-8deg) scale(0.62)">
+<div style="position:absolute; left:14px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#C8561B"></div>
+<div style="position:absolute; left:312px; top:112px; width:34px; height:150px; border:5px solid #3e2412; border-radius:16px; background:#C8561B"></div>
+<div style="position:absolute; left:30px; top:96px; width:300px; height:216px; box-sizing:border-box; border:8px solid #3e2412; border-radius:64px; background:#FBF1D6; box-shadow:inset 0 -16px 0 rgba(0,0,0,0.08)">
+<div style="position:absolute; left:68px; top:80px; width:42px; height:22px; box-sizing:border-box; border-top:8px solid #3e2412; border-radius:42px 42px 0 0"></div>
+<div style="position:absolute; left:186px; top:80px; width:42px; height:22px; box-sizing:border-box; border-top:8px solid #3e2412; border-radius:42px 42px 0 0"></div>
+<div style="position:absolute; left:34px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:208px; top:112px; width:54px; height:28px; border-radius:50%; background:rgba(214,110,90,0.55)"></div>
+<div style="position:absolute; left:112px; top:108px; width:72px; height:40px; box-sizing:border-box; background:#8b1d12; border:6px solid #3e2412; border-radius:0 0 72px 72px"></div>
+</div>
+<svg viewBox="0 0 360 150" width="360" height="150" style="position:absolute; left:0; top:0" stroke="#3e2412" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" aria-label="Le savon et sa caisse ailée" role="img">
+<path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path>
+<path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path>
+<g transform="translate(360 0) scale(-1 1)"><path d="M86 94 C58 102 26 94 6 54 C30 64 52 62 86 54 Z" fill="#FBF1D6"></path><path d="M86 54 C64 52 40 40 28 14 C50 26 66 26 86 26 Z" fill="#FBF1D6"></path></g>
+<rect x="84" y="20" width="192" height="116" rx="6" fill="#c98d4f"></rect>
+<path d="M84 62 H276 M84 100 H276" fill="none" stroke-width="3" opacity="0.35"></path>
+<rect x="84" y="20" width="192" height="28" fill="#C8561B"></rect>
+<rect x="118" y="62" width="124" height="42" rx="10" fill="#E3A72F"></rect>
+<text x="180" y="92" text-anchor="middle" font-family="Caprasimo, serif" font-size="22" fill="#3e2412" stroke="none">SAVON</text>
+</svg>
+</div>
+
+<div style="position:absolute; left:40px; top:92px; width:260px; background:#FBF1D6; border:5px solid #3e2412; border-radius:16px; box-shadow:5px 5px 0 #3e2412; overflow:hidden">
+<div style="background:#7A8B2E; color:#FBF1D6; text-align:center; font-weight:700; font-size:14px; letter-spacing:5px; padding:5px 0">DISTANCE</div>
+<div style="text-align:center; font-family:'Caprasimo',serif; font-size:54px; line-height:1.1; color:#C8561B; padding:2px 0 6px">412 m</div>
+</div>
+
+<div style="position:absolute; left:40px; top:222px; width:260px; box-sizing:border-box; background:#FBF1D6; border:5px solid #3e2412; border-radius:16px; box-shadow:5px 5px 0 #3e2412; padding:8px 16px; display:flex; align-items:center; justify-content:space-between">
+<span style="font-weight:700; font-size:14px; letter-spacing:4px">AILES</span>
+<span style="display:flex; gap:10px">
+<svg viewBox="0 0 30 40" width="30" height="40" stroke="#3e2412" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 36 Q-4 14 8 4 Q20 -2 26 4 Q28 20 16 34 Q12 38 7 36 Z" fill="#FBF1D6"></path><path d="M4 38 L22 6" fill="none"></path></svg>
+<svg viewBox="0 0 30 40" width="30" height="40" stroke="#3e2412" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 36 Q-4 14 8 4 Q20 -2 26 4 Q28 20 16 34 Q12 38 7 36 Z" fill="#FBF1D6"></path><path d="M4 38 L22 6" fill="none"></path></svg>
+<svg viewBox="0 0 30 40" width="30" height="40" stroke="#3e2412" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" opacity="0.3"><path d="M7 36 Q-4 14 8 4 Q20 -2 26 4 Q28 20 16 34 Q12 38 7 36 Z" fill="none" stroke-dasharray="3 5"></path></svg>
+</span>
+</div>
+
+<div style="position:absolute; left:40px; top:316px; width:260px; box-sizing:border-box; background:#FBF1D6; border:5px solid #3e2412; border-radius:16px; box-shadow:5px 5px 0 #3e2412; overflow:hidden">
+<div style="background:#C8561B; color:#FBF1D6; text-align:center; font-weight:700; font-size:14px; letter-spacing:5px; padding:5px 0">RÉCOLTE</div>
+<div style="display:flex; justify-content:space-around; padding:10px 6px">
+<div style="display:flex; flex-direction:column; align-items:center; gap:4px"><div style="width:40px; height:24px; border-radius:3px; border:3px solid #3e2412; box-sizing:border-box; background:repeating-linear-gradient(90deg,#c98d4f 0 9px,#a96f38 9px 11px)"></div><span style="font-family:'Caprasimo',serif; font-size:20px">x3</span></div>
+<div style="display:flex; flex-direction:column; align-items:center; gap:4px"><div style="width:30px; height:30px; background:#3e2412; display:flex; align-items:center; justify-content:center; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"><div style="width:23px; height:23px; background:#E3A72F; clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div></div><span style="font-family:'Caprasimo',serif; font-size:20px">x2</span></div>
+<div style="display:flex; flex-direction:column; align-items:center; gap:4px"><div style="width:16px; height:30px; box-sizing:border-box; border-radius:50% 50% 50% 0; transform:rotate(28deg); border:3px solid #3e2412; background:linear-gradient(90deg,#FBF1D6 0 50%,#E8D9AE 50%)"></div><span style="font-family:'Caprasimo',serif; font-size:20px">x1</span></div>
+</div>
+</div>
+
+<div style="position:absolute; left:520px; top:92px; width:420px; box-sizing:border-box; background:#FBF1D6; border:5px solid #3e2412; border-radius:16px; box-shadow:5px 5px 0 #3e2412; overflow:hidden">
+<div style="background:#B5361F; color:#FBF1D6; text-align:center; font-weight:700; font-size:14px; letter-spacing:5px; padding:5px 0">LIGNE D’ARRIVÉE</div>
+<div style="display:flex; align-items:baseline; justify-content:center; gap:10px; padding:4px 0 0">
+<span style="font-family:'Caprasimo',serif; font-size:44px; line-height:1.1; color:#B5361F">288 m</span>
+<span style="font-family:'Shrikhand',cursive; font-style:normal; font-size:16px">à parcourir</span>
+</div>
+<div style="position:relative; margin:4px 18px 14px; height:20px; border:4px solid #3e2412; border-radius:999px; background:#F3E5C0">
+<div style="position:absolute; left:0; top:0; bottom:0; width:59%; background:#7A8B2E; border-radius:999px"></div>
+<div style="position:absolute; left:calc(59% - 14px); top:-9px; width:28px; height:28px; box-sizing:border-box; border-radius:9px; background:#FBF1D6; border:4px solid #3e2412"></div>
+<div style="position:absolute; right:-6px; top:-10px; width:26px; height:32px; box-sizing:border-box; border:4px solid #3e2412; background:repeating-conic-gradient(#3e2412 0 25%, #FBF1D6 0 50%) 0 0/12px 12px"></div>
+</div>
+</div>
+
+<div style="position:absolute; left:1290px; top:150px; font-family:'Shrikhand',cursive; font-style:normal; font-size:20px; color:#FBF1D6; background:#B5361F; border:4px solid #3e2412; border-radius:999px; padding:3px 18px; box-shadow:4px 4px 0 #3e2412; transform:rotate(-4deg)">Arrivée</div>
+
+<div style="position:absolute; left:1010px; top:462px; font-family:'Shrikhand',cursive; font-style:normal; font-size:20px; background:#E3A72F; border:4px solid #3e2412; border-radius:999px; padding:4px 20px; box-shadow:4px 4px 0 #3e2412; transform:rotate(-4deg)">Jet de bulles !</div>
+
+<div style="position:absolute; left:600px; top:290px; font-family:'Shrikhand',cursive; font-style:normal; font-size:22px; color:#FBF1D6; -webkit-text-stroke:5px #3e2412; paint-order:stroke fill; transform:rotate(-8deg)">Wouaaah !</div>
+
+<div style="position:absolute; left:0; top:0; right:0; bottom:0; pointer-events:none; opacity:0.1; mix-blend-mode:multiply; background-image:radial-gradient(rgba(62,36,18,0.55) 1px, transparent 1.6px); background-size:5px 5px"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1456,"height":819}}'>
+class Component extends DCLogic {
+  renderVals() {
+    let apron = 'M0 50';
+    for (let i = 0; i < 31; i++) apron += ' q 24 26 48 0';
+    apron += ' L1488 50 L0 50 Z';
+    const wave = (y, n) => {
+      let w = 'M0 ' + y;
+      for (let i = 0; i < n; i++) w += ' q 30 -14 60 0 t 60 0';
+      return w;
+    };
+    const top = wave(738, 13);
+    return {
+      apronPath: apron,
+      waterWave: top,
+      waterFill: top + ' L1560 738 V819 H0 Z',
+      waterWave2: wave(776, 13)
+    };
+  }
+}
+</script>
+</body>
+</html>
