@@ -23,6 +23,7 @@ _data = {
 }
 
 [node name="Soap" type="Node2D" unique_id=674192252]
+modulate = Color(1, 1, 1, 0.35)
 
 [node name="Crate" type="Polygon2D" parent="." unique_id=1679724855]
 color = Color(0.6, 0.4, 0.2, 1)
@@ -45,7 +46,10 @@ visible = false
 color = Color(1, 0.6, 0.1, 1)
 polygon = PackedVector2Array(-46, -8, -46, 8, -90, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_soap")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=851107047]
+libraries/ = SubResource("AnimationLibrary_soap")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1732252205]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D" unique_id=795917749]
+polygon = PackedVector2Array(-27, -19, -28, 20, 27, 19, 27, -19)

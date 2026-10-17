@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b7ms8okbpn1jt"]
 
-[ext_resource type="Script" path="res://scripts/shelf.gd" id="1_shelf"]
+[ext_resource type="Script" uid="uid://e7j2cm5fc1x3" path="res://scripts/shelf.gd" id="1_shelf"]
 
 [sub_resource type="StyleBoxFlat" id="Style_plank"]
 bg_color = Color(0.788, 0.553, 0.31, 1)
@@ -10,20 +10,25 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.243, 0.141, 0.071, 1)
 
-[node name="Shelf" type="Panel"]
+[node name="Shelf" type="Panel" unique_id=1178975091]
 offset_right = 400.0
 offset_bottom = 14.0
 theme_override_styles/panel = SubResource("Style_plank")
 script = ExtResource("1_shelf")
 
-[node name="BracketLeft" type="Polygon2D" parent="."]
+[node name="BracketLeft" type="Polygon2D" parent="." unique_id=1016831617]
 show_behind_parent = true
 position = Vector2(60, 14)
 color = Color(0.243, 0.141, 0.071, 1)
 polygon = PackedVector2Array(0, 0, 30, 0, 0, 36)
 
-[node name="BracketRight" type="Polygon2D" parent="."]
+[node name="BracketRight" type="Polygon2D" parent="." unique_id=899446301]
 show_behind_parent = true
 position = Vector2(310, 14)
 color = Color(0.243, 0.141, 0.071, 1)
 polygon = PackedVector2Array(0, 0, 30, 0, 0, 36)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1202818719]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" unique_id=1756378512]
+polygon = PackedVector2Array(1, 14, 401, 14, 400, 0, 1, -1)

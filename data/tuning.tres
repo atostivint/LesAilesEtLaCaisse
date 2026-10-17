@@ -17,7 +17,9 @@
 script = ExtResource("1")
 materials = Array[ExtResource("md")]([ExtResource("m_planche"), ExtResource("m_plume"), ExtResource("m_elastique"), ExtResource("m_etoile")])
 crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson")])
-cruise_speed = 18.0
+cruise_speed = 22.5
 speed_ease = 4.0
 jet_gravity = 31.0
-jet_thrust = 75.5
+jet_thrust = 79.5
+spawn_interval = null
+spawn_ahead = null

@@ -1,10 +1,10 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://hfvdvjlcxsu0"]
 
-[ext_resource type="Script" path="res://scripts/vol.gd" id="1_cigbo"]
-[ext_resource type="Script" path="res://scripts/ramp_view.gd" id="2_7gj8h"]
-[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="3_soap"]
-[ext_resource type="Script" path="res://scripts/course_view.gd" id="4_course"]
-[ext_resource type="Script" path="res://scripts/hud.gd" id="6_hud"]
+[ext_resource type="Script" uid="uid://7sbiamm7nl6n" path="res://scripts/vol.gd" id="1_cigbo"]
+[ext_resource type="Script" uid="uid://clqprvkbumbxk" path="res://scripts/ramp_view.gd" id="2_7gj8h"]
+[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="3_soap"]
+[ext_resource type="Script" uid="uid://c0hakp5uhphkq" path="res://scripts/course_view.gd" id="4_course"]
+[ext_resource type="Script" uid="uid://doqqhb6i7v6pk" path="res://scripts/hud.gd" id="6_hud"]
 
 [node name="Vol" type="Node2D" unique_id=1588220501]
 script = ExtResource("1_cigbo")
@@ -13,12 +13,13 @@ script = ExtResource("1_cigbo")
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 
-[node name="ReturnDelay" type="Timer" parent="."]
+[node name="ReturnDelay" type="Timer" parent="." unique_id=1688613712]
 wait_time = 0.5
 one_shot = true
 
-[node name="SpawnTimer" type="Timer" parent="."]
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1714545708]
 process_callback = 0
+wait_time = 0.537
 
 [node name="World" type="Node2D" parent="." unique_id=1399815642]
 
@@ -28,16 +29,18 @@ offset_top = -3000.0
 offset_right = 16500.0
 color = Color(0.3, 0.33, 0.38, 1)
 
-[node name="Ceiling" type="ColorRect" parent="World"]
+[node name="Ceiling" type="ColorRect" parent="World" unique_id=1226224113]
 color = Color(0.89, 0.65, 0.18, 1)
 
-[node name="Edge" type="ColorRect" parent="World/Ceiling"]
+[node name="Edge" type="ColorRect" parent="World/Ceiling" unique_id=1420710979]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
 color = Color(0.243, 0.141, 0.071, 1)
 
 [node name="Door" type="ColorRect" parent="World" unique_id=459955246]
@@ -59,18 +62,20 @@ script = ExtResource("2_7gj8h")
 
 [node name="Body" type="Polygon2D" parent="World/Ramp" unique_id=666631301]
 color = Color(0.55, 0.55, 0.6, 1)
+polygon = PackedVector2Array(0, 0, 0, -200, 7.756979, -192.43799, 15.703898, -185.07584, 23.835611, -177.91832, 32.146847, -170.97008, 40.632225, -164.2356, 49.286247, -157.71925, 58.103302, -151.42528, 67.07769, -145.35773, 76.20358, -139.52054, 85.47508, -133.91748, 94.88618, -128.55222, 104.43076, -123.42819, 114.10267, -118.548744, 123.895615, -113.91702, 133.80328, -109.536026, 143.81923, -105.408615, 153.93697, -101.53743, 164.14995, -97.924995, 174.45158, -94.57366, 184.83514, -91.48558, 195.29395, -88.662766, 205.8212, -86.10703, 216.41008, -83.82005, 227.05374, -81.8033, 237.74529, -80.05809, 248.47777, -78.58553, 259.24426, -77.3866, 270.03778, -76.46205, 280.85132, -75.812515, 291.67792, -75.43838, 302.5105, -75.339905, 313.3421, -75.51715, 324.16565, -75.97001, 334.9742, -76.69817, 345.76074, -77.70118, 356.51822, -78.97838, 367.2397, -80.528946, 377.91824, -82.35187, 388.547, -84.44596, 399.11896, -86.80989, 409.62735, -89.4421, 420.06534, -92.34091, 430.42618, -95.50441, 440.70313, -98.93058, 450.8896, -102.61719, 460.97894, -106.561844, 470.9646, -110.761986, 480.84012, -115.21491, 480.84012, 0)
 
 [node name="TakeoffZone" type="Line2D" parent="World/Ramp" unique_id=439090581]
+points = PackedVector2Array(415.25696, -90.969986, 423.66086, -93.406105, 432.01288, -96.01447, 440.30948, -98.793976, 448.54724, -101.74343, 456.72266, -104.86161, 464.83218, -108.147194, 472.87247, -111.59878, 480.84012, -115.21491)
 width = 9.0
 default_color = Color(0.85, 0.15, 0.15, 1)
 
-[node name="CourseView" type="Node2D" parent="World"]
+[node name="CourseView" type="Node2D" parent="World" unique_id=1060047247]
 script = ExtResource("4_course")
 
 [node name="Soap" parent="World" unique_id=1752697870 instance=ExtResource("3_soap")]
 scale = Vector2(1.6, 1.6)
 
-[node name="Markers" type="Node2D" parent="World"]
+[node name="Markers" type="Node2D" parent="World" unique_id=684312175]
 
 [node name="Water" type="ColorRect" parent="World" unique_id=1774601618]
 offset_left = -1500.0
@@ -150,6 +155,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="Center" type="CenterContainer" parent="HUD/ResultRoot" unique_id=412937300]
@@ -160,17 +167,17 @@ anchor_bottom = 1.0
 [node name="Panel" type="PanelContainer" parent="HUD/ResultRoot/Center" unique_id=1479140753]
 layout_mode = 2
 
-[node name="Box" type="VBoxContainer" parent="HUD/ResultRoot/Center/Panel"]
+[node name="Box" type="VBoxContainer" parent="HUD/ResultRoot/Center/Panel" unique_id=1693778360]
 layout_mode = 2
 
-[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box"]
+[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box" unique_id=313487858]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
-[node name="ReturnLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box"]
+[node name="ReturnLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box" unique_id=607761589]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
