@@ -197,13 +197,14 @@ text = "Plus blanc que blanc !"
 
 [node name="Suite" type="PanelContainer" parent="Bas/Marge/Colonnes/Gauche" unique_id=934204540]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 
 [node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Suite" unique_id=1089923808]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 24
 text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
+autowrap_mode = 3
 
 [node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes" unique_id=1431529782]
 custom_minimum_size = Vector2(360, 0)
