@@ -6,11 +6,13 @@
 theme_override_constants/separation = 20
 script = ExtResource("1_row")
 
-[node name="Swatch" type="ColorRect" parent="."]
+[node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Texts" type="VBoxContainer" parent="."]
 layout_mode = 2
