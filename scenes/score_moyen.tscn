@@ -1,0 +1,276 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/score_ecran.gd" id="1_score"]
+[ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
+[ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="3_font"]
+[ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
+
+[sub_resource type="StyleBoxFlat" id="bas"]
+bg_color = Color(0.96, 0.9, 0.77, 1)
+border_width_top = 6
+border_color = Color(0.29, 0.165, 0.078, 1)
+
+[sub_resource type="StyleBoxFlat" id="pill_vert"]
+bg_color = Color(0.42, 0.54, 0.18, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+content_margin_left = 22.0
+content_margin_top = 6.0
+content_margin_right = 22.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="suite_pill"]
+bg_color = Color(0.42, 0.54, 0.18, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="carte"]
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="bouton"]
+bg_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+
+[node name="ScoreExcellent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_score")
+mood = "moyen"
+
+[node name="Fond" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tile")
+
+[node name="Haut" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -330.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Colline" type="Polygon2D" parent="Haut"]
+color = Color(0.98, 0.94, 0.84, 1)
+polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 489, 0, 489)
+
+[node name="Mer" type="Polygon2D" parent="Haut"]
+color = Color(0.35, 0.6, 0.62, 1)
+polygon = PackedVector2Array(0, 452, 1456, 452, 1456, 489, 0, 489)
+
+[node name="Savon" parent="Haut" instance=ExtResource("4_soap")]
+unique_name_in_owner = true
+position = Vector2(720, 330)
+scale = Vector2(3, 3)
+
+[node name="Badge" type="Panel" parent="Haut"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 156.0
+offset_bottom = 156.0
+
+[node name="Texte" type="Label" parent="Haut/Badge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 24
+text = "en\ncouleurs !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gerard" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 480.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eleonore" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 1140.0
+offset_top = 110.0
+offset_right = 1410.0
+offset_bottom = 480.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bas" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -330.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("bas")
+
+[node name="Marge" type="MarginContainer" parent="Bas"]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 16
+
+[node name="Colonnes" type="HBoxContainer" parent="Bas/Marge"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Gauche" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Entete" type="HBoxContainer" parent="Bas/Marge/Colonnes/Gauche"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Pastille" type="PanelContainer" parent="Bas/Marge/Colonnes/Gauche/Entete"]
+layout_mode = 2
+
+
+[node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Entete/Pastille"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 24
+text = "SCORE EXCELLENT"
+
+[node name="Titre" type="Label" parent="Bas/Marge/Colonnes/Gauche/Entete"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 24
+text = "LA GLOIRE DE MADAME"
+
+[node name="Citation" type="Label" parent="Bas/Marge/Colonnes/Gauche"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 34
+text = "« Éléonore a tout frotté. Même le passé de Gérard. »"
+autowrap_mode = 3
+
+[node name="Trait" type="ColorRect" parent="Bas/Marge/Colonnes/Gauche"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+color = Color(0.29, 0.165, 0.078, 1)
+
+[node name="Phrase" type="Label" parent="Bas/Marge/Colonnes/Gauche"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 26
+text = "Plus blanc que blanc !"
+
+[node name="Suite" type="PanelContainer" parent="Bas/Marge/Colonnes/Gauche"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+
+[node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Suite"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 24
+text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
+
+[node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
+layout_mode = 2
+custom_minimum_size = Vector2(360, 0)
+theme_override_constants/separation = 12
+
+[node name="Carte" type="PanelContainer" parent="Bas/Marge/Colonnes/Droite"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("carte")
+
+[node name="Contenu" type="VBoxContainer" parent="Bas/Marge/Colonnes/Droite/Carte"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="EnTete" type="Label" parent="Bas/Marge/Colonnes/Droite/Carte/Contenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 18
+text = "VOTRE SCORE"
+horizontal_alignment = 1
+
+[node name="Valeur" type="Label" parent="Bas/Marge/Colonnes/Droite/Carte/Contenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 90
+text = "000"
+horizontal_alignment = 1
+
+[node name="Rejouer" type="Button" parent="Bas/Marge/Colonnes/Droite"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_hover_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("bouton")
+theme_override_styles/hover = SubResource("bouton")
+theme_override_styles/pressed = SubResource("bouton")
+theme_override_styles/focus = SubResource("bouton")
+text = "Rejouer"
+
+[node name="Slogan" type="Label" parent="Bas/Marge/Colonnes/Droite"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 18
+text = "Satisfait ou remousse !"
+horizontal_alignment = 1
+
+[node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -156.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0
+
+[connection signal="pressed" from="Bas/Marge/Colonnes/Droite/Rejouer" to="." method="_on_rejouer_pressed"]

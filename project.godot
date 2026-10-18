@@ -12,12 +12,13 @@ config_version=5
 
 config/name="LesAilesEtLaCaisse"
 run/main_scene="res://scenes/atelier.tscn"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameState="*res://scripts/game_state.gd"
+Musique="*res://scripts/musique.gd"
 
 [display]
 

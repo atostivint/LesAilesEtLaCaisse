@@ -177,7 +177,6 @@ theme_override_styles/pressed = SubResource("btn_cream")
 theme_override_styles/hover = SubResource("btn_cream")
 theme_override_styles/disabled = SubResource("btn_disabled")
 theme_override_styles/focus = SubResource("btn_cream")
-disabled = true
 text = "Réglages"
 
 [node name="Credits" type="Button" parent="Boutons"]
@@ -191,7 +190,6 @@ theme_override_styles/pressed = SubResource("btn_cream")
 theme_override_styles/hover = SubResource("btn_cream")
 theme_override_styles/disabled = SubResource("btn_disabled")
 theme_override_styles/focus = SubResource("btn_cream")
-disabled = true
 text = "Crédits"
 
 [node name="Score" type="PanelContainer" parent="."]
@@ -221,3 +219,5 @@ text = "0000"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Boutons/Jouer" to="." method="_on_jouer_pressed"]
+[connection signal="pressed" from="Boutons/Reglages" to="." method="_on_reglages_pressed"]
+[connection signal="pressed" from="Boutons/Credits" to="." method="_on_credits_pressed"]

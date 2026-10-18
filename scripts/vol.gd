@@ -19,6 +19,7 @@ extends Node2D
 enum State { READY, RUN, RESULT }
 
 const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
+const SCORES := {"excellent": "res://scenes/score_excellent.tscn", "bon": "res://scenes/score_bon.tscn", "moyen": "res://scenes/score_moyen.tscn", "mauvais": "res://scenes/score_mauvais.tscn", "catastrophe": "res://scenes/score_catastrophe.tscn"}
 
 @export_group("Caméra et affichage")
 ## Avance de la caméra sur le savon (px) : plus grand = le savon est plus à gauche de l'écran.
@@ -56,6 +57,7 @@ var _shake_tween: Tween
 
 
 func _ready() -> void:
+	Musique.arreter()
 	tuning = GameState.tuning
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
 	course = Course.new(tuning, tuning.course_seed)
@@ -104,7 +106,7 @@ func _input(event: InputEvent) -> void:
 				_shake(1.0)  # lâcher : coup de départ
 			State.RESULT:
 				if return_delay.is_stopped():
-					get_tree().change_scene_to_file("res://scenes/atelier.tscn")
+						_aller_au_score()
 
 
 # --- Boucle --------------------------------------------------------------------
@@ -142,6 +144,21 @@ func _finish() -> void:
 		_shake(1.0)  # plouf
 	hud.show_result(_result_text())
 	return_delay.start()  # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
+
+
+func _aller_au_score() -> void:
+	## Fin de vol : l'écran de score dépend de la distance (ligne d'arrivée franchie = excellent).
+	var ratio: float = float(result["distance"]) / tuning.door_x
+	var palier := "catastrophe"
+	if result["door"]:
+		palier = "excellent"
+	elif ratio >= 0.6:
+		palier = "bon"
+	elif ratio >= 0.35:
+		palier = "moyen"
+	elif ratio >= 0.15:
+		palier = "mauvais"
+	get_tree().change_scene_to_file(SCORES[palier])
 
 
 func _on_return_delay_timeout() -> void:

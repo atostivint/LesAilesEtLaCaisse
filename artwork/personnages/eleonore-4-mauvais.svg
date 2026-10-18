@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-36 -42 200 235" width="600" height="705">
+<title>eleonore 4 mauvais</title>
+<defs>
+<g id="eye"><ellipse rx="3.8" ry="6.2" fill="#111" stroke="none"/></g>
+<g id="hand" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle r="8" fill="#fff"/><path d="M-5 -6 Q-2 -14 4 -8" fill="#fff"/><path d="M2 0 Q6 2 8 6" fill="none" stroke-width="1.8"/></g>
+<g id="shoe" stroke="#111" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M-14 -2 Q-14 -11 -3 -11 Q8 -11 12 -3 Q22 -2 22 4 Q22 9 15 9 H-11 Q-17 9 -14 -2 Z" fill="#fff"/><path d="M-14 4 H21" fill="none" stroke-width="1.8"/></g>
+<g id="pump" stroke="#111" stroke-width="2.5" stroke-linejoin="round"><path d="M-6 -8 L3 -8 Q7 -1 15 1 Q20 4 15 8 L-2 8 L-4 14 L-8 14 L-8 8 Q-10 -1 -6 -8 Z" fill="#fff"/></g>
+<g id="boxG" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<polygon points="0,0 -20,9 -20,133 0,124" fill="#fff"/>
+<rect x="0" y="0" width="84" height="124" fill="#fff"/>
+<text x="42" y="96" text-anchor="middle" textLength="72" lengthAdjust="spacingAndGlyphs" font-size="22" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#111" stroke="#111" stroke-width="4.4" stroke-linejoin="round">GÉRARD</text>
+<text x="42" y="96" text-anchor="middle" textLength="72" lengthAdjust="spacingAndGlyphs" font-size="22" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#fff" stroke="none">GÉRARD</text>
+</g>
+<g id="boxE" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="-6" cy="8" r="13" fill="#fff"/>
+<circle cx="10" cy="-8" r="14" fill="#fff"/>
+<circle cx="30" cy="-16" r="14" fill="#fff"/>
+<circle cx="52" cy="-16" r="14" fill="#fff"/>
+<circle cx="72" cy="-8" r="14" fill="#fff"/>
+<circle cx="88" cy="8" r="13" fill="#fff"/>
+<circle cx="92" cy="28" r="12" fill="#fff"/>
+<polygon points="0,0 -20,9 -20,133 0,124" fill="#fff"/>
+<rect x="0" y="0" width="84" height="124" fill="#fff"/>
+<path d="M4 -10 q4 -5 8 0 M24 -20 q4 -5 8 0 M46 -20 q4 -5 8 0 M66 -12 q4 -5 8 0 M-10 6 q4 -5 8 0 M86 6 q4 -5 8 0 M90 28 q4 -5 7 0" fill="none" stroke-width="2"/>
+<text x="42" y="96" text-anchor="middle" textLength="76" lengthAdjust="spacingAndGlyphs" font-size="17" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#111" stroke="#111" stroke-width="4" stroke-linejoin="round">ÉLÉONORE</text>
+<text x="42" y="96" text-anchor="middle" textLength="76" lengthAdjust="spacingAndGlyphs" font-size="17" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#fff" stroke="none">ÉLÉONORE</text>
+</g>
+</defs>
+<g stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<g transform="rotate(18 42 170)">
+<path d="M26 124 Q40 140 28 160 M58 124 Q44 140 58 160" stroke-width="9"/>
+<path d="M26 124 Q40 140 28 160 M58 124 Q44 140 58 160" stroke="#fff" stroke-width="4.5"/>
+<use xlink:href="#pump" x="28" y="160"/>
+<use xlink:href="#pump" x="58" y="160"/>
+<use xlink:href="#boxE"/>
+<ellipse cx="14" cy="42" rx="9" ry="5.5" fill="#b79bd0" stroke="none"/>
+<ellipse cx="70" cy="40" rx="8" ry="4.5" fill="#f6c4c4" stroke="none"/>
+<circle cx="30" cy="24" r="8" fill="#fff" stroke-width="2.5"/>
+<circle cx="30" cy="24" r="4" stroke-width="2"/>
+<circle cx="54" cy="24" r="8" fill="#fff" stroke-width="2.5"/>
+<circle cx="54" cy="24" r="4" stroke-width="2"/>
+<path d="M21 10 L38 13 M46 11 L63 8" stroke-width="2.5"/>
+<path d="M28 46 q5 -5 9 0 q5 5 9 0 q5 -5 9 0" stroke-width="2.5"/>
+<path d="M82 70 Q108 30 66 -6" stroke-width="7"/>
+<use xlink:href="#hand" x="62" y="-10"/>
+<path d="M2 70 Q-28 66 -40 84" stroke-width="7"/>
+<use xlink:href="#hand" x="-42" y="88"/>
+</g>
+</g>
+</svg>

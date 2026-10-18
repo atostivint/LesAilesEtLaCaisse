@@ -1,0 +1,274 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipes.gd" id="1_eq"]
+[ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
+[ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="3_font"]
+[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
+[ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+
+[sub_resource type="StyleBoxFlat" id="carte"]
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="bande_vert"]
+bg_color = Color(0.42, 0.54, 0.18, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="bouton_jaune"]
+bg_color = Color(0.99, 0.76, 0.12, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[node name="Equipes" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_eq")
+
+[node name="Fond" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tile")
+
+[node name="Marge" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="Main" type="VBoxContainer" parent="Marge"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Haut" type="HBoxContainer" parent="Marge/Main"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="Titre" type="Label" parent="Marge/Main/Haut/Titres"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_shadow_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_constants/outline_size = 12
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 56
+text = "équipes"
+
+[node name="SousTitre" type="Label" parent="Marge/Main/Haut/Titres"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 22
+text = "Choisis ton camp, puis la couleur de ton savon"
+
+[node name="Retour" type="Button" parent="Marge/Main/Haut"]
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("bouton_jaune")
+theme_override_styles/hover = SubResource("bouton_jaune")
+theme_override_styles/pressed = SubResource("bouton_jaune")
+theme_override_styles/focus = SubResource("bouton_jaune")
+text = "◂ Atelier"
+
+[node name="ReserveMenu" type="Control" parent="Marge/Main/Haut"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+
+[node name="Corps" type="HBoxContainer" parent="Marge/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="Apercu" type="PanelContainer" parent="Marge/Main/Corps"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("carte")
+
+[node name="ApercuBox" type="VBoxContainer" parent="Marge/Main/Corps/Apercu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Nom" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 36
+text = "Savon de Marseille\n« Le savon du vieux porc »"
+
+[node name="Phrase" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.27, 0.1, 1)
+theme_override_font_sizes/font_size = 18
+text = "« Le savon du vieux porc »"
+
+[node name="Zone" type="Control" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Savon" parent="Marge/Main/Corps/Apercu/ApercuBox/Zone" instance=ExtResource("4_soap")]
+unique_name_in_owner = true
+
+[node name="Droite" type="PanelContainer" parent="Marge/Main/Corps"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.4
+theme_override_styles/panel = SubResource("carte")
+
+[node name="DroiteBox" type="VBoxContainer" parent="Marge/Main/Corps/Droite"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Bandeau" type="PanelContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("bande_vert")
+
+[node name="Texte" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox/Bandeau"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 18
+text = "CHOISIS TON ÉQUIPE"
+
+[node name="Equipes" type="GridContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Alep" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon d'Alep\n« Le savon syrieusement sale »"
+
+[node name="Marseille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon de Marseille\n« Le savon du vieux porc »"
+
+[node name="Tripoli" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon de Tripoli\n« Le savon tris pourri »"
+
+[node name="Castille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon de Castille\n« Le savon de la Castagne »"
+
+[node name="Naplouse" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon de Naplouse\n« Le savon de la Nap-loose »"
+
+[node name="Noir" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Savon noir africain\n« Le savon noir de crasse »"
+
+[node name="CouleurTitre" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 16
+text = "COULEUR DU SAVON"
+
+[node name="Swatches" type="HBoxContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Valider" type="Button" parent="Marge/Main"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("bouton_jaune")
+theme_override_styles/hover = SubResource("bouton_jaune")
+theme_override_styles/pressed = SubResource("bouton_jaune")
+theme_override_styles/focus = SubResource("bouton_jaune")
+text = "Valider mon savon"
+
+[connection signal="pressed" from="Marge/Main/Haut/Retour" to="." method="_on_retour_pressed"]
+
+[node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -156.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0
