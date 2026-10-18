@@ -102,6 +102,7 @@ theme_override_constants/separation = 20
 
 [node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut"]
 layout_mode = 2
+size_flags_vertical = 4
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
@@ -129,7 +130,7 @@ text = "Choisis ton camp, puis la couleur de ton savon"
 [node name="Retour" type="Button" parent="Marge/Main/Haut"]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
