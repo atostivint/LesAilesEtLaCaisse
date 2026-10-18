@@ -16,7 +16,7 @@ extends Node2D
 ## Au lancement, on ajuste seulement les tailles qui dépendent des réglages (mur, eau, plafond, porte),
 ## et on pose les fanions de distance (World/Markers) et le parcours (World/CourseView).
 
-enum State { READY, RUN, RESULT }
+enum State {READY, RUN, RESULT}
 
 const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 
@@ -35,19 +35,18 @@ const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 @export_range(0.05, 1.5, 0.05) var shake_decay := 0.45
 
 @export_group("Test rapide (F6 sur cette scène)")
-## Si rempli (ex. "poisson"), ignore la caisse équipée à l'atelier : on teste le vol avec cette caisse.
+## Si rempli (ex. "dollar"), ignore la caisse équipée à l'atelier : on teste le vol avec cette caisse.
 @export var test_crate := ""
 
 var state: State = State.READY
 var tuning: Tuning
 var course: Course
 var result := {}
-var shake := 0.0               # secousse en cours (1 = max, un Tween la ramène à 0)
+var shake := 0.0 # secousse en cours (1 = max, un Tween la ramène à 0)
 var _shake_tween: Tween
 
 @onready var cam: Camera2D = $Camera2D
-@onready var soap: Node2D = $World/Soap
-@onready var flame: Node2D = $World/Soap/Flame
+@onready var soap: Soap = $World/Soap
 @onready var course_view: Node2D = $World/CourseView
 @onready var hud: CanvasLayer = $HUD
 @onready var return_delay: Timer = $ReturnDelay
@@ -62,12 +61,12 @@ func _ready() -> void:
 
 	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
 	spawn_timer.wait_time = tuning.spawn_interval
-	_spawn_segment(tuning.course_start)  # le premier tronçon est déjà là quand le savon attend en haut de la piste
+	_spawn_segment(tuning.course_start) # le premier tronçon est déjà là quand le savon attend en haut de la piste
 	cam.make_current()
 	_fit_world_to_tuning()
 	_place_distance_markers()
 	_update_visuals()
-	cam.reset_smoothing()  # la caméra démarre sur le savon, sans glisser depuis l'origine
+	cam.reset_smoothing() # la caméra démarre sur le savon, sans glisser depuis l'origine
 
 
 func _fit_world_to_tuning() -> void:
@@ -101,7 +100,7 @@ func _input(event: InputEvent) -> void:
 			State.READY:
 				state = State.RUN
 				spawn_timer.start()
-				_shake(1.0)  # lâcher : coup de départ
+				_shake(1.0) # lâcher : coup de départ
 			State.RESULT:
 				if return_delay.is_stopped():
 					get_tree().change_scene_to_file("res://scenes/atelier.tscn")
@@ -115,14 +114,13 @@ func _physics_process(dt: float) -> void:
 
 
 func _finish() -> void:
-
 	state = State.RESULT
 	spawn_timer.stop()
 	blink.stop()
 	soap.modulate = Color.WHITE
 
 	hud.show_result(_result_text())
-	return_delay.start()  # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
+	return_delay.start() # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
 
 
 func _on_return_delay_timeout() -> void:
@@ -136,9 +134,9 @@ func _on_spawn_timer_timeout() -> void:
 
 func _spawn_segment(from_x: float) -> void:
 	if course.spawn_segment(from_x):
-		course_view.sync(tuning, course)
+		course_view.sync (tuning, course)
 	else:
-		spawn_timer.stop()  # ligne d'arrivée proche : plus rien à faire apparaître
+		spawn_timer.stop() # ligne d'arrivée proche : plus rien à faire apparaître
 
 
 func _shake(strength: float) -> void:
@@ -156,11 +154,14 @@ func _process(_delta: float) -> void:
 
 func _update_visuals() -> void:
 	# Savon : position et rotation (y de l'écran va vers le bas, donc rotation inversée).
-
 	# En vol, le centre du savon = le point de collision ; sur la piste, il est un peu au-dessus.
-
 	# Sur la piste le savon suit la pente ; en vol son nez suit la montée / la descente, adouci.
+<< << << < HEAD
 
+== == == =
+	soap.rotation = - tuning.ramp_slope(sim.s) if on_ramp else -atan2(sim.vy, maxf(sim.vx, 1.0)) * 0.6
+	soap.thrusting = sim.thrusting and state == State.RUN # jet maintenu : les ailes battent plus vite
+>> >> >> > 52149d17186c523ae565b090110ec31986cef536
 
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
 	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).

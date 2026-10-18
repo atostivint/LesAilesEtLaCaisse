@@ -16,3 +16,5 @@ extends Resource
 ## Matériaux nécessaires pour la débloquer : {id du matériau: quantité}. Vide = gratuite.
 @export var cost: Dictionary = {}
 @export var color := Color.WHITE
+## Dessin de la caisse portée par le savon en vol (artwork/sprites/caisse_*.svg).
+@export var texture: Texture2D

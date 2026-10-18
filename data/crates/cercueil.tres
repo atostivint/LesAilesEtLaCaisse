@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="CrateData" format=3 uid="uid://wklgwujstrxr"]
 
 [ext_resource type="Script" uid="uid://f6gyud804v5v" path="res://scripts/crate_data.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bln3kdmjcwshs" path="res://artwork/sprites/caisse_cercueil.svg" id="2_tex"]
 
 [resource]
 script = ExtResource("1")
+texture = ExtResource("2_tex")
 id = "cercueil"
 nom = "Caisse cercueil"
 solidite = 2
