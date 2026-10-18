@@ -77,6 +77,7 @@ theme_override_constants/separation = 14
 
 [node name="Haut" type="HBoxContainer" parent="Marge/Main"]
 layout_mode = 2
+alignment = 0
 theme_override_constants/separation = 20
 
 [node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut"]
@@ -108,7 +109,7 @@ text = "Choisis ton camp, puis la couleur de ton savon"
 [node name="Retour" type="Button" parent="Marge/Main/Haut"]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
@@ -241,11 +242,13 @@ text = "Savon noir africain\n« Le savon noir de crasse »"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
 text = "COULEUR DU SAVON"
 
 [node name="Swatches" type="HBoxContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
 unique_name_in_owner = true
 layout_mode = 2
+alignment = 1
 theme_override_constants/separation = 8
 
 [node name="Valider" type="Button" parent="Marge/Main"]

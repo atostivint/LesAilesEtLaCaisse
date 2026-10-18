@@ -158,9 +158,9 @@ theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("btn_yellow")
-theme_override_styles/pressed = SubResource("btn_yellow")
-theme_override_styles/hover = SubResource("btn_yellow")
-theme_override_styles/focus = SubResource("btn_yellow")
+theme_override_styles/pressed = SubResource("btn_cream")
+theme_override_styles/hover = SubResource("btn_cream")
+theme_override_styles/focus = SubResource("btn_cream")
 text = "Nouvelle partie"
 
 [node name="Continuer" type="Button" parent="Boutons"]

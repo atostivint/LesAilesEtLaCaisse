@@ -249,8 +249,9 @@ func _clear(node: Node) -> void:
 
 func _habiller_boutons() -> void:
 	# Lancer le savon : vert, avec une légère pulsation pour donner envie de cliquer
-	for etat in ["normal", "hover", "pressed", "focus"]:
-		launch_button.add_theme_stylebox_override(etat, _card_style(VERT, 40, 6))
+	launch_button.add_theme_stylebox_override("normal", _card_style(VERT, 40, 6))
+	for etat in ["hover", "pressed", "focus"]:
+		launch_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
 	# Équipes : au survol, fond crème et texte orange
 	var equipes_button: Button = get_node("Margin/Main/Haut/EquipesButton")
 	for etat in ["hover", "pressed", "focus"]:

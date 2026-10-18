@@ -101,7 +101,7 @@ func _on_valider() -> void:
 	GameState.set_equipe(_equipe, _couleur)
 	var message := Label.new()
 	message.text = "Savon validé !"
-	message.add_theme_color_override("font_color", BRUN)
+	message.add_theme_color_override("font_color", Color(0.18, 0.4, 0.08, 1))
 	message.add_theme_font_size_override("font_size", 40)
 	message.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	message.offset_top = 16.0

@@ -95,17 +95,17 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -380.0
+offset_bottom = -410.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Colline" type="Polygon2D" parent="Haut"]
 color = Color(0.98, 0.94, 0.84, 1)
-polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 439, 0, 439)
+polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 419, 0, 419)
 
 [node name="Mer" type="Polygon2D" parent="Haut"]
 color = Color(0.35, 0.6, 0.62, 1)
-polygon = PackedVector2Array(0, 402, 1456, 402, 1456, 439, 0, 439)
+polygon = PackedVector2Array(0, 402, 1456, 402, 1456, 419, 0, 419)
 
 [node name="Savon" parent="Haut" instance=ExtResource("4_soap")]
 unique_name_in_owner = true
@@ -138,7 +138,7 @@ layout_mode = 0
 offset_left = 40.0
 offset_top = 120.0
 offset_right = 300.0
-offset_bottom = 430.0
+offset_bottom = 410.0
 expand_mode = 1
 stretch_mode = 5
 
@@ -147,7 +147,7 @@ layout_mode = 0
 offset_left = 1140.0
 offset_top = 110.0
 offset_right = 1410.0
-offset_bottom = 430.0
+offset_bottom = 410.0
 expand_mode = 1
 stretch_mode = 5
 
@@ -157,17 +157,17 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -380.0
+offset_top = -410.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("bas")
 
 [node name="Marge" type="MarginContainer" parent="Bas"]
 layout_mode = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 28
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 56
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 56
+theme_override_constants/margin_bottom = 28
 
 [node name="Colonnes" type="HBoxContainer" parent="Bas/Marge"]
 layout_mode = 2
