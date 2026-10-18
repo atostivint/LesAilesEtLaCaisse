@@ -68,8 +68,9 @@ func _ready() -> void:
 	# Gérard à gauche et Éléonore à droite, dans la pose du palier
 	var numero: int = MOODS_NUMERO[mood]
 	var fichier: String = MOODS_FICHIER[mood]
-	$Haut/Gerard.texture = load("res://artwork/personnages/gerard-%d-%s.svg" % [numero, fichier])
-	$Haut/Eleonore.texture = load("res://artwork/personnages/eleonore-%d-%s.svg" % [numero, fichier])
+	# TODO remettre ça
+	#$Haut/Gerard.texture = load("res://artwork/personnages/gerard-%d-%s.svg" % [numero, fichier])
+	#$Haut/Eleonore.texture = load("res://artwork/personnages/eleonore-%d-%s.svg" % [numero, fichier])
 	# Bouton classement, juste au-dessus de Rejouer
 	var bouton_classement := Button.new()
 	bouton_classement.text = "Classement"
