@@ -1,9 +1,17 @@
 [gd_scene format=3 uid="uid://5yrrq8pk76qm"]
 
 [ext_resource type="Script" uid="uid://b2fgre7yn5pks" path="res://scenes/soap.gd" id="1_3de1x"]
+[ext_resource type="Texture2D" uid="uid://dtaqxwt3eml0l" path="res://artwork/sprites/aile_gauche.svg" id="2_aij5l"]
+[ext_resource type="Texture2D" uid="uid://b27rq47akl4pl" path="res://artwork/sprites/aile_droite.svg" id="3_wwpv0"]
+[ext_resource type="Texture2D" uid="uid://codbfaocqrx5e" path="res://artwork/sprites/savon_bleu_fond.svg" id="4_ds3sy"]
+[ext_resource type="Texture2D" uid="uid://dxopa0kyyetjg" path="res://artwork/sprites/savon_bleu_reflet.svg" id="6_j470b"]
+[ext_resource type="Texture2D" uid="uid://b48vn28w7brq0" path="res://artwork/sprites/savon_bleu_sangles.svg" id="7_4ebm5"]
+[ext_resource type="Texture2D" uid="uid://cxuba43e4c00v" path="res://artwork/sprites/savon_bleu_yeux_blancs.svg" id="8_13xq4"]
+[ext_resource type="Texture2D" uid="uid://lupppk2b8v83" path="res://artwork/sprites/savon_bleu_pupille_gauche.svg" id="9_llde2"]
+[ext_resource type="Texture2D" uid="uid://dy3thawbe65cp" path="res://artwork/sprites/savon_bleu_pupille_droite.svg" id="10_ry3tp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_soap"]
-size = Vector2(56, 38)
+size = Vector2(56, 34)
 
 [sub_resource type="Animation" id="Animation_blink"]
 resource_name = "blink"
@@ -27,32 +35,127 @@ _data = {
 &"blink": SubResource("Animation_blink")
 }
 
+[sub_resource type="Animation" id="Animation_514rs"]
+resource_name = "blink"
+length = 0.1667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.35), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ty8jq"]
+_data = {
+&"blink": SubResource("Animation_514rs")
+}
+
+[sub_resource type="Animation" id="Animation_flap"]
+resource_name = "flap"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AileGauche:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.45, -0.35, 0.45]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AileDroite:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.45, 0.35, -0.45]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_al1vb"]
+_data = {
+&"flap": SubResource("Animation_flap")
+}
+
 [node name="Soap" type="CharacterBody2D" unique_id=674192252]
-modulate = Color(1, 1, 1, 0.35)
 script = ExtResource("1_3de1x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=795917749]
 shape = SubResource("RectangleShape2D_soap")
-
-[node name="Crate" type="Polygon2D" parent="." unique_id=1679724855]
-color = Color(0.6, 0.4, 0.2, 1)
-polygon = PackedVector2Array(-46, -30, -10, -30, -10, -6, -46, -6)
-
-[node name="Wing" type="Polygon2D" parent="." unique_id=295543357]
-color = Color(0.97, 0.97, 0.9, 1)
-polygon = PackedVector2Array(-30, -22, -62, -48, -44, -22)
-
-[node name="Body" type="Polygon2D" parent="." unique_id=72615770]
-color = Color(1, 0.95, 0.8, 1)
-polygon = PackedVector2Array(-28, -19, 28, -19, 28, 19, -28, 19)
-
-[node name="Nose" type="Polygon2D" parent="." unique_id=1407764311]
-color = Color(0.15, 0.1, 0.05, 1)
-polygon = PackedVector2Array(18, -8, 27, -8, 27, 0, 18, 0)
-
-[node name="Flame" type="Polygon2D" parent="." unique_id=1535915072]
-color = Color(1, 0.6, 0.1, 1)
-polygon = PackedVector2Array(-46, -8, -46, 8, -90, 0)
+debug_color = Color(0.97, 0, 0.01616642, 0.41960785)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=851107047]
 libraries/ = SubResource("AnimationLibrary_soap")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=570247325]
+scale = Vector2(0.29, 0.29)
+
+[node name="AileGauche" type="Node2D" parent="Visuals" unique_id=617220446]
+position = Vector2(-57.4, -38.2)
+rotation = 0.45
+
+[node name="Sprite" type="Sprite2D" parent="Visuals/AileGauche" unique_id=1897507841]
+position = Vector2(-50.2, -38.7)
+texture = ExtResource("2_aij5l")
+
+[node name="AileDroite" type="Node2D" parent="Visuals" unique_id=961185788]
+position = Vector2(59.3, -21.7)
+rotation = -0.45
+
+[node name="Sprite" type="Sprite2D" parent="Visuals/AileDroite" unique_id=428649551]
+position = Vector2(50.2, -38.7)
+texture = ExtResource("3_wwpv0")
+
+[node name="Caisse" type="Sprite2D" parent="Visuals" unique_id=967754725]
+position = Vector2(0, -107.93)
+
+[node name="Fond" type="Sprite2D" parent="Visuals" unique_id=1799005951]
+texture = ExtResource("4_ds3sy")
+
+[node name="Reflet" type="Sprite2D" parent="Visuals" unique_id=906688944]
+texture = ExtResource("6_j470b")
+
+[node name="Sangles" type="Sprite2D" parent="Visuals" unique_id=2064047302]
+texture = ExtResource("7_4ebm5")
+
+[node name="YeuxBlancs" type="Sprite2D" parent="Visuals" unique_id=1882783717]
+texture = ExtResource("8_13xq4")
+
+[node name="PupilleGauche" type="Sprite2D" parent="Visuals" unique_id=310623763]
+texture = ExtResource("9_llde2")
+
+[node name="PupilleDroite" type="Sprite2D" parent="Visuals" unique_id=844975146]
+texture = ExtResource("10_ry3tp")
+
+[node name="Bouche" type="Sprite2D" parent="Visuals" unique_id=1751719021]
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." unique_id=1686624989]
+libraries/ = SubResource("AnimationLibrary_ty8jq")
+
+[node name="WingsPlayer" type="AnimationPlayer" parent="." unique_id=908206583]
+libraries/ = SubResource("AnimationLibrary_al1vb")
+autoplay = &"flap"
+
+[node name="GazeTimer" type="Timer" parent="." unique_id=1427567382]
+one_shot = true
+
+[node name="MouthTimer" type="Timer" parent="." unique_id=1487968087]
+wait_time = 1.4
+autostart = true
+
+[connection signal="timeout" from="GazeTimer" to="." method="_on_gaze_timer_timeout"]
+[connection signal="timeout" from="MouthTimer" to="." method="_on_mouth_timer_timeout"]
