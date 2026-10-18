@@ -92,7 +92,7 @@ func _draw_limbs() -> void:
 		var step: float = _phase + (0.0 if side < 0.0 else PI)
 		# Jambe en L : la cuisse se balance, le mollet se plie vers l'arrière, plus fort quand le pied se lève
 		var thigh_angle := sin(step) * 0.7
-		var knee_bend := 0.9 + 0.5 * maxf(0.0, cos(step))
+		var knee_bend := 0.35 + 0.35 * maxf(0.0, cos(step))
 		var hip := _attach(Vector2(HIP_X * side, hip_y))
 		var knee := hip + _dir_of(thigh_angle) * THIGH
 		var foot := knee + _dir_of(thigh_angle - knee_bend) * SHIN
