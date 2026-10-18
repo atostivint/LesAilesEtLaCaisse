@@ -4,7 +4,7 @@ extends Control
 ## Après un vol, un pop-up demande le nom du joueur pour l'ajouter au classement.
 ## « Classement » affiche les meilleurs scores ; « Rejouer » relance un vol.
 
-const VOL := "res://scenes/vol.tscn"
+const NOUVEAU_VOL := "res://scenes/level.tscn"
 const INK := Color(0.984, 0.941, 0.839, 1)
 const BROWN := Color(0.29, 0.165, 0.078, 1)
 const CREME_PANNEAU := Color(0.984, 0.941, 0.839, 1)
@@ -268,7 +268,7 @@ func _afficher_classement() -> void:
 
 
 func _on_rejouer_pressed() -> void:
-	get_tree().change_scene_to_file(VOL)
+	get_tree().change_scene_to_file(NOUVEAU_VOL)
 
 
 func _rafraichir_noms(filtre: String) -> void:
