@@ -1,12 +1,16 @@
 extends Node
-## Musique de fond, jouée en continu sur tout le jeu (autoload « Musique »).
-## Elle démarre dès le lancement et ne s'arrête jamais : chaque écran peut l'appeler sans effet de bord.
+## Musique de fond (autoload « Musique »).
+## Par défaut : The_Bathroom.wav, sur les menus et le reste du jeu. Le vol (course) et les scores
+## jouent La-Sauterelle.mp3 via jouer_piste(PISTE_COURSE). Une piste ne redémarre pas si on la redemande.
 ## Le WAV est lu directement (sans passer par l'import de Godot) : son format est lu dans son en-tête.
+## Le MP3 est lu de la même façon, depuis ses octets.
 
 const PISTE := "res://audio/The_Bathroom.wav"
+const PISTE_COURSE := "res://audio/La-Sauterelle.mp3"
 
 var _lecteur: AudioStreamPlayer
 var _chrono := 0.0
+var _piste := ""
 
 
 func _ready() -> void:
@@ -14,17 +18,24 @@ func _ready() -> void:
 	_lecteur.bus = "Master"
 	_lecteur.volume_db = 0.0
 	add_child(_lecteur)
-	_lecteur.stream = _charger_wav(PISTE)
-	if _lecteur.stream == null:
-		push_warning("Musique : impossible de lire %s" % PISTE)
 	jouer()
 
 
 func jouer() -> void:
+	jouer_piste(PISTE)
+
+
+func jouer_piste(chemin: String) -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+	if chemin != _piste:
+		_piste = chemin
+		_lecteur.stop()
+		_lecteur.stream = _charger(chemin)
+		if _lecteur.stream == null:
+			push_warning("Musique : impossible de lire %s" % chemin)
 	if _lecteur.stream and not _lecteur.playing:
 		_lecteur.play()
-		print("Musique : lecture de %s (durée %.1f s)" % [PISTE, _lecteur.stream.get_length()])
+		print("Musique : lecture de %s (durée %.1f s)" % [chemin, _lecteur.stream.get_length()])
 
 
 func arreter() -> void:
@@ -37,6 +48,15 @@ func _process(delta: float) -> void:
 	if _chrono >= 2.0:
 		_chrono = 0.0
 		print("Musique : en lecture=%s, niveau Master=%.1f dB" % [_lecteur.playing, AudioServer.get_bus_peak_volume_left_db(0, 0)])
+
+
+func _charger(chemin: String) -> AudioStream:
+	if chemin.ends_with(".mp3"):
+		var mp3 := AudioStreamMP3.load_from_buffer(FileAccess.get_file_as_bytes(chemin))
+		if mp3:
+			mp3.loop = true
+		return mp3
+	return _charger_wav(chemin)
 
 
 func _charger_wav(chemin: String) -> AudioStreamWAV:

@@ -226,6 +226,27 @@ func _card_label(text: String, size: int, font: Font, color: Color) -> Label:
 	return label
 
 
+func _bouton_rejouer(bg: Color, survol: bool) -> StyleBoxFlat:
+	## Même style que le bouton « Rejouer » de l'écran des scores : brun au repos, vert au survol (bordure brune).
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg
+	style.content_margin_left = 22.0
+	style.content_margin_right = 22.0
+	style.content_margin_top = 12.0
+	style.content_margin_bottom = 12.0
+	if survol:
+		style.border_color = BROWN
+		style.border_width_left = 4
+		style.border_width_top = 4
+		style.border_width_right = 4
+		style.border_width_bottom = 8
+	style.corner_radius_top_left = 40
+	style.corner_radius_top_right = 40
+	style.corner_radius_bottom_right = 40
+	style.corner_radius_bottom_left = 40
+	return style
+
+
 func _card_style(bg: Color, radius := 30, border := 6) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = bg
@@ -252,10 +273,10 @@ func _clear(node: Node) -> void:
 
 
 func _habiller_boutons() -> void:
-	# Lancer le savon : vert, avec une légère pulsation pour donner envie de cliquer
-	launch_button.add_theme_stylebox_override("normal", _card_style(VERT, 40, 6))
+	# Lancer le savon : mêmes couleurs que « Rejouer » (écran des scores) — brun au repos, vert au survol
+	launch_button.add_theme_stylebox_override("normal", _bouton_rejouer(BROWN, false))
 	for etat in ["hover", "pressed", "focus"]:
-		launch_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
+		launch_button.add_theme_stylebox_override(etat, _bouton_rejouer(VERT, true))
 	# Équipes : au survol, fond crème et texte orange
 	var equipes_button: Button = get_node("Margin/Main/Haut/EquipesButton")
 	for etat in ["hover", "pressed", "focus"]:

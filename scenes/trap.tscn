@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c31hq4ekyct03"]
+[gd_scene load_steps=0 format=3 uid="uid://c31hq4ekyct03"]
 
 [ext_resource type="Script" uid="uid://cwaiddf8xonyc" path="res://scripts/trap.gd" id="1_npg1n"]
 [ext_resource type="Texture2D" uid="uid://b6nnr666o5ptq" path="res://artwork/sprites/obstacle_fleur_de_douche.svg" id="2_62q8x"]

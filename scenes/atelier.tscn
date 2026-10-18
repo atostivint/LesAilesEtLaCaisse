@@ -121,6 +121,7 @@ theme_override_constants/separation = 24
 
 [node name="Titres" type="HBoxContainer" parent="Margin/Main/Haut"]
 layout_mode = 2
+size_flags_vertical = 4
 alignment = 1
 theme_override_constants/separation = 18
 
@@ -364,9 +365,9 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_pressed_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_focus_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("btn_yellow")
 theme_override_styles/hover = SubResource("btn_yellow")
