@@ -34,7 +34,6 @@ const MOODS_FICHIER := {"excellent": "excellent", "bon": "bon", "moyen": "moyen"
 @onready var entete: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/EnTete
 @onready var valeur: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/Valeur
 @onready var droite: VBoxContainer = $Bas/Marge/Colonnes/Droite
-@onready var badge: Panel = $Haut/Badge
 @onready var savon: Soap = %Savon
 
 var _popup_nom: Control
@@ -50,7 +49,6 @@ func _ready() -> void:
 	pastille.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	suite.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	_style_fond(entete, accent, 0, 6.0)
-	_style_fond(badge, accent, 70)
 	pastille_texte.text = d["label"]
 	pastille_texte.add_theme_color_override("font_color", BROWN)
 	serie.text = d["series"]
