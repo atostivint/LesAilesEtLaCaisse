@@ -114,7 +114,8 @@ func _attach(point: Vector2) -> Vector2:
 
 func _dir_of(angle: float) -> Vector2:
 	# Angle mesuré depuis la verticale vers le bas
-	return Vector2(sin(angle), cos(angle))
+	# Miroir selon le sens de la course : jambes et bras se retournent quand le savon repart à gauche
+	return Vector2(sin(angle) * _dir, cos(angle))
 
 
 func _draw_jointed(a: Vector2, b: Vector2, c: Vector2) -> void:
