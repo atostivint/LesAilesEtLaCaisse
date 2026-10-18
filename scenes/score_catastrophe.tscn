@@ -108,13 +108,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -400.0
+offset_bottom = -416.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Colline" type="Polygon2D" parent="Haut"]
 color = Color(0.98, 0.94, 0.84, 1)
-polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 419, 0, 419)
+polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 403, 0, 403)
 
 [node name="Savon" parent="Haut" instance=ExtResource("4_soap")]
 unique_name_in_owner = true
@@ -145,11 +145,12 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -400.0
+offset_top = -416.0
 offset_bottom = -360.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("5_eau")
+couleur = Color(0.2, 0.45, 0.85, 1)
 
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1

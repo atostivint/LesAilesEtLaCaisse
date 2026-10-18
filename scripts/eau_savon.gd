@@ -3,7 +3,8 @@ extends Control
 ## Eau savonneuse en bas de l'écran : une nappe turquoise à bord ondulé, couverte de bulles de mousse.
 
 
-const WATER := Color(0.25, 0.6, 0.62, 1)
+## Couleur de l'eau (réglable par scène).
+@export var couleur := Color(0.25, 0.6, 0.62, 1)
 const FOAM := Color(1, 1, 1, 0.85)
 const BUBBLE_COUNT := 60
 
@@ -34,6 +35,6 @@ func _draw() -> void:
 		points.append(Vector2(x, 14.0 + sin(x * 0.03) * 5.0))
 	points.append(Vector2(size.x, size.y))
 	points.append(Vector2(0.0, size.y))
-	draw_colored_polygon(points, WATER)
+	draw_colored_polygon(points, couleur)
 	for b in _bubbles:
 		draw_circle(Vector2(b.x, b.y), b.z, FOAM)
