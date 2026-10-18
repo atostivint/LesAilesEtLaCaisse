@@ -4,6 +4,11 @@ extends Node
 ## Le WAV est lu directement (sans passer par l'import de Godot) : son format est lu dans son en-tête.
 
 const PISTE := "res://audio/The_Bathroom.wav"
+const REGLAGES := preload("res://scripts/reglages.gd")
+## Niveau de base de la musique (le curseur des réglages s'y ajoute).
+const VOLUME_DB := 6.0
+## En dessous de ce niveau (sur 32767), un échantillon est considéré comme du silence.
+const SEUIL_SILENCE := 40
 
 var _lecteur: AudioStreamPlayer
 var _chrono := 0.0
@@ -12,8 +17,10 @@ var _chrono := 0.0
 func _ready() -> void:
 	_lecteur = AudioStreamPlayer.new()
 	_lecteur.bus = "Master"
-	_lecteur.volume_db = 0.0
+	_lecteur.volume_db = VOLUME_DB
 	add_child(_lecteur)
+	# Réapplique le volume enregistré dans les réglages (jamais appelé avant, le curseur n'était donc pas pris en compte au lancement)
+	REGLAGES.appliquer_volume()
 	_lecteur.stream = _charger_wav(PISTE)
 	if _lecteur.stream == null:
 		push_warning("Musique : impossible de lire %s" % PISTE)
@@ -62,6 +69,7 @@ func _charger_wav(chemin: String) -> AudioStreamWAV:
 		pos += 8 + taille + (taille % 2)
 	if donnees.is_empty() or bits != 16:
 		return null
+	donnees = _couper_silence_fin(donnees, canaux)
 	var onde := AudioStreamWAV.new()
 	onde.format = AudioStreamWAV.FORMAT_16_BITS
 	onde.mix_rate = frequence
@@ -71,3 +79,19 @@ func _charger_wav(chemin: String) -> AudioStreamWAV:
 	onde.loop_begin = 0
 	onde.loop_end = donnees.size() / (2 * canaux)
 	return onde
+
+
+func _couper_silence_fin(donnees: PackedByteArray, canaux: int) -> PackedByteArray:
+	## Retire le silence en fin de fichier : sinon la boucle fait un blanc avant de reprendre.
+	var trame := 2 * canaux
+	var fin := donnees.size() / trame
+	while fin > 0:
+		var debut := (fin - 1) * trame
+		var fort := false
+		for c in canaux:
+			if absi(donnees.decode_s16(debut + 2 * c)) > SEUIL_SILENCE:
+				fort = true
+		if fort:
+			break
+		fin -= 1
+	return donnees.slice(0, fin * trame)

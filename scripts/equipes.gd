@@ -20,9 +20,9 @@ const COULEURS := [
 ## « visage » : index d'yeux et de bouche (voir personnage.gd).
 const EQUIPES := [
 	{"nom": "Alep", "phrase": "« Le savon syrieusement sale »", "visage": 0},
-	{"nom": "Marseille", "phrase": "« Le savon du vieux porc »", "visage": 1},
-	{"nom": "Tripoli", "phrase": "« Le savon tris pourri »", "visage": 2},
-	{"nom": "Castille", "phrase": "« Le savon de la Castagne »", "visage": 3},
+	{"nom": "Marseille", "phrase": "« Le savon du vieux porc »", "visage": 2},
+	{"nom": "Tripoli", "phrase": "« Le savon tris pourri »", "visage": 3},
+	{"nom": "Castille", "phrase": "« Le savon de la Castagne »", "visage": 1},
 ]
 const JAUNE := Color(0.99, 0.76, 0.12, 1)
 const CREME := Color(0.984, 0.941, 0.839, 1)
