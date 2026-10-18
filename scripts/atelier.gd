@@ -26,7 +26,7 @@ const MISSING := Color(0.75, 0.2, 0.12, 1)
 
 @onready var mat_grid: HBoxContainer = %MatGrid
 @onready var crate_list: VBoxContainer = %CrateList
-@onready var preview: Soap = %Preview
+@onready var preview = %Preview
 @onready var name_label: Label = %NameLabel
 @onready var bar_solidite: ProgressBar = %BarSolidite
 @onready var bar_glisse: ProgressBar = %BarGlisse
