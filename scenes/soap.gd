@@ -79,6 +79,9 @@ func _ready() -> void:
 
 func start_flight() -> void:
 	_flight_started = true
+
+	velocity = Vector2(2000, 2000)
+	
 	_thrust_needs_release = true
 	wings_player.play("flap")
 	mouth_timer.start()

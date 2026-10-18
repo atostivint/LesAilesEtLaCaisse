@@ -15,8 +15,8 @@ var tuning: Tuning
 
 @export var trap_timer_init: float = 0.5
 
-@export_range(0, 12) var min_traps_per_spawn := 2
-@export_range(0, 12) var max_traps_per_spawn := 5
+@export_range(0, 12) var min_traps_per_spawn := 0
+@export_range(0, 12) var max_traps_per_spawn := 4
 
 @export_range(0, 1, 0.1) var bonus_spawn_proba = 0.5
 

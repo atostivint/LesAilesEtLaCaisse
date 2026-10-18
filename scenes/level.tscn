@@ -19,7 +19,8 @@ jet_thrust = 8000
 position = Vector2(187, 608)
 
 [node name="Shelf" parent="." unique_id=1178975091 instance=ExtResource("3_w8frs")]
-position = Vector2(155, 630)
+position = Vector2(127.00003, 705)
+rotation = -0.8005434
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1352944768]
 position = Vector2(731, 409)
@@ -43,7 +44,7 @@ offset_bottom = 156.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_w8frs")
 show_percentage = false
 
-[node name="StartPrompt" type="Label" parent="HUD"]
+[node name="StartPrompt" type="Label" parent="HUD" unique_id=939693108]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,14 +58,15 @@ offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 34
-text = "APPUYEZ UNE FOIS POUR LANCER\nEspace · Entrée · ↑ · ↓ · W · clic gauche"
+text = "APPUYEZ UNE FOIS POUR LANCER
+Espace · Entrée · ↑ · ↓ · W · clic gauche"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FlightInstructions" type="Label" parent="HUD"]
+[node name="FlightInstructions" type="Label" parent="HUD" unique_id=182082142]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 10
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,9 +75,10 @@ offset_top = -118.0
 offset_right = -60.0
 offset_bottom = -24.0
 grow_horizontal = 2
+text = "MAINTENEZ Espace, Entrée, ↑, ↓, W ou clic gauche pour activer le jet.
+Relâchez pour tomber; glissez sur la pente d'une étagère pour recharger."
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "MAINTENEZ Espace, Entrée, ↑, ↓, W ou clic gauche pour activer le jet.\nRelâchez pour tomber; glissez sur la pente d'une étagère pour recharger."
 
 [node name="TrapsSpawnerGroup" type="Polygon2D" parent="." unique_id=1986952392]
 unique_name_in_owner = true
@@ -91,29 +94,17 @@ polygon = PackedVector2Array(-24, -23, -30, 29, 17, 26, 24, -17)
 [node name="TrapSpawner3" type="Node2D" parent="TrapsSpawnerGroup" unique_id=252292361]
 position = Vector2(2, 333)
 
-[node name="TrapSpawner6" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1815037865]
-position = Vector2(0, 384)
-
 [node name="TrapSpawner7" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1010639814]
 position = Vector2(-4, 445)
 
 [node name="TrapSpawner8" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1543212575]
-position = Vector2(-2, 594)
-
-[node name="TrapSpawner9" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1254787786]
-position = Vector2(0, 287)
+position = Vector2(0, 563)
 
 [node name="TrapSpawner10" type="Node2D" parent="TrapsSpawnerGroup" unique_id=66283042]
 position = Vector2(1, 222)
 
-[node name="TrapSpawner11" type="Node2D" parent="TrapsSpawnerGroup" unique_id=309613102]
-position = Vector2(5, 159)
-
 [node name="TrapSpawner12" type="Node2D" parent="TrapsSpawnerGroup" unique_id=167362076]
 position = Vector2(4, 101)
-
-[node name="TrapSpawner4" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1439355161]
-position = Vector2(-1, 515)
 
 [node name="TrapSpawner5" type="Node2D" parent="TrapsSpawnerGroup" unique_id=27981436]
 position = Vector2(-1, 665)

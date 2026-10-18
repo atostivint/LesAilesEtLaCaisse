@@ -1,7 +1,5 @@
 todo
 
-lien materiaux
-push
 
 rampe lancement
 eloigner obstacles
