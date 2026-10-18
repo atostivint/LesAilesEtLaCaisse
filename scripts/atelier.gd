@@ -58,7 +58,7 @@ func _refresh_materials(tuning: Tuning) -> void:
 	_clear(mat_grid)
 	for i in tuning.materials.size():
 		var m: MaterialData = tuning.materials[i]
-		mat_grid.add_child(_material_tile(i, m.nom, GameState.stock(m.id)))
+		mat_grid.add_child(_material_tile(i, m, GameState.stock(m.id)))
 
 
 func _refresh_crates(tuning: Tuning) -> void:
@@ -174,20 +174,30 @@ func _on_launch() -> void:
 	get_tree().change_scene_to_file("res://scenes/vol.tscn")
 
 
-func _material_tile(index: int, nom: String, count: int) -> PanelContainer:
+func _material_tile(index: int, materiau: MaterialData, count: int) -> PanelContainer:
 	var tile := PanelContainer.new()
 	tile.custom_minimum_size = Vector2(90, 96)
 	tile.add_theme_stylebox_override("panel", _card_style(CREAM, 14, 4))
 	var box := VBoxContainer.new()
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
-	# Icône provisoire (forme géométrique) en attendant les illustrations
-	var icon = SHAPE_ICON.new()
-	icon.shape = index
-	icon.custom_minimum_size = Vector2(36, 36)
-	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	box.add_child(icon)
+	if materiau.icone:
+		# Dessin du matériau
+		var image := TextureRect.new()
+		image.texture = materiau.icone
+		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		image.custom_minimum_size = Vector2(0, 36)
+		image.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		box.add_child(image)
+	else:
+		# Pas encore de dessin : forme géométrique provisoire
+		var icon = SHAPE_ICON.new()
+		icon.shape = index
+		icon.custom_minimum_size = Vector2(36, 36)
+		icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		box.add_child(icon)
 	var name_text := Label.new()
-	name_text.text = nom
+	name_text.text = materiau.nom
 	name_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name_text.autowrap_mode = TextServer.AUTOWRAP_WORD
 	name_text.add_theme_color_override("font_color", BROWN)

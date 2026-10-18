@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="MaterialData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="MaterialData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/material_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://artwork/materiaux/materiau_pot_peinture.svg" id="2"]
 
 [resource]
 script = ExtResource("1")
 id = "etoile"
-nom = "Étoile"
+nom = "Peinture"
 from = 300.0
 weight = 1.5
+icone = ExtResource("2")

@@ -10,3 +10,5 @@ extends Resource
 @export var from := 0.0
 ## Fréquence parmi les matériaux disponibles.
 @export var weight := 1.0
+## Dessin du matériau (artwork/materiaux/) affiché dans le sac de l'atelier.
+@export var icone: Texture2D
