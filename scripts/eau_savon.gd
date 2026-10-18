@@ -5,6 +5,8 @@ extends Control
 
 ## Couleur de l'eau (réglable par scène).
 @export var couleur := Color(0.25, 0.6, 0.62, 1)
+## Couleur du fond derrière les vagues (transparent = rien).
+@export var fond := Color(0, 0, 0, 0)
 const FOAM := Color(1, 1, 1, 0.85)
 const BUBBLE_COUNT := 60
 
@@ -30,8 +32,9 @@ func _regenerate() -> void:
 
 
 func _draw() -> void:
-	# Fond plein de la couleur de l'eau : pas de trou entre les vagues
-	draw_rect(Rect2(Vector2.ZERO, size), couleur)
+	# Fond derrière les vagues (blanc sur les scores), si la scène en demande un
+	if fond.a > 0.0:
+		draw_rect(Rect2(Vector2.ZERO, size), fond)
 	var points := PackedVector2Array()
 	for x in range(0, int(size.x) + 1, 8):
 		points.append(Vector2(x, 14.0 + sin(x * 0.03) * 5.0))

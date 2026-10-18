@@ -210,3 +210,10 @@ func _lire_json(fichier: String):
 	if f == null:
 		return null
 	return JSON.parse_string(f.get_as_text())
+
+
+func supprimer_partie(numero: int) -> void:
+	## Supprime la sauvegarde d'un emplacement (la partie disparaît des « Continuer »).
+	var dossier := DirAccess.open("user://")
+	if dossier and dossier.file_exists("save_%d.json" % numero):
+		dossier.remove("save_%d.json" % numero)
