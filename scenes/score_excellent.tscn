@@ -170,10 +170,12 @@ theme_override_constants/margin_bottom = 24
 
 [node name="Colonnes" type="HBoxContainer" parent="Bas/Marge"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 40
 
 [node name="Gauche" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
 layout_mode = 2
+size_flags_vertical = 4
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
@@ -230,6 +232,7 @@ text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
 
 [node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
 layout_mode = 2
+size_flags_vertical = 4
 custom_minimum_size = Vector2(360, 0)
 theme_override_constants/separation = 12
 
