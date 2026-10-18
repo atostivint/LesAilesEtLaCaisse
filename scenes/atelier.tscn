@@ -373,11 +373,7 @@ offset_bottom = 16.0
 mouse_filter = 2
 script = ExtResource("7_cad")
 
-[node name="BasMarge" type="MarginContainer" parent="Margin/Main"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 16
-
-[node name="Bas" type="HBoxContainer" parent="Margin/Main/BasMarge"]
+[node name="Bas" type="HBoxContainer" parent="Margin/Main"]
 layout_mode = 2
 alignment = 2
 theme_override_constants/separation = 20
