@@ -35,6 +35,12 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	cam.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
+	%Ceiling.position.x += soap.velocity.x * delta
+	%Ground.position.x += soap.velocity.x * delta
+
+func die():
+	print("LOSE")
+	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
 
 func hit_soap():
 	print("LOSE")
@@ -53,3 +59,8 @@ func spawn_trap():
 		trap.global_position = spawner.global_position
 		trap.soap_entered.connect(hit_soap)
 		add_child(trap)
+
+
+func _on_ground_body_entered(body: Node2D) -> void:
+	if body.name == "Soap":
+		die()
