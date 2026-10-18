@@ -75,7 +75,6 @@ func _physics_process(delta: float) -> void:
 	if not game_started:
 		return
 	cam.position.x += soap.velocity.x * delta
-	carrelage.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
 	%ShelfSpawnersGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta

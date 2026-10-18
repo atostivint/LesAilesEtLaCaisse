@@ -2,9 +2,9 @@ extends Control
 ## Écran de score de fin de vol, un seul modèle pour les 5 paliers (maquettes « Score » : PNG et canvas Claude Design).
 ## Le palier se règle avec `mood` dans l'inspecteur (scènes score_*.tscn) : excellent, bon, moyen, mauvais, catastrophe.
 ## Après un vol, un pop-up demande le nom du joueur pour l'ajouter au classement.
-## « Classement » affiche les meilleurs scores ; « Rejouer » relance un vol.
+## « Classement » affiche les meilleurs scores ; « Rejouer » ramène à l'atelier (matériaux déjà en stock) pour relancer un vol.
 
-const NOUVEAU_VOL := "res://scenes/level.tscn"
+const ATELIER := "res://scenes/atelier.tscn"
 const INK := Color(0.984, 0.941, 0.839, 1)
 const BROWN := Color(0.29, 0.165, 0.078, 1)
 const CREME_PANNEAU := Color(0.984, 0.941, 0.839, 1)
@@ -260,7 +260,7 @@ func _afficher_classement() -> void:
 
 
 func _on_rejouer_pressed() -> void:
-	get_tree().change_scene_to_file(NOUVEAU_VOL)
+	get_tree().change_scene_to_file(ATELIER)
 
 
 func _rafraichir_noms(filtre: String) -> void:
