@@ -1,10 +1,12 @@
-[gd_scene format=3 uid="uid://cqkt2k685nv1s"]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" uid="uid://cbidi30h5srsy" path="res://scripts/score_ecran.gd" id="1_score"]
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="2_tile"]
 [ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="3_font"]
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="4_soap"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
+[ext_resource type="Script" path="res://scripts/eau_savon.gd" id="5_eau"]
 
 [sub_resource type="StyleBoxFlat" id="bas"]
 content_margin_left = 22.0
@@ -117,6 +119,20 @@ offset_bottom = 410.0
 expand_mode = 1
 stretch_mode = 5
 
+
+[node name="Eau" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -496.0
+offset_bottom = -440.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_eau")
+couleur = Color(0.2, 0.45, 0.85, 1)
+fond = Color(1, 1, 1, 1)
 
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1
