@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://c0hakp5uhphkq" path="res://scripts/course_view.gd" id="4_course"]
 [ext_resource type="Script" uid="uid://doqqhb6i7v6pk" path="res://scripts/hud.gd" id="6_hud"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+[ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="5_tile"]
+[ext_resource type="Script" path="res://scripts/moulure_plafond.gd" id="7_moulure"]
+[ext_resource type="Script" path="res://scripts/vagues_eau.gd" id="8_vagues"]
 
 [node name="Vol" type="Node2D" unique_id=1588220501]
 script = ExtResource("1_cigbo")
@@ -30,8 +33,28 @@ offset_top = -3000.0
 offset_right = 16500.0
 color = Color(0.3, 0.33, 0.38, 1)
 
+[node name="Carrelage" type="Control" parent="World/Wall" unique_id=2103874511]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_tile")
+
 [node name="Ceiling" type="ColorRect" parent="World" unique_id=1226224113]
 color = Color(0.89, 0.65, 0.18, 1)
+
+[node name="Moulures" type="Control" parent="World/Ceiling" unique_id=1703318842]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_moulure")
 
 [node name="Edge" type="ColorRect" parent="World/Ceiling" unique_id=1420710979]
 layout_mode = 1
@@ -84,6 +107,16 @@ offset_left = -1500.0
 offset_right = 16500.0
 offset_bottom = 1500.0
 color = Color(0.2, 0.5, 0.8, 0.75)
+
+[node name="Vagues" type="Control" parent="World/Water" unique_id=1936521407]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_vagues")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=179056453]
 script = ExtResource("6_hud")
