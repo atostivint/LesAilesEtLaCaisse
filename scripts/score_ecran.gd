@@ -20,10 +20,6 @@ var MOODS := {
 
 @export_enum("excellent", "bon", "moyen", "mauvais", "catastrophe") var mood := "excellent"
 
-## Numéro de la pose et nom de fichier des personnages (artwork/personnages/).
-const MOODS_NUMERO := {"excellent": 1, "bon": 2, "moyen": 3, "mauvais": 4, "catastrophe": 5}
-const MOODS_FICHIER := {"excellent": "excellent", "bon": "bon", "moyen": "moyen", "mauvais": "mauvais", "catastrophe": "catastrophique"}
-
 @onready var pastille: PanelContainer = $Bas/Marge/Colonnes/Gauche/Entete/Pastille
 @onready var pastille_texte: Label = $Bas/Marge/Colonnes/Gauche/Entete/Pastille/Texte
 @onready var serie: Label = $Bas/Marge/Colonnes/Gauche/Entete/Titre
@@ -34,7 +30,6 @@ const MOODS_FICHIER := {"excellent": "excellent", "bon": "bon", "moyen": "moyen"
 @onready var entete: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/EnTete
 @onready var valeur: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/Valeur
 @onready var droite: VBoxContainer = $Bas/Marge/Colonnes/Droite
-@onready var savon: Soap = %Savon
 
 var _popup_nom: Control
 var _champ_nom: LineEdit
@@ -64,13 +59,9 @@ func _ready() -> void:
 	valeur.text = GameState.tuning.cm(distance)
 	valeur.add_theme_font_size_override("font_size", 56)
 	valeur.add_theme_color_override("font_color", accent)
-	Personnage.appliquer_choisi(savon)
-	# Gérard à gauche et Éléonore à droite, dans la pose du palier
-	var numero: int = MOODS_NUMERO[mood]
-	var fichier: String = MOODS_FICHIER[mood]
-	# TODO remettre ça
-	#$Haut/Gerard.texture = load("res://artwork/personnages/gerard-%d-%s.svg" % [numero, fichier])
-	#$Haut/Eleonore.texture = load("res://artwork/personnages/eleonore-%d-%s.svg" % [numero, fichier])
+	# Savon bleu (Gérard) à gauche et savon rose (Éléonore) à droite, dans la pose du palier
+	$Haut/Gerard.texture = load("res://artwork/sprites/score_%s_bleu.svg" % mood)
+	$Haut/Eleonore.texture = load("res://artwork/sprites/score_%s_rose.svg" % mood)
 	# Bouton classement, juste au-dessus de Rejouer
 	var bouton_classement := Button.new()
 	bouton_classement.text = "Classement"

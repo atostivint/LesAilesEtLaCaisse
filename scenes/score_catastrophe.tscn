@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/score_ecran.gd" id="1_score"]
 [ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
 [ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="3_font"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
-[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
 [ext_resource type="Script" path="res://scripts/eau_savon.gd" id="5_eau"]
 
 [sub_resource type="StyleBoxFlat" id="bas"]
@@ -120,26 +119,23 @@ polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 14
 color = Color(0.35, 0.6, 0.62, 1)
 polygon = PackedVector2Array(0, 402, 1456, 402, 1456, 379, 0, 379)
 
-[node name="Savon" parent="Haut" instance=ExtResource("4_soap")]
-unique_name_in_owner = true
-position = Vector2(720, 330)
-scale = Vector2(3, 3)
-
 [node name="Gerard" type="TextureRect" parent="Haut"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 120.0
+offset_top = 40.0
 offset_right = 300.0
-offset_bottom = 410.0
+offset_bottom = 330.0
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Eleonore" type="TextureRect" parent="Haut"]
 layout_mode = 0
-offset_left = 1140.0
-offset_top = 110.0
-offset_right = 1410.0
-offset_bottom = 410.0
+offset_left = 1050.0
+offset_top = 75.0
+offset_right = 1320.0
+offset_bottom = 375.0
+rotation = -1.5708
+pivot_offset = Vector2(135, 150)
 expand_mode = 1
 stretch_mode = 5
 
@@ -229,7 +225,7 @@ text = "Plus blanc que blanc !"
 
 [node name="Suite" type="PanelContainer" parent="Bas/Marge/Colonnes/Gauche"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 
 
 [node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Suite"]
@@ -237,6 +233,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 24
 text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
+autowrap_mode = 3
 
 [node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
 layout_mode = 2
