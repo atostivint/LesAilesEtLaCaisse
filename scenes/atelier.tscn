@@ -172,11 +172,6 @@ theme_override_styles/normal = SubResource("btn_yellow")
 theme_override_styles/disabled = SubResource("btn_yellow")
 text = "Savon  ▸"
 
-[node name="ReserveMenu" type="Control" parent="Margin/Main/Haut/Boutons/BoutonsBox"]
-custom_minimum_size = Vector2(170, 0)
-layout_mode = 2
-size_flags_vertical = 4
-
 [node name="BoutonMenu" parent="Margin/Main/Haut/Boutons/BoutonsBox" instance=ExtResource("9_menu")]
 custom_minimum_size = Vector2(140, 44)
 layout_mode = 2
@@ -380,7 +375,11 @@ offset_bottom = 16.0
 mouse_filter = 2
 script = ExtResource("7_cad")
 
-[node name="Bas" type="HBoxContainer" parent="Margin/Main"]
+[node name="BasMarge" type="MarginContainer" parent="Margin/Main"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Bas" type="HBoxContainer" parent="Margin/Main/BasMarge"]
 layout_mode = 2
 alignment = 2
 theme_override_constants/separation = 20
