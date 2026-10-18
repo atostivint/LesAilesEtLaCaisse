@@ -36,7 +36,6 @@ func _carte(numero: int) -> Control:
 	resume.autowrap_mode = TextServer.AUTOWRAP_WORD
 	resume.add_theme_font_size_override("font_size", 20)
 	resume.add_theme_color_override("font_color", BRUN)
-	contenu.add_child(resume)
 	var existe := GameState.has_slot(numero)
 	var bouton := Button.new()
 	bouton.custom_minimum_size = Vector2(0, 60)
@@ -56,6 +55,7 @@ func _carte(numero: int) -> Control:
 		bouton.disabled = not existe
 		bouton.pressed.connect(_on_continuer.bind(numero))
 	contenu.add_child(bouton)
+	contenu.add_child(resume)
 	return carte
 
 
