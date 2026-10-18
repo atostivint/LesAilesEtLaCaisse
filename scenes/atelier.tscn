@@ -5,14 +5,16 @@
 [ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
 [ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
 [ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
-[ext_resource type="Resource" path="res://data/crates/crayon.tres" id="c_crayon"]
-[ext_resource type="Resource" path="res://data/crates/poisson.tres" id="c_poisson"]
+[ext_resource type="Resource" uid="uid://wklgwujstrxr" path="res://data/crates/cercueil.tres" id="c_crayon"]
+[ext_resource type="Resource" uid="uid://dbmtjf7qyh7w0" path="res://data/crates/dollar.tres" id="c_poisson"]
 
 [node name="Atelier" type="Control" unique_id=133071181]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_aq6v4")
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=2021053165]

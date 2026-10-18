@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cfk8hsvps53vg"]
+
+[ext_resource type="Script" uid="uid://do2cxnwqyse7o" path="res://scenes/level.gd" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="2_w7c3h"]
+[ext_resource type="PackedScene" uid="uid://b7ms8okbpn1jt" path="res://scenes/shelf.tscn" id="3_w8frs"]
+
+[node name="Level" type="Node2D" unique_id=1548918624]
+script = ExtResource("1_2q6dc")
+
+[node name="Soap" parent="." unique_id=674192252 instance=ExtResource("2_w7c3h")]
+position = Vector2(210, 661)
+
+[node name="Shelf" parent="." unique_id=1178975091 instance=ExtResource("3_w8frs")]
+position = Vector2(174, 737)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1352944768]
+position = Vector2(731, 409)

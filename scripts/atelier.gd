@@ -43,7 +43,7 @@ func _refresh() -> void:
 
 
 func _on_launch() -> void:
-	get_tree().change_scene_to_file("res://scenes/vol.tscn")
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
 
 func _on_reset() -> void:

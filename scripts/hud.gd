@@ -17,15 +17,8 @@ var _popup_tween: Tween
 @onready var return_label: Label = %ReturnLabel
 
 
-func update_run(sim: FlightSim, tuning: Tuning) -> void:
-	distance_label.text = "Distance : %s" % tuning.cm(sim.x)
-	exit_label.text = "Sortie dans %s" % tuning.cm(maxf(0.0, tuning.door_x - sim.x))
-	progress.max_value = tuning.door_x
-	progress.value = sim.x
-	collected_label.text = "Récolte : %s" % tuning.collected_text(sim.collected)
-	speed_label.text = "Vitesse : %s" % tuning.cm_speed(sim.speed())
-	wings_label.text = "Ailes : %s" % ("♥".repeat(sim.wings) + "♡".repeat(sim.max_wings - sim.wings))
-
+func update_run( tuning: Tuning) -> void:
+	pass
 
 func set_hint(text: String) -> void:
 	hint_label.text = text

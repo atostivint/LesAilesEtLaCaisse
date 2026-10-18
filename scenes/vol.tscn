@@ -73,6 +73,7 @@ default_color = Color(0.85, 0.15, 0.15, 1)
 script = ExtResource("4_course")
 
 [node name="Soap" parent="World" unique_id=1752697870 instance=ExtResource("3_soap")]
+position = Vector2(516.99994, -170.00002)
 scale = Vector2(1.6, 1.6)
 
 [node name="Markers" type="Node2D" parent="World" unique_id=684312175]

@@ -9,7 +9,7 @@ const PINCE := preload("res://scenes/pince.tscn")
 const CLOUS := preload("res://scenes/clous.tscn")
 const PICKUP := preload("res://scenes/pickup.tscn")
 
-var _pickups: Array[Node2D] = []   # même ordre que course.pickups
+var _pickups: Array[Node2D] = [] # même ordre que course.pickups
 var _shelf_count := 0
 var _obstacle_count := 0
 
@@ -23,7 +23,7 @@ func sync(tuning: Tuning, course: Course) -> void:
 	_shelf_count = course.shelves.size()
 	for i in range(_obstacle_count, course.obstacles.size()):
 		var o := course.obstacles[i]
-		var obstacle: Control = (PINCE if o["kind"] == Course.KIND_PINCE else CLOUS).instantiate()
+		var obstacle: Node2D = (PINCE if o["kind"] == Course.KIND_PINCE else CLOUS).instantiate()
 		add_child(obstacle)
 		obstacle.setup(_rect_px(tuning, o["rect"]))
 	_obstacle_count = course.obstacles.size()

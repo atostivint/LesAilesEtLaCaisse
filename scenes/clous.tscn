@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_obs"]
 [ext_resource type="PackedScene" path="res://scenes/warning_badge.tscn" id="2_badge"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clous"]
+size = Vector2(100, 26)
+
 [sub_resource type="StyleBoxFlat" id="Style_board"]
 bg_color = Color(0.788, 0.553, 0.31, 1)
 border_width_left = 4
@@ -11,12 +14,11 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.243, 0.141, 0.071, 1)
 
-[node name="Clous" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 100.0
-offset_bottom = 26.0
+[node name="Clous" type="CharacterBody2D"]
 script = ExtResource("1_obs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_clous")
 
 [node name="Board" type="Panel" parent="."]
 layout_mode = 1

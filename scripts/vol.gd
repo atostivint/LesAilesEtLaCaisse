@@ -39,7 +39,6 @@ const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
 @export var test_crate := ""
 
 var state: State = State.READY
-var sim: FlightSim
 var tuning: Tuning
 var course: Course
 var result := {}
@@ -60,7 +59,7 @@ func _ready() -> void:
 	tuning = GameState.tuning
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
 	course = Course.new(tuning, tuning.course_seed)
-	sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
+
 	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
 	spawn_timer.wait_time = tuning.spawn_interval
 	_spawn_segment(tuning.course_start)  # le premier tronçon est déjà là quand le savon attend en haut de la piste
@@ -113,34 +112,15 @@ func _input(event: InputEvent) -> void:
 func _physics_process(dt: float) -> void:
 	if state != State.RUN:
 		return
-	var was_perfect := sim.perfect_takeoff
-	var was_phase := sim.phase
-	sim.step(dt, Input.is_action_pressed("thrust"), Input.is_action_just_pressed("thrust"))
-	if sim.hit_flag:
-		_shake(1.0)  # piège touché
-		blink.play("blink")
-	if sim.invuln <= 0.0 and blink.is_playing():
-		blink.stop()
-		soap.modulate = Color.WHITE
-	if not sim.new_pickups.is_empty():
-		_shake(0.15)  # petite tape quand on ramasse une pièce
-		course_view.collect(sim.new_pickups)
-	if was_phase == FlightSim.Phase.RAMP and sim.phase == FlightSim.Phase.AIR:
-		_shake(0.6)  # décollage
-	if sim.perfect_takeoff and not was_perfect:
-		hud.show_popup("BON DÉCOLLAGE ! +%s" % tuning.cm_speed(tuning.takeoff_bonus), 1.6)
-	if sim.phase >= FlightSim.Phase.STOPPED:
-		_finish()
 
 
 func _finish() -> void:
-	result = GameState.apply_result(sim.x, sim.phase == FlightSim.Phase.EXIT, sim.collected)
+
 	state = State.RESULT
 	spawn_timer.stop()
 	blink.stop()
 	soap.modulate = Color.WHITE
-	if sim.phase == FlightSim.Phase.STOPPED:
-		_shake(1.0)  # plouf
+
 	hud.show_result(_result_text())
 	return_delay.start()  # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
 
@@ -151,7 +131,7 @@ func _on_return_delay_timeout() -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	## Un nouveau tronçon (étagère, pièces, obstacle) apparaît devant le savon.
-	_spawn_segment(sim.x + tuning.spawn_ahead)
+	pass
 
 
 func _spawn_segment(from_x: float) -> void:
@@ -176,20 +156,17 @@ func _process(_delta: float) -> void:
 
 func _update_visuals() -> void:
 	# Savon : position et rotation (y de l'écran va vers le bas, donc rotation inversée).
-	var p := tuning.to_px(sim.x, sim.y)
-	var on_ramp := sim.phase == FlightSim.Phase.RAMP
+
 	# En vol, le centre du savon = le point de collision ; sur la piste, il est un peu au-dessus.
-	soap.position = p - Vector2(0, soap_lift if on_ramp else 0.0)
+
 	# Sur la piste le savon suit la pente ; en vol son nez suit la montée / la descente, adouci.
-	soap.rotation = -tuning.ramp_slope(sim.s) if on_ramp else -atan2(sim.vy, maxf(sim.vx, 1.0)) * 0.6
-	flame.visible = sim.thrusting and state == State.RUN
+
 
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
 	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).
-	cam.position = Vector2(p.x + cam_lead + sim.speed() * cam_speed_lead, -tuning.ceiling * tuning.ppm * 0.5 + 20.0)
+
 	cam.offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * shake_strength * shake
 
-	hud.update_run(sim, tuning)
 	hud.set_hint(_hint())
 
 
@@ -198,15 +175,12 @@ func _hint() -> String:
 		State.READY:
 			return "ESPACE : lâcher le savon   (Échap : atelier)"
 		State.RUN:
-			if sim.phase == FlightSim.Phase.RAMP:
-				return "ESPACE dans la zone rouge du tremplin = bon décollage, puis MAINTIENS ESPACE pour voler"
 			return "MAINTIENS ESPACE : jetpack     relâche : tu retombes     évite les pièges, ramasse les pièces"
 	return ""
 
 
 func _result_text() -> String:
 	var lines: Array[String] = []
-	lines.append("LIGNE D'ARRIVÉE !" if result["door"] else ("PLOUF !" if not sim.broken else "PLUS D'AILES !"))
 	lines.append(tuning.cm(float(result["distance"])))
 	if result["record"]:
 		lines.append("NOUVEAU RECORD !")

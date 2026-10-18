@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://5yrrq8pk76qm"]
 
+[ext_resource type="Script" uid="uid://b2fgre7yn5pks" path="res://scenes/soap.gd" id="1_3de1x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_soap"]
+size = Vector2(56, 38)
+
 [sub_resource type="Animation" id="Animation_blink"]
 resource_name = "blink"
 length = 0.1667
@@ -22,8 +27,11 @@ _data = {
 &"blink": SubResource("Animation_blink")
 }
 
-[node name="Soap" type="Node2D" unique_id=674192252]
-modulate = Color(1, 1, 1, 1)
+[node name="Soap" type="CharacterBody2D" unique_id=674192252]
+script = ExtResource("1_3de1x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=795917749]
+shape = SubResource("RectangleShape2D_soap")
 
 [node name="Crate" type="Polygon2D" parent="." unique_id=1679724855]
 color = Color(0.6, 0.4, 0.2, 1)
@@ -48,8 +56,3 @@ polygon = PackedVector2Array(-46, -8, -46, 8, -90, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=851107047]
 libraries/ = SubResource("AnimationLibrary_soap")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1732252205]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D" unique_id=795917749]
-polygon = PackedVector2Array(-27, -19, -28, 20, 27, 19, 27, -19)
