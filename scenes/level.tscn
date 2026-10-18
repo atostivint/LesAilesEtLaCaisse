@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://b7ms8okbpn1jt" path="res://scenes/shelf.tscn" id="3_w8frs"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8frs"]
+bg_color = Color(1, 0.9666667, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcd8f"]
 size = Vector2(1467, 85.5)
 
@@ -37,6 +40,7 @@ offset_left = 17.0
 offset_top = 132.0
 offset_right = 317.0
 offset_bottom = 156.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_w8frs")
 show_percentage = false
 
 [node name="TrapsSpawnerGroup" type="Polygon2D" parent="." unique_id=1986952392]
