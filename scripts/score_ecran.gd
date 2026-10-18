@@ -43,7 +43,6 @@ var _classement_panneau: Control
 
 
 func _ready() -> void:
-	Musique.arreter()
 	var d: Dictionary = MOODS.get(mood, MOODS["excellent"])
 	var accent: Color = d["accent"]
 	# Pastille et « À SUIVRE » : texte marron sans fond

@@ -57,7 +57,6 @@ var _shake_tween: Tween
 
 
 func _ready() -> void:
-	Musique.arreter()
 	tuning = GameState.tuning
 	var crate_id: String = test_crate if test_crate != "" else GameState.equipped
 	course = Course.new(tuning, tuning.course_seed)
