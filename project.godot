@@ -52,3 +52,7 @@ renderer/rendering_method="gl_compatibility"
 [gui]
 
 theme/custom="res://theme/da.tres"
+
+[audio]
+
+driver/driver="XAudio2"
