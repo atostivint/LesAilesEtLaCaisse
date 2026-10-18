@@ -275,8 +275,7 @@ func _rafraichir_noms(filtre: String) -> void:
 	for enfant in _liste_noms.get_children():
 		enfant.queue_free()
 	var vus := {}
-	for entree in GameState.classement:
-		var nom: String = entree["nom"]
+	for nom in GameState.noms_connus:
 		if vus.has(nom) or (filtre != "" and not nom.to_lower().contains(filtre.strip_edges().to_lower())):
 			continue
 		vus[nom] = true

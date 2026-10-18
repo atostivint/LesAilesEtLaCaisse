@@ -27,6 +27,7 @@ var last_run := {}       # résultat du dernier vol
 var equipe := -1         # index de l'équipe choisie (-1 = aucune)
 var couleur := 0         # index de la couleur du savon
 var classement: Array = []   # [{nom, distance, palier}], du meilleur au moins bon
+var noms_connus: Array = []  # tous les prénoms déjà saisis (pour les proposer, même hors du top du classement)
 var score_en_attente := false  # vrai juste après un vol : l'écran de score demande le nom
 
 
@@ -138,10 +139,12 @@ func charger_partie(numero: int) -> bool:
 func ajouter_au_classement(nom: String, distance: float, palier: String) -> void:
 	## Ajoute un score (distance en unités internes) et garde les meilleurs.
 	classement.append({"nom": nom, "distance": distance, "palier": palier})
+	if not noms_connus.has(nom):
+		noms_connus.append(nom)
 	classement.sort_custom(func(a, b): return a["distance"] > b["distance"])
 	if classement.size() > CLASSEMENT_MAX:
 		classement.resize(CLASSEMENT_MAX)
-	_sauver_json(FICHIER_CLASSEMENT, {"classement": classement})
+	_sauver_json(FICHIER_CLASSEMENT, {"classement": classement, "noms": noms_connus})
 
 
 func reset() -> void:
@@ -191,6 +194,7 @@ func _charger_classement() -> void:
 	var donnees = _lire_json(FICHIER_CLASSEMENT)
 	if typeof(donnees) == TYPE_DICTIONARY:
 		classement = donnees.get("classement", [])
+		noms_connus = donnees.get("noms", [])
 
 
 func _sauver_json(fichier: String, donnees: Dictionary) -> void:
