@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var cruise_speed = 70000
+@export var cruise_speed = 50000
 @export var gravity = 2000
 @export var jet_thrust = 4000
 
@@ -14,6 +14,7 @@ var game_started := false
 var tuning: Tuning
 
 @export var trap_timer_init: float = 0.5
+@export_range(0.5, 30.0, 0.5) var shelf_spawn_interval := 3.0
 
 @export_range(0, 12) var min_traps_per_spawn := 0
 @export_range(0, 12) var max_traps_per_spawn := 4
@@ -21,9 +22,11 @@ var tuning: Tuning
 @export_range(0, 1, 0.1) var bonus_spawn_proba = 0.5
 
 var trap_spawners: Array
+var shelf_spawners: Array
 
 var TRAP = preload("res://scenes/trap.tscn")
 var BONUS = preload("res://scenes/bonus.tscn")
+var SHELF = preload("res://scenes/shelf.tscn")
 
 const SCORES := {"excellent": "res://scenes/score_excellent.tscn", "bon": "res://scenes/score_bon.tscn", "moyen": "res://scenes/score_moyen.tscn", "mauvais": "res://scenes/score_mauvais.tscn", "catastrophe": "res://scenes/score_catastrophe.tscn"}
 
@@ -44,6 +47,9 @@ func _ready() -> void:
 	trap_spawners = %TrapsSpawnerGroup.get_children()
 	%TrapTimer.wait_time = trap_timer_init
 	%TrapTimer.stop()
+	shelf_spawners = %ShelfSpawnersGroup.get_children()
+	%ShelfTimer.wait_time = shelf_spawn_interval
+	%ShelfTimer.stop()
 	
 
 func _input(event: InputEvent) -> void:
@@ -55,6 +61,7 @@ func _start_game() -> void:
 	game_started = true
 	soap.start_flight()
 	%TrapTimer.start()
+	%ShelfTimer.start()
 	start_prompt.hide()
 	flight_instructions.show()
 
@@ -68,6 +75,7 @@ func _physics_process(delta: float) -> void:
 		return
 	cam.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
+	%ShelfSpawnersGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta
 	%Ground.position.x += soap.velocity.x * delta
 
@@ -157,6 +165,17 @@ func spawn_trap():
 			bonus.setup(material)
 			bonus.soap_entered.connect(apply_bonus)
 			add_child(bonus)
+
+
+func spawn_shelf() -> void:
+	if shelf_spawners.is_empty():
+		push_error("Cannot spawn a shelf: ShelfSpawnersGroup has no spawn points.")
+		return
+
+	var spawner: Node2D = shelf_spawners.pick_random()
+	var shelf := SHELF.instantiate() as StaticBody2D
+	add_child(shelf)
+	shelf.global_position = spawner.global_position
 
 
 func _on_ground_body_entered(body: Node2D) -> void:

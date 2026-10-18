@@ -1,19 +1,19 @@
-[gd_scene load_steps=0 format=3 uid="uid://cfk8hsvps53vg"]
+[gd_scene format=3 uid="uid://cfk8hsvps53vg"]
 
 [ext_resource type="Script" uid="uid://do2cxnwqyse7o" path="res://scenes/level.gd" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://b7ms8okbpn1jt" path="res://scenes/shelf.tscn" id="3_w8frs"]
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="4_tile"]
-[ext_resource type="Script" path="res://scripts/moulure_plafond.gd" id="5_moulure"]
+[ext_resource type="Script" uid="uid://bo1gk4icevwnp" path="res://scripts/moulure_plafond.gd" id="5_moulure"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8frs"]
 bg_color = Color(1, 0.9666667, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcd8f"]
-size = Vector2(1467, 85.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plafond"]
 size = Vector2(1467, 147)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcd8f"]
+size = Vector2(1467, 85.5)
 
 [node name="Level" type="Node2D" unique_id=1548918624]
 script = ExtResource("1_2q6dc")
@@ -21,7 +21,8 @@ gravity = 4000
 jet_thrust = 8000
 
 [node name="Carrelage" type="Control" parent="." unique_id=2103874512]
-layout_mode = 0
+layout_mode = 3
+anchors_preset = 0
 offset_left = -1500.0
 offset_top = -500.0
 offset_right = 16500.0
@@ -79,7 +80,6 @@ vertical_alignment = 1
 
 [node name="FlightInstructions" type="Label" parent="HUD" unique_id=182082142]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -126,6 +126,22 @@ position = Vector2(-1, 665)
 [node name="TrapTimer" type="Timer" parent="." unique_id=1938932720]
 unique_name_in_owner = true
 
+[node name="ShelfSpawnersGroup" type="Node2D" parent="." unique_id=2010145281]
+unique_name_in_owner = true
+position = Vector2(1429, 0)
+
+[node name="ShelfSpawner2" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145283]
+position = Vector2(-20, 218)
+
+[node name="ShelfSpawner3" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145284]
+position = Vector2(-11, 437)
+
+[node name="ShelfSpawner4" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145285]
+position = Vector2(-17, 682)
+
+[node name="ShelfTimer" type="Timer" parent="." unique_id=2010145286]
+unique_name_in_owner = true
+
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1317302672]
 unique_name_in_owner = true
 position = Vector2(-29, 0)
@@ -139,7 +155,8 @@ shape = SubResource("RectangleShape2D_plafond")
 polygon = PackedVector2Array(10, -2, 10, 145, 1461, 145, 1461, -2)
 
 [node name="Moulures" type="Control" parent="Ceiling" unique_id=1703318843]
-layout_mode = 0
+layout_mode = 3
+anchors_preset = 0
 offset_left = 10.0
 offset_top = -2.0
 offset_right = 1461.0
@@ -160,4 +177,5 @@ color = Color(0.2, 0.74000007, 0.8, 1)
 polygon = PackedVector2Array(12, -2, 10, 79, 1461, 83, 1459, -2)
 
 [connection signal="timeout" from="TrapTimer" to="." method="spawn_trap"]
+[connection signal="timeout" from="ShelfTimer" to="." method="spawn_shelf"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
