@@ -65,7 +65,7 @@ func _ready() -> void:
 	cam.make_current()
 	_fit_world_to_tuning()
 	_place_distance_markers()
-	_update_visuals()
+#	_update_visuals()
 	cam.reset_smoothing() # la caméra démarre sur le savon, sans glisser depuis l'origine
 
 
@@ -149,19 +149,11 @@ func _shake(strength: float) -> void:
 
 
 func _process(_delta: float) -> void:
-	_update_visuals()
+#	_update_visuals()
 
 
-func _update_visuals() -> void:
-	# Savon : position et rotation (y de l'écran va vers le bas, donc rotation inversée).
-	# En vol, le centre du savon = le point de collision ; sur la piste, il est un peu au-dessus.
-	# Sur la piste le savon suit la pente ; en vol son nez suit la montée / la descente, adouci.
-<< << << < HEAD
 
-== == == =
-	soap.rotation = - tuning.ramp_slope(sim.s) if on_ramp else -atan2(sim.vy, maxf(sim.vx, 1.0)) * 0.6
-	soap.thrusting = sim.thrusting and state == State.RUN # jet maintenu : les ailes battent plus vite
->> >> >> > 52149d17186c523ae565b090110ec31986cef536
+
 
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
 	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).

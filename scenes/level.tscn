@@ -6,12 +6,64 @@
 
 [node name="Level" type="Node2D" unique_id=1548918624]
 script = ExtResource("1_2q6dc")
+gravity = 4000
+jet_thrust = 8000
 
 [node name="Soap" parent="." unique_id=674192252 instance=ExtResource("2_w7c3h")]
-position = Vector2(210, 661)
+position = Vector2(187, 608)
 
 [node name="Shelf" parent="." unique_id=1178975091 instance=ExtResource("3_w8frs")]
-position = Vector2(174, 737)
+position = Vector2(155, 630)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1352944768]
 position = Vector2(731, 409)
+
+[node name="TrapsSpawnerGroup" type="Polygon2D" parent="." unique_id=1986952392]
+unique_name_in_owner = true
+position = Vector2(1429, 32)
+color = Color(1, 0.089999974, 0.089999974, 0)
+polygon = PackedVector2Array(-46, -4, -43, 763, 27, 763, 30, -10)
+
+[node name="TrapSpawner" type="Polygon2D" parent="TrapsSpawnerGroup" unique_id=1346706789]
+position = Vector2(-8, 115)
+color = Color(0, 1, 0.20000005, 0)
+polygon = PackedVector2Array(-24, -23, -30, 29, 17, 26, 24, -17)
+
+[node name="TrapSpawner3" type="Node2D" parent="TrapsSpawnerGroup" unique_id=252292361]
+position = Vector2(2, 333)
+
+[node name="TrapSpawner6" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1815037865]
+position = Vector2(0, 384)
+
+[node name="TrapSpawner7" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1010639814]
+position = Vector2(-4, 445)
+
+[node name="TrapSpawner8" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1543212575]
+position = Vector2(-2, 594)
+
+[node name="TrapSpawner9" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1254787786]
+position = Vector2(0, 287)
+
+[node name="TrapSpawner10" type="Node2D" parent="TrapsSpawnerGroup" unique_id=66283042]
+position = Vector2(1, 222)
+
+[node name="TrapSpawner11" type="Node2D" parent="TrapsSpawnerGroup" unique_id=309613102]
+position = Vector2(5, 159)
+
+[node name="TrapSpawner12" type="Node2D" parent="TrapsSpawnerGroup" unique_id=167362076]
+position = Vector2(4, 101)
+
+[node name="TrapSpawner13" type="Node2D" parent="TrapsSpawnerGroup" unique_id=474345893]
+position = Vector2(8, 33)
+
+[node name="TrapSpawner4" type="Node2D" parent="TrapsSpawnerGroup" unique_id=1439355161]
+position = Vector2(-1, 515)
+
+[node name="TrapSpawner5" type="Node2D" parent="TrapsSpawnerGroup" unique_id=27981436]
+position = Vector2(-1, 665)
+
+[node name="TrapTimer" type="Timer" parent="." unique_id=1938932720]
+unique_name_in_owner = true
+autostart = true
+
+[connection signal="timeout" from="TrapTimer" to="." method="spawn_trap"]

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c31hq4ekyct03"]
+
+[node name="Trap" type="Area2D" unique_id=696545699]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=107363416]
+polygon = PackedVector2Array(1, -1, 1, 21, 23, 21, 23, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=433784082]
+color = Color(1, 0.30005085, 0.23680493, 1)
+polygon = PackedVector2Array(1, 0, 1, 21, 23, 21, 23, 0)
