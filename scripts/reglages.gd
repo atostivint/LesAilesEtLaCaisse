@@ -61,12 +61,12 @@ func _lire_volume() -> float:
 
 
 func _tester_son() -> void:
-	## Un bip de 440 Hz d'une seconde, généré en mémoire et joué sur le bus Master.
+	## Un bip de 220 Hz d'une seconde, généré en mémoire et joué sur le bus Master.
 	var taux := 22050
 	var donnees := PackedByteArray()
 	for i in taux:
 		donnees.append_array(PackedByteArray([0, 0]))
-		donnees.encode_s16(i * 2, int(sin(TAU * 440.0 * i / taux) * 0.3 * 32767.0))
+		donnees.encode_s16(i * 2, int(sin(TAU * 220.0 * i / taux) * 0.3 * 32767.0))
 	var onde := AudioStreamWAV.new()
 	onde.format = AudioStreamWAV.FORMAT_16_BITS
 	onde.mix_rate = taux
