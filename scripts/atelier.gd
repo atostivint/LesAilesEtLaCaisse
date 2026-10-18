@@ -278,7 +278,7 @@ func _habiller_boutons() -> void:
 	for etat in ["hover", "pressed", "focus"]:
 		launch_button.add_theme_stylebox_override(etat, _bouton_rejouer(VERT, true))
 	# Équipes : au survol, fond crème et texte orange
-	var savon_button: Button = get_node("Margin/Main/Haut/SavonButton")
+	var savon_button: Button = get_node("Margin/Main/Haut/Boutons/BoutonsBox/SavonButton")
 	for etat in ["hover", "pressed", "focus"]:
 		savon_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
 	call_deferred("_animer_lancer")
