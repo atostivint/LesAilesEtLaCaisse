@@ -124,6 +124,25 @@ unique_name_in_owner = true
 position = Vector2(720, 330)
 scale = Vector2(3, 3)
 
+[node name="Gerard" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 410.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eleonore" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 1140.0
+offset_top = 110.0
+offset_right = 1410.0
+offset_bottom = 410.0
+expand_mode = 1
+stretch_mode = 5
+
+
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
