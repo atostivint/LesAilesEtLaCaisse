@@ -25,11 +25,19 @@ var trap_spawners: Array
 var TRAP = preload("res://scenes/trap.tscn")
 var BONUS = preload("res://scenes/bonus.tscn")
 
+const SCORES := {"excellent": "res://scenes/score_excellent.tscn", "bon": "res://scenes/score_bon.tscn", "moyen": "res://scenes/score_moyen.tscn", "mauvais": "res://scenes/score_mauvais.tscn", "catastrophe": "res://scenes/score_catastrophe.tscn"}
+
+var _start_x := 0.0 # position x du savon au départ : la distance du vol en découle
+var _collected := {} # matériaux ramassés pendant le vol (confiés à GameState à la fin)
+var _termine := false # vrai dès la fin du vol : évite de changer de scène deux fois (deux pièges touchés le même frame)
+
 func _ready() -> void:
+	Musique.jouer_piste(Musique.PISTE_COURSE)
 	tuning = GameState.tuning
 	soap.cruise_speed = cruise_speed
 	soap.gravity = gravity
 	soap.jet_thrust = jet_thrust
+	_start_x = soap.global_position.x
 	flight_energy_bar.max_value = soap.max_flight_energy
 	flight_energy_bar.value = soap.flight_energy
 	
@@ -64,15 +72,37 @@ func _physics_process(delta: float) -> void:
 	%Ground.position.x += soap.velocity.x * delta
 
 func die():
-	print("LOSE")
-	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
+	_terminer_vol()
 
 func hit_soap():
-	print("LOSE")
-	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
+	_terminer_vol()
+
+func _terminer_vol() -> void:
+	## Fin de vol (chute ou piège) : on enregistre le résultat, puis on passe à l'écran de score du palier.
+	if _termine:
+		return
+	_termine = true
+	var distance := (soap.global_position.x - _start_x) / tuning.ppm
+	GameState.apply_result(distance, distance >= tuning.door_x, _collected)
+	get_tree().change_scene_to_file(SCORES[_palier(distance)])
+
+func _palier(distance: float) -> String:
+	## Même barème que vol.gd : le palier se lit sur la part de la ligne d'arrivée (tuning.door_x) parcourue.
+	var ratio := distance / tuning.door_x
+	if ratio >= 1.0:
+		return "excellent"
+	if ratio >= 0.6:
+		return "bon"
+	if ratio >= 0.35:
+		return "moyen"
+	if ratio >= 0.15:
+		return "mauvais"
+	return "catastrophe"
 
 func apply_bonus(material: MaterialData) -> void:
-	GameState.collect_material(material)
+	if material == null or material.id.is_empty():
+		return
+	_collected[material.id] = int(_collected.get(material.id, 0)) + 1
 
 
 func _pick_bonus_material() -> MaterialData:

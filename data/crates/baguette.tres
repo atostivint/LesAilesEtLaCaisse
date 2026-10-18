@@ -11,10 +11,11 @@ desc = "Ailes en croissants : solide et rapide."
 solidite = 3
 poids = 2
 cost = {
-"elastique": 8,
+"boulon": 2,
+"carton": 3,
+"elastique": 3,
 "etoile": 3,
-"planche": 24,
-"plume": 10
+"planche": 5
 }
 color = Color(0.85, 0.6, 0.3, 1)
 texture = ExtResource("2_tex")

@@ -106,11 +106,11 @@ theme_override_constants/separation = 14
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut" unique_id=1512573380]
+[node name="Titres" type="HBoxContainer" parent="Marge/Main/Haut" unique_id=1512573380]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_constants/separation = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Titre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=1811586187]
 layout_mode = 2
@@ -126,6 +126,7 @@ text = "équipes"
 
 [node name="SousTitre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=360555721]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_constants/outline_size = 6
@@ -136,7 +137,7 @@ text = "Choisis ton camp, puis la couleur de ton savon"
 [node name="Retour" type="Button" parent="Marge/Main/Haut" unique_id=130003554]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
@@ -146,9 +147,18 @@ theme_override_styles/hover = SubResource("bouton_jaune")
 theme_override_styles/focus = SubResource("bouton_jaune")
 text = "◂ Atelier"
 
-[node name="ReserveMenu" type="Control" parent="Marge/Main/Haut" unique_id=465747513]
-custom_minimum_size = Vector2(170, 0)
+[node name="BoutonMenu" parent="Marge/Main/Haut" unique_id=1562156535 instance=ExtResource("9_menu")]
+custom_minimum_size = Vector2(140, 56)
 layout_mode = 2
+size_flags_vertical = 4
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 1
 
 [node name="Corps" type="HBoxContainer" parent="Marge/Main" unique_id=1296988579]
 layout_mode = 2
@@ -289,17 +299,5 @@ theme_override_styles/pressed = SubResource("bouton_marron")
 theme_override_styles/hover = SubResource("bouton_marron")
 theme_override_styles/focus = SubResource("bouton_marron")
 text = "Valider mon savon"
-
-[node name="BoutonMenu" parent="." unique_id=1562156535 instance=ExtResource("9_menu")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 1.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-offset_left = -156.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 60.0
 
 [connection signal="pressed" from="Marge/Main/Haut/Retour" to="." method="_on_retour_pressed"]

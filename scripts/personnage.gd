@@ -23,8 +23,8 @@ const YEUX := [
 	"res://artwork/yeux/yeux_plisses.svg",
 	"res://artwork/yeux/savon_bleu_yeux_inquiets.svg",
 ]
-# Une seule bouche, celle du dépôt, pour tous les personnages (index 1 : sourire)
-const BOUCHES := [1, 1, 1, 1]
+# Une seule bouche, celle du dépôt, pour tous les personnages (sourire)
+const BOUCHE := "res://artwork/sprites/savon_bleu_bouche_sourire.svg"
 
 
 static func appliquer(savon, equipe: int, couleur_corps: Color) -> void:
@@ -41,7 +41,7 @@ static func appliquer(savon, equipe: int, couleur_corps: Color) -> void:
 	var bouche: Sprite2D = savon.get_node("Visuals/Bouche")
 	bouche.visible = true
 	bouche.position = Vector2(0, 12)
-	bouche.texture = savon.mouths[BOUCHES[index]]
+	bouche.texture = load(BOUCHE)
 	savon.body_color = couleur_corps
 
 

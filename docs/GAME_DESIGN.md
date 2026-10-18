@@ -49,10 +49,11 @@ Les caisses sont inspirées des courses Red Bull. Solidité = nombre d'ailes en 
 | Caisse | Description | Coût (matériaux) | Solidité / Poids |
 |---|---|---|---|
 | Caisse classique | La caisse de départ, ailes à plumes. | gratuite | 1 / 1 |
-| Caisse crayon | Propulsion par taille-crayon : plus solide. | 8 planches, 3 plumes | 2 / 1 |
-| Caisse baignoire | Ailes en rideau de douche : lourde, rapide, fragile. | 14 planches, 6 plumes, 4 élastiques | 1 / 2 |
-| Caisse baguette | Ailes en croissants : solide et rapide. | 24 planches, 10 plumes, 8 élastiques, 3 étoiles | 3 / 2 |
-| Caisse poisson | La plus lourde : très solide, très rapide. | 36 planches, 14 plumes, 12 élastiques, 6 étoiles | 2 / 3 |
+| Caisse cercueil | Propulsion par taille-crayon : plus solide. | 5 planches, 5 élastiques | 2 / 1 |
+| Caisse carton | Ailes en carton, boulonnées et peintes. | 5 peintures, 5 boulons, 5 cartons | 1 / 1 |
+| Caisse baignoire | Ailes en rideau de douche : lourde, rapide, fragile. | 3 planches, 2 élastiques, 2 peintures, 2 boulons, 1 carton | 1 / 2 |
+| Caisse baguette | Ailes en croissants : solide et rapide. | 5 planches, 3 élastiques, 3 peintures, 2 boulons, 3 cartons | 3 / 2 |
+| Caisse poisson | La plus lourde : très solide, très rapide. | 7 planches, 5 élastiques, 4 peintures, 4 boulons, 4 cartons | 2 / 3 |
 
 ### Pièges (hors prototype actuel)
 

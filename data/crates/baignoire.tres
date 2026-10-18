@@ -10,9 +10,11 @@ nom = "Caisse baignoire"
 desc = "Ailes en rideau de douche : lourde, rapide, fragile."
 poids = 2
 cost = {
-"elastique": 4,
-"planche": 14,
-"plume": 6
+"boulon": 2,
+"carton": 1,
+"elastique": 2,
+"etoile": 2,
+"planche": 3
 }
 color = Color(0.85, 0.9, 0.9, 1)
 texture = ExtResource("2_tex")
