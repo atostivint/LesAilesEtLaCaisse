@@ -150,21 +150,23 @@ text = "Construis ton bolide"
 [node name="Espace" type="Control" parent="Margin/Main/Haut"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
-[node name="EquipesButton" type="Button" parent="Margin/Main/Haut"]
-custom_minimum_size = Vector2(200, 52)
+[node name="SavonButton" type="Button" parent="Margin/Main/Haut"]
+custom_minimum_size = Vector2(150, 44)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_disabled_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("btn_yellow")
 theme_override_styles/disabled = SubResource("btn_yellow")
-text = "Équipes  ▸"
+text = "Savon  ▸"
 
 [node name="ReserveMenu" type="Control" parent="Margin/Main/Haut"]
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="Corps" type="HBoxContainer" parent="Margin/Main"]
 layout_mode = 2
@@ -363,19 +365,16 @@ theme_override_constants/separation = 20
 
 [node name="LaunchButton" type="Button" parent="Margin/Main/Bas"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 48)
+custom_minimum_size = Vector2(340, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_pressed_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_focus_color = Color(0.984, 0.941, 0.839, 1)
-theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("btn_yellow")
-theme_override_styles/hover = SubResource("btn_yellow")
-theme_override_styles/pressed = SubResource("btn_yellow")
-theme_override_styles/focus = SubResource("btn_yellow")
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
 text = "LANCER LE SAVON !"
 
-[connection signal="pressed" from="Margin/Main/Haut/EquipesButton" to="." method="_on_equipes_pressed"]
+[connection signal="pressed" from="Margin/Main/Haut/SavonButton" to="." method="_on_savon_pressed"]
 
 [node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
 anchor_left = 1.0
