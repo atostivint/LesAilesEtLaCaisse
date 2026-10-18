@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://do2cxnwqyse7o" path="res://scenes/level.gd" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://b7ms8okbpn1jt" path="res://scenes/shelf.tscn" id="3_w8frs"]
+[ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="4_tile"]
+[ext_resource type="Script" path="res://scripts/moulure_plafond.gd" id="5_moulure"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8frs"]
 bg_color = Color(1, 0.9666667, 0, 1)
@@ -10,10 +12,22 @@ bg_color = Color(1, 0.9666667, 0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcd8f"]
 size = Vector2(1467, 85.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plafond"]
+size = Vector2(1467, 147)
+
 [node name="Level" type="Node2D" unique_id=1548918624]
 script = ExtResource("1_2q6dc")
 gravity = 4000
 jet_thrust = 8000
+
+[node name="Carrelage" type="Control" parent="." unique_id=2103874512]
+layout_mode = 0
+offset_left = -1500.0
+offset_top = -500.0
+offset_right = 16500.0
+offset_bottom = 1300.0
+mouse_filter = 2
+script = ExtResource("4_tile")
 
 [node name="Soap" parent="." unique_id=674192252 instance=ExtResource("2_w7c3h")]
 position = Vector2(187, 608)
@@ -87,7 +101,7 @@ color = Color(1, 0.089999974, 0.089999974, 0)
 polygon = PackedVector2Array(-46, -4, -43, 763, 27, 763, 30, -10)
 
 [node name="TrapSpawner" type="Polygon2D" parent="TrapsSpawnerGroup" unique_id=1346706789]
-position = Vector2(-8, 115)
+position = Vector2(-8, 190)
 color = Color(0, 1, 0.20000005, 0)
 polygon = PackedVector2Array(-24, -23, -30, 29, 17, 26, 24, -17)
 
@@ -104,7 +118,7 @@ position = Vector2(0, 563)
 position = Vector2(1, 222)
 
 [node name="TrapSpawner12" type="Node2D" parent="TrapsSpawnerGroup" unique_id=167362076]
-position = Vector2(4, 101)
+position = Vector2(4, 175)
 
 [node name="TrapSpawner5" type="Node2D" parent="TrapsSpawnerGroup" unique_id=27981436]
 position = Vector2(-1, 665)
@@ -118,11 +132,20 @@ position = Vector2(-29, 0)
 scale = Vector2(1.04, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1440828113]
-position = Vector2(741, 43.25)
-shape = SubResource("RectangleShape2D_vcd8f")
+position = Vector2(741, 71.5)
+shape = SubResource("RectangleShape2D_plafond")
 
 [node name="Polygon2D" type="Polygon2D" parent="Ceiling" unique_id=1427084172]
-polygon = PackedVector2Array(12, -2, 10, 79, 1461, 83, 1459, -2)
+polygon = PackedVector2Array(10, -2, 10, 145, 1461, 145, 1461, -2)
+
+[node name="Moulures" type="Control" parent="Ceiling" unique_id=1703318843]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -2.0
+offset_right = 1461.0
+offset_bottom = 143.0
+mouse_filter = 2
+script = ExtResource("5_moulure")
 
 [node name="Ground" type="Area2D" parent="." unique_id=2128209958]
 unique_name_in_owner = true

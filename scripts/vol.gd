@@ -123,15 +123,9 @@ func _finish() -> void:
 	spawn_timer.stop()
 	blink.stop()
 	soap.modulate = Color.WHITE
-<< << << < HEAD
-
-	hud.show_result(_result_text())
-	return_delay.start() # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
-== == == =
 	if sim.phase == FlightSim.Phase.STOPPED:
 		_shake(1.0) # plouf
 	return_delay.start() # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
->> >> >> > menu - titre
 
 
 func _aller_au_score() -> void:
@@ -201,5 +195,3 @@ func _result_text() -> String:
 	lines.append("Récolte : %s" % tuning.collected_text(result["collected"]))
 	lines.append("Record : %s" % tuning.cm(GameState.best))
 	return "\n".join(lines)
-== == == =
->> >> >> > menu - titre

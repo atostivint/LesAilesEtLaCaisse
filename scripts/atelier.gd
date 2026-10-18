@@ -168,7 +168,7 @@ func _on_fabriquer() -> void:
 	_refresh()
 
 
-func _on_equipes_pressed() -> void:
+func _on_savon_pressed() -> void:
 	get_tree().change_scene_to_file(EQUIPES)
 
 
@@ -278,9 +278,9 @@ func _habiller_boutons() -> void:
 	for etat in ["hover", "pressed", "focus"]:
 		launch_button.add_theme_stylebox_override(etat, _bouton_rejouer(VERT, true))
 	# Équipes : au survol, fond crème et texte orange
-	var equipes_button: Button = get_node("Margin/Main/Haut/EquipesButton")
+	var savon_button: Button = get_node("Margin/Main/Haut/Boutons/BoutonsBox/SavonButton")
 	for etat in ["hover", "pressed", "focus"]:
-		equipes_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
+		savon_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
 	call_deferred("_animer_lancer")
 
 
