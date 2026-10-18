@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bni600guymhj5" path="res://data/crates/classique.tres" id="c_classique"]
 [ext_resource type="Resource" uid="uid://wklgwujstrxr" path="res://data/crates/cercueil.tres" id="c_crayon"]
 [ext_resource type="Resource" uid="uid://dbmtjf7qyh7w0" path="res://data/crates/dollar.tres" id="c_poisson"]
+[ext_resource type="Resource" uid="uid://c4rt0nbx1raka" path="res://data/crates/carton.tres" id="c_carton"]
 [ext_resource type="Script" uid="uid://cfri0lelhv7cx" path="res://scripts/material_data.gd" id="md"]
 [ext_resource type="Resource" path="res://data/materials/boulon.tres" id="m_boulon"]
 [ext_resource type="Resource" path="res://data/materials/carton.tres" id="m_carton"]
@@ -18,7 +19,7 @@
 [resource]
 script = ExtResource("1")
 materials = Array[ExtResource("md")]([ExtResource("m_planche"), ExtResource("m_plume"), ExtResource("m_elastique"), ExtResource("m_etoile"), ExtResource("m_boulon"), ExtResource("m_carton")])
-crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson")])
+crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson"), ExtResource("c_carton")])
 speed_ease = 4.0
 jet_gravity = 50.0
 jet_thrust = 225.0

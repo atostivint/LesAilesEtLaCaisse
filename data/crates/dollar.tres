@@ -10,10 +10,11 @@ nom = "Caisse dollar"
 solidite = 2
 poids = 3
 cost = {
-"elastique": 12,
-"etoile": 6,
-"planche": 36,
-"plume": 14
+"boulon": 4,
+"carton": 4,
+"elastique": 5,
+"etoile": 4,
+"planche": 7
 }
 color = Color(0.35, 0.6, 0.65, 1)
 texture = ExtResource("2_tex")

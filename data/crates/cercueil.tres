@@ -9,8 +9,8 @@ id = "cercueil"
 nom = "Caisse cercueil"
 solidite = 2
 cost = {
-"planche": 8,
-"plume": 3
+"elastique": 5,
+"planche": 5
 }
 color = Color(0.9, 0.75, 0.2, 1)
 texture = ExtResource("2_tex")
