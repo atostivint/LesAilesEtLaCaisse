@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="MaterialData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://dlkbsjfa6i0nv"]
 
-[ext_resource type="Script" path="res://scripts/material_data.gd" id="1"]
-[ext_resource type="Texture2D" path="res://artwork/materiaux/materiau_carton.svg" id="2"]
+[ext_resource type="Script" uid="uid://cfri0lelhv7cx" path="res://scripts/material_data.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dsf5s0ismbt4j" path="res://artwork/materiaux/materiau_carton.svg" id="2"]
 
 [resource]
 script = ExtResource("1")
 id = "carton"
 nom = "Carton"
-from = 0.0
 weight = 2.0
 icone = ExtResource("2")

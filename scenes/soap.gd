@@ -1,3 +1,4 @@
+class_name Soap
 extends CharacterBody2D
 
 var cruise_speed: float
@@ -64,6 +65,8 @@ var _gaze_tween: Tween
 var SHELF_SLOPE_TANGENT := Vector2(221.0, 71.0).normalized()
 var SHELF_SLOPE_NORMAL := Vector2(-71.0, 221.0).normalized()
 const MIN_SLOPE_SLIDE_SPEED := 40.0
+var _flight_started := false
+var _thrust_needs_release := true
 
 func _ready() -> void:
 	velocity = Vector2(1, 1)
@@ -72,13 +75,25 @@ func _ready() -> void:
 	$Visuals/Fond.self_modulate = body_color
 	mouth_timer.wait_time = mouth_interval
 	_show_mouth()
+
+
+func start_flight() -> void:
+	_flight_started = true
+	_thrust_needs_release = true
+	wings_player.play("flap")
+	mouth_timer.start()
 	_wait_next_glance()
 
 func _physics_process(delta: float) -> void:
+	if not _flight_started:
+		return
+
 	velocity += Vector2(0, gravity) * delta
 	velocity.x = cruise_speed * delta
 	
-	thrusting = Input.is_action_pressed("thrust") and flight_energy > 0.0
+	if _thrust_needs_release and not Input.is_action_pressed("thrust"):
+		_thrust_needs_release = false
+	thrusting = not _thrust_needs_release and Input.is_action_pressed("thrust") and flight_energy > 0.0
 	if thrusting:
 		if Input.is_action_just_pressed("thrust"):
 			velocity.y = 0.0

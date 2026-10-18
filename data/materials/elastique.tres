@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="MaterialData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://c1oydhvva7dtn"]
 
-[ext_resource type="Script" path="res://scripts/material_data.gd" id="1"]
-[ext_resource type="Texture2D" path="res://artwork/materiaux/materiau_elastique.svg" id="2"]
+[ext_resource type="Script" uid="uid://cfri0lelhv7cx" path="res://scripts/material_data.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://7nbnyrm85ue8" path="res://artwork/materiaux/materiau_elastique.svg" id="2"]
 
 [resource]
 script = ExtResource("1")
 id = "elastique"
 nom = "Élastique"
-from = 0.0
 weight = 4.0
 icone = ExtResource("2")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Tuning" load_steps=15 format=3 uid="uid://cdn7rcviiap4d"]
+[gd_resource type="Resource" script_class="Tuning" format=3 uid="uid://cdn7rcviiap4d"]
 
 [ext_resource type="Script" uid="uid://du5s6nhtr7ph8" path="res://scripts/tuning.gd" id="1"]
 [ext_resource type="Script" uid="uid://f6gyud804v5v" path="res://scripts/crate_data.gd" id="cd"]
@@ -10,10 +10,10 @@
 [ext_resource type="Script" uid="uid://cfri0lelhv7cx" path="res://scripts/material_data.gd" id="md"]
 [ext_resource type="Resource" path="res://data/materials/boulon.tres" id="m_boulon"]
 [ext_resource type="Resource" path="res://data/materials/carton.tres" id="m_carton"]
-[ext_resource type="Resource" path="res://data/materials/elastique.tres" id="m_elastique"]
-[ext_resource type="Resource" path="res://data/materials/etoile.tres" id="m_etoile"]
-[ext_resource type="Resource" path="res://data/materials/planche.tres" id="m_planche"]
-[ext_resource type="Resource" path="res://data/materials/plume.tres" id="m_plume"]
+[ext_resource type="Resource" uid="uid://c1oydhvva7dtn" path="res://data/materials/elastique.tres" id="m_elastique"]
+[ext_resource type="Resource" uid="uid://clhru1x6m356g" path="res://data/materials/etoile.tres" id="m_etoile"]
+[ext_resource type="Resource" uid="uid://nx711m1k2qms" path="res://data/materials/planche.tres" id="m_planche"]
+[ext_resource type="Resource" uid="uid://ceyq50worddnl" path="res://data/materials/plume.tres" id="m_plume"]
 
 [resource]
 script = ExtResource("1")

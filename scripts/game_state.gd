@@ -66,6 +66,14 @@ func stock(mat: String) -> int:
 	return int(materials.get(mat, 0))
 
 
+func collect_material(material: MaterialData) -> void:
+	if material == null or material.id.is_empty():
+		push_error("Cannot collect a material without a valid MaterialData ID.")
+		return
+	materials[material.id] = stock(material.id) + 1
+	save_game()
+
+
 func is_unlocked(id: String) -> bool:
 	return unlocked.has(id)
 

@@ -148,14 +148,12 @@ libraries/ = SubResource("AnimationLibrary_ty8jq")
 
 [node name="WingsPlayer" type="AnimationPlayer" parent="." unique_id=908206583]
 libraries/ = SubResource("AnimationLibrary_al1vb")
-autoplay = &"flap"
 
 [node name="GazeTimer" type="Timer" parent="." unique_id=1427567382]
 one_shot = true
 
 [node name="MouthTimer" type="Timer" parent="." unique_id=1487968087]
 wait_time = 1.4
-autostart = true
 
 [connection signal="timeout" from="GazeTimer" to="." method="_on_gaze_timer_timeout"]
 [connection signal="timeout" from="MouthTimer" to="." method="_on_mouth_timer_timeout"]

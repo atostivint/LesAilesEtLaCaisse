@@ -1,32 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://uh1v6m3ptypi"]
+[gd_scene format=3 uid="uid://uh1v6m3ptypi"]
 
 [ext_resource type="Script" uid="uid://cwre3s5j0w81b" path="res://main_menu.gd" id="1_hv5mw"]
-[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="6_soap"]
 [ext_resource type="Script" uid="uid://bv4h2ocnd65a8" path="res://scripts/menu_runner.gd" id="2_run"]
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="3_tile"]
 [ext_resource type="Script" uid="uid://b62jiow73o68x" path="res://scripts/eau_savon.gd" id="4_eau"]
+[ext_resource type="Texture2D" uid="uid://bmacnqyvlkylp" path="res://artwork/sprites/savon_bleu_bouche_grimace.svg" id="5_1u4yv"]
 [ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="5_font"]
-
-[sub_resource type="StyleBoxFlat" id="btn_marron"]
-content_margin_left = 22.0
-content_margin_right = 22.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.29, 0.165, 0.078, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 10
-border_color = Color(0.2, 0.11, 0.05, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
+[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="6_soap"]
+[ext_resource type="Texture2D" uid="uid://bx5n4ni7fnnxw" path="res://artwork/sprites/savon_bleu_bouche_inquiete.svg" id="6_utccf"]
+[ext_resource type="Texture2D" uid="uid://c0c43ouj35xis" path="res://artwork/sprites/savon_bleu_bouche_moue.svg" id="7_dlqu6"]
+[ext_resource type="Texture2D" uid="uid://cndr5p0jcu7uf" path="res://artwork/sprites/savon_bleu_bouche_sourire.svg" id="8_nnwcl"]
+[ext_resource type="Texture2D" uid="uid://ts2qb5sliieh" path="res://artwork/sprites/savon_bleu_bouche_surprise.svg" id="9_pp1d3"]
 
 [sub_resource type="StyleBoxFlat" id="btn_vert"]
 content_margin_left = 22.0
-content_margin_right = 22.0
 content_margin_top = 10.0
+content_margin_right = 22.0
 content_margin_bottom = 10.0
 bg_color = Color(0.42, 0.54, 0.18, 1)
 border_width_left = 6
@@ -39,49 +28,17 @@ corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
-[sub_resource type="StyleBoxFlat" id="pill"]
+[sub_resource type="StyleBoxFlat" id="btn_marron"]
 content_margin_left = 22.0
-content_margin_right = 22.0
 content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.984, 0.941, 0.839, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.29, 0.165, 0.078, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-
-[sub_resource type="StyleBoxFlat" id="btn_yellow"]
-content_margin_left = 22.0
 content_margin_right = 22.0
-content_margin_top = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.99, 0.76, 0.12, 1)
+bg_color = Color(0.29, 0.165, 0.078, 1)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 10
-border_color = Color(0.29, 0.165, 0.078, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-
-[sub_resource type="StyleBoxFlat" id="btn_cream"]
-content_margin_left = 22.0
-content_margin_right = 22.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.984, 0.941, 0.839, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 10
-border_color = Color(0.29, 0.165, 0.078, 1)
+border_color = Color(0.2, 0.11, 0.05, 1)
 corner_radius_top_left = 40
 corner_radius_top_right = 40
 corner_radius_bottom_right = 40
@@ -89,8 +46,8 @@ corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="btn_disabled"]
 content_margin_left = 22.0
-content_margin_right = 22.0
 content_margin_top = 10.0
+content_margin_right = 22.0
 content_margin_bottom = 10.0
 bg_color = Color(0.72, 0.72, 0.72, 1)
 border_width_left = 6
@@ -105,8 +62,8 @@ corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="score_panel"]
 content_margin_left = 22.0
-content_margin_right = 22.0
 content_margin_top = 10.0
+content_margin_right = 22.0
 content_margin_bottom = 10.0
 bg_color = Color(0.984, 0.941, 0.839, 1)
 border_width_left = 6
@@ -119,7 +76,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1752383985]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hv5mw")
 
-[node name="Fond" type="Control" parent="."]
+[node name="Fond" type="Control" parent="." unique_id=1307705922]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,34 +94,35 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_tile")
 
-[node name="Etagere" type="Node2D" parent="."]
+[node name="Etagere" type="Node2D" parent="." unique_id=267384423]
 
-[node name="Planche" type="Polygon2D" parent="Etagere"]
+[node name="Planche" type="Polygon2D" parent="Etagere" unique_id=724895415]
 color = Color(0.6, 0.36, 0.18, 1)
 polygon = PackedVector2Array(0, 520, 580, 520, 580, 542, 0, 542)
 
-[node name="MontantG" type="Polygon2D" parent="Etagere"]
+[node name="MontantG" type="Polygon2D" parent="Etagere" unique_id=16498107]
 color = Color(0.42, 0.24, 0.12, 1)
 polygon = PackedVector2Array(30, 542, 50, 542, 50, 572, 30, 572)
 
-[node name="MontantD" type="Polygon2D" parent="Etagere"]
+[node name="MontantD" type="Polygon2D" parent="Etagere" unique_id=457708742]
 color = Color(0.42, 0.24, 0.12, 1)
 polygon = PackedVector2Array(500, 542, 520, 542, 520, 572, 500, 572)
 
-[node name="Coureur" type="Node2D" parent="."]
+[node name="Coureur" type="Node2D" parent="." unique_id=775737576]
 position = Vector2(150, 520)
 script = ExtResource("2_run")
 
-[node name="Savon" parent="Coureur" instance=ExtResource("6_soap")]
+[node name="Savon" parent="Coureur" unique_id=1696874375 instance=ExtResource("6_soap")]
+mouths = Array[Texture2D]([ExtResource("5_1u4yv"), ExtResource("6_utccf"), ExtResource("7_dlqu6"), ExtResource("8_nnwcl"), ExtResource("9_pp1d3")])
 
-[node name="Eau" type="Control" parent="."]
+[node name="Eau" type="Control" parent="." unique_id=1443041882]
 anchors_preset = 0
 offset_top = 740.0
 offset_right = 1456.0
 offset_bottom = 819.0
 script = ExtResource("4_eau")
 
-[node name="Titre" type="Label" parent="."]
+[node name="Titre" type="Label" parent="." unique_id=1104752963]
 layout_mode = 0
 offset_left = 760.0
 offset_top = 20.0
@@ -181,7 +139,7 @@ theme_override_font_sizes/font_size = 92
 text = "Les ailes
 et la caisse"
 
-[node name="Sous-titre" type="Label" parent="."]
+[node name="Sous-titre" type="Label" parent="." unique_id=622477877]
 layout_mode = 0
 offset_left = 776.0
 offset_top = 290.0
@@ -193,7 +151,7 @@ theme_override_font_sizes/font_size = 40
 text = "Satisfait ou remoussé"
 horizontal_alignment = 1
 
-[node name="Boutons" type="VBoxContainer" parent="."]
+[node name="Boutons" type="VBoxContainer" parent="." unique_id=1874568896]
 layout_mode = 0
 offset_left = 776.0
 offset_top = 400.0
@@ -201,65 +159,65 @@ offset_right = 1406.0
 offset_bottom = 762.0
 theme_override_constants/separation = 14
 
-[node name="Jouer" type="Button" parent="Boutons"]
+[node name="Jouer" type="Button" parent="Boutons" unique_id=22785322]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_hover_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("btn_vert")
-theme_override_styles/hover = SubResource("btn_vert")
 theme_override_styles/pressed = SubResource("btn_vert")
+theme_override_styles/hover = SubResource("btn_vert")
 theme_override_styles/focus = SubResource("btn_vert")
 text = "Nouvelle partie"
 
-[node name="Continuer" type="Button" parent="Boutons"]
+[node name="Continuer" type="Button" parent="Boutons" unique_id=2125870882]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
-theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("btn_marron")
-theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/pressed = SubResource("btn_marron")
-theme_override_styles/focus = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/disabled = SubResource("btn_disabled")
-theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_styles/focus = SubResource("btn_marron")
 text = "Continuer"
 
-[node name="Reglages" type="Button" parent="Boutons"]
+[node name="Reglages" type="Button" parent="Boutons" unique_id=1100497700]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
-theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("btn_marron")
-theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/pressed = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/focus = SubResource("btn_marron")
 text = "Réglages"
 
-[node name="Credits" type="Button" parent="Boutons"]
+[node name="Credits" type="Button" parent="Boutons" unique_id=212940124]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
-theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("btn_marron")
-theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/pressed = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
 theme_override_styles/focus = SubResource("btn_marron")
 text = "Crédits"
 
-[node name="Score" type="PanelContainer" parent="."]
+[node name="Score" type="PanelContainer" parent="." unique_id=1405803922]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 580.0
@@ -267,18 +225,18 @@ offset_right = 380.0
 offset_bottom = 730.0
 theme_override_styles/panel = SubResource("score_panel")
 
-[node name="Contenu" type="VBoxContainer" parent="Score"]
+[node name="Contenu" type="VBoxContainer" parent="Score" unique_id=1092189320]
 layout_mode = 2
 alignment = 1
 
-[node name="Titre" type="Label" parent="Score/Contenu"]
+[node name="Titre" type="Label" parent="Score/Contenu" unique_id=68041151]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 22
 text = "MEILLEUR SCORE"
 horizontal_alignment = 1
 
-[node name="Valeur" type="Label" parent="Score/Contenu"]
+[node name="Valeur" type="Label" parent="Score/Contenu" unique_id=878821855]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 72

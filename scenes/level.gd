@@ -7,11 +7,16 @@ extends Node2D
 @onready var soap = $Soap
 @onready var cam = $Camera2D
 @onready var flight_energy_bar: ProgressBar = %FlightEnergy
+@onready var start_prompt: Label = %StartPrompt
+@onready var flight_instructions: Label = %FlightInstructions
+
+var game_started := false
+var tuning: Tuning
 
 @export var trap_timer_init: float = 0.5
 
-@export_range(0, 12) var min_traps_per_spawn := 3
-@export_range(0, 12) var max_traps_per_spawn := 7
+@export_range(0, 12) var min_traps_per_spawn := 2
+@export_range(0, 12) var max_traps_per_spawn := 5
 
 @export_range(0, 1, 0.1) var bonus_spawn_proba = 0.5
 
@@ -21,6 +26,7 @@ var TRAP = preload("res://scenes/trap.tscn")
 var BONUS = preload("res://scenes/bonus.tscn")
 
 func _ready() -> void:
+	tuning = GameState.tuning
 	soap.cruise_speed = cruise_speed
 	soap.gravity = gravity
 	soap.jet_thrust = jet_thrust
@@ -29,13 +35,29 @@ func _ready() -> void:
 	
 	trap_spawners = %TrapsSpawnerGroup.get_children()
 	%TrapTimer.wait_time = trap_timer_init
+	%TrapTimer.stop()
 	
+
+func _input(event: InputEvent) -> void:
+	if not game_started and event.is_action_pressed("thrust"):
+		_start_game()
+
+
+func _start_game() -> void:
+	game_started = true
+	soap.start_flight()
+	%TrapTimer.start()
+	start_prompt.hide()
+	flight_instructions.show()
+
 
 func _process(_delta: float) -> void:
 	flight_energy_bar.value = soap.flight_energy
 
 
 func _physics_process(delta: float) -> void:
+	if not game_started:
+		return
 	cam.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta
@@ -49,8 +71,35 @@ func hit_soap():
 	print("LOSE")
 	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
 
-func apply_bonus(data):
-	print("got bonus ", data)
+func apply_bonus(material: MaterialData) -> void:
+	GameState.collect_material(material)
+
+
+func _pick_bonus_material() -> MaterialData:
+	if tuning.materials.is_empty():
+		push_error("Cannot spawn a material bonus: Tuning has no materials.")
+		return null
+
+	var total_weight := 0.0
+	for material in tuning.materials:
+		if material == null or material.weight < 0.0:
+			push_error("Cannot spawn a material bonus: a configured material is null or has negative weight.")
+			return null
+		total_weight += material.weight
+	if total_weight <= 0.0:
+		push_error("Cannot spawn a material bonus: all configured material weights are zero.")
+		return null
+
+	var roll := randf() * total_weight
+	var last_weighted_material: MaterialData
+	for material in tuning.materials:
+		if material.weight <= 0.0:
+			continue
+		last_weighted_material = material
+		roll -= material.weight
+		if roll < 0.0:
+			return material
+	return last_weighted_material
 
 func spawn_trap():
 	var used_spawners: Array[Node2D] = []
@@ -71,11 +120,13 @@ func spawn_trap():
 		var spawner: Node2D = trap_spawners.pick_random()
 		while spawner in used_spawners:
 			spawner = trap_spawners.pick_random()
-		var bonus = BONUS.instantiate()
-		bonus.global_position = spawner.global_position
-		bonus.type = "paper"
-		bonus.soap_entered.connect(apply_bonus)
-		add_child(bonus)
+		var material := _pick_bonus_material()
+		if material != null:
+			var bonus = BONUS.instantiate()
+			bonus.global_position = spawner.global_position
+			bonus.setup(material)
+			bonus.soap_entered.connect(apply_bonus)
+			add_child(bonus)
 
 
 func _on_ground_body_entered(body: Node2D) -> void:
