@@ -19,6 +19,7 @@ extends Node2D
 enum State {READY, RUN, RESULT}
 
 const DISTANCE_MARKER := preload("res://scenes/distance_marker.tscn")
+const SCORES := {"excellent": "res://scenes/score_excellent.tscn", "bon": "res://scenes/score_bon.tscn", "moyen": "res://scenes/score_moyen.tscn", "mauvais": "res://scenes/score_mauvais.tscn", "catastrophe": "res://scenes/score_catastrophe.tscn"}
 
 @export_group("Caméra et affichage")
 ## Avance de la caméra sur le savon (px) : plus grand = le savon est plus à gauche de l'écran.
@@ -60,6 +61,9 @@ func _ready() -> void:
 	course = Course.new(tuning, tuning.course_seed)
 
 	($World/Soap/Crate as Polygon2D).color = tuning.crate(crate_id).color
+	# sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
+	# soap.set_crate_texture(tuning.crate(crate_id).texture)
+	# Personnage.appliquer_choisi(soap)
 	spawn_timer.wait_time = tuning.spawn_interval
 	_spawn_segment(tuning.course_start) # le premier tronçon est déjà là quand le savon attend en haut de la piste
 	cam.make_current()
@@ -103,7 +107,7 @@ func _input(event: InputEvent) -> void:
 				_shake(1.0) # lâcher : coup de départ
 			State.RESULT:
 				if return_delay.is_stopped():
-					get_tree().change_scene_to_file("res://scenes/atelier.tscn")
+						_aller_au_score()
 
 
 # --- Boucle --------------------------------------------------------------------
@@ -118,13 +122,34 @@ func _finish() -> void:
 	spawn_timer.stop()
 	blink.stop()
 	soap.modulate = Color.WHITE
+<< << << < HEAD
 
 	hud.show_result(_result_text())
 	return_delay.start() # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
+== == == =
+	if sim.phase == FlightSim.Phase.STOPPED:
+		_shake(1.0) # plouf
+	return_delay.start() # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
+>> >> >> > menu - titre
+
+
+func _aller_au_score() -> void:
+	## Fin de vol : l'écran de score dépend de la distance (ligne d'arrivée franchie = excellent).
+	var ratio: float = float(result["distance"]) / tuning.door_x
+	var palier := "catastrophe"
+	if result["door"]:
+		palier = "excellent"
+	elif ratio >= 0.6:
+		palier = "bon"
+	elif ratio >= 0.35:
+		palier = "moyen"
+	elif ratio >= 0.15:
+		palier = "mauvais"
+	get_tree().change_scene_to_file(SCORES[palier])
 
 
 func _on_return_delay_timeout() -> void:
-	hud.set_return_prompt(true)
+	_aller_au_score()
 
 
 func _on_spawn_timer_timeout() -> void:
@@ -134,7 +159,7 @@ func _on_spawn_timer_timeout() -> void:
 
 func _spawn_segment(from_x: float) -> void:
 	if course.spawn_segment(from_x):
-		course_view.sync (tuning, course)
+		course_view.sync(tuning, course)
 	else:
 		spawn_timer.stop() # ligne d'arrivée proche : plus rien à faire apparaître
 
@@ -150,14 +175,8 @@ func _shake(strength: float) -> void:
 
 func _process(_delta: float) -> void:
 #	_update_visuals()
-
-
-
-
-
 	# Caméra : suit le savon en x ; en y le couloir (eau -> plafond) reste entier à l'écran.
 	# Le lissage est celui de la Camera2D (réglé dans vol.tscn).
-
 	cam.offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * shake_strength * shake
 
 	hud.set_hint(_hint())
@@ -170,6 +189,7 @@ func _hint() -> String:
 		State.RUN:
 			return "MAINTIENS ESPACE : jetpack     relâche : tu retombes     évite les pièges, ramasse les pièces"
 	return ""
+<< << << < HEAD
 
 
 func _result_text() -> String:
@@ -180,3 +200,5 @@ func _result_text() -> String:
 	lines.append("Récolte : %s" % tuning.collected_text(result["collected"]))
 	lines.append("Record : %s" % tuning.cm(GameState.best))
 	return "\n".join(lines)
+== == == =
+>> >> >> > menu - titre

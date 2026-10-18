@@ -1,16 +1,87 @@
-[gd_scene format=3 uid="uid://8jsfvk8pa6ry"]
+[gd_scene load_steps=12 format=3 uid="uid://8jsfvk8pa6ry"]
 
 [ext_resource type="Script" uid="uid://dqi2od7qh767l" path="res://scripts/atelier.gd" id="1_aq6v4"]
-[ext_resource type="PackedScene" path="res://scenes/crate_row.tscn" id="2_row"]
-[ext_resource type="Resource" path="res://data/crates/baguette.tres" id="c_baguette"]
-[ext_resource type="Resource" path="res://data/crates/baignoire.tres" id="c_baignoire"]
-[ext_resource type="Resource" path="res://data/crates/classique.tres" id="c_classique"]
-[ext_resource type="Resource" uid="uid://wklgwujstrxr" path="res://data/crates/cercueil.tres" id="c_crayon"]
-[ext_resource type="Resource" uid="uid://dbmtjf7qyh7w0" path="res://data/crates/dollar.tres" id="c_poisson"]
-[ext_resource type="Resource" path="res://data/crates/cercueil.tres" id="c_cercueil"]
-[ext_resource type="Resource" path="res://data/crates/dollar.tres" id="c_dollar"]
+[ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
+[ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="3_font"]
+[ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+[ext_resource type="Script" path="res://scripts/cadenas.gd" id="7_cad"]
 
-[node name="Atelier" type="Control" unique_id=133071181]
+[sub_resource type="StyleBoxFlat" id="panel_cream"]
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="btn_yellow"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.99, 0.76, 0.12, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="btn_cream"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="band_green"]
+bg_color = Color(0.42, 0.54, 0.18, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="band_dark"]
+bg_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="tab_orange"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+bg_color = Color(0.8, 0.36, 0.14, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+
+[node name="Atelier" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,73 +90,298 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aq6v4")
 
-[node name="Margin" type="MarginContainer" parent="." unique_id=2021053165]
-layout_mode = 0
+[node name="Fond" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 16
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tile")
 
-[node name="Main" type="VBoxContainer" parent="Margin" unique_id=1266608017]
-layout_mode = 2
-theme_override_constants/separation = 6
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 12
 
-[node name="TitleLabel" type="Label" parent="Margin/Main" unique_id=2051179732]
+[node name="Main" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "ATELIER"
+theme_override_constants/separation = 8
 
-[node name="StockLabel" type="Label" parent="Margin/Main" unique_id=60340424]
-unique_name_in_owner = true
+[node name="Haut" type="HBoxContainer" parent="Margin/Main"]
 layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Titres" type="HBoxContainer" parent="Margin/Main/Haut"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 18
+
+[node name="TitleLabel" type="Label" parent="Margin/Main/Haut/Titres"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_shadow_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_constants/outline_size = 12
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 48
+text = "atelier"
+
+[node name="SousTitre" type="Label" parent="Margin/Main/Haut/Titres"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
-text = "Matériaux"
+text = "Construis ton bolide"
 
-[node name="Rows" type="VBoxContainer" parent="Margin/Main" unique_id=1812678103]
+[node name="Espace" type="Control" parent="Margin/Main/Haut"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EquipesButton" type="Button" parent="Margin/Main/Haut"]
+custom_minimum_size = Vector2(200, 52)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_disabled_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("btn_yellow")
+theme_override_styles/disabled = SubResource("btn_yellow")
+text = "Équipes  ▸"
+
+[node name="ReserveMenu" type="Control" parent="Margin/Main/Haut"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+
+[node name="Corps" type="HBoxContainer" parent="Margin/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="Gauche" type="VBoxContainer" parent="Margin/Main/Corps"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Caisses" type="PanelContainer" parent="Margin/Main/Corps/Gauche"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.0
+theme_override_styles/panel = SubResource("panel_cream")
+
+[node name="CaissesBox" type="VBoxContainer" parent="Margin/Main/Corps/Gauche/Caisses"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BandeauCaisses" type="PanelContainer" parent="Margin/Main/Corps/Gauche/Caisses/CaissesBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("tab_orange")
+
+[node name="Texte" type="Label" parent="Margin/Main/Corps/Gauche/Caisses/CaissesBox/BandeauCaisses"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 24
+text = "CAISSE À SAVON"
+horizontal_alignment = 1
+
+[node name="CrateList" type="VBoxContainer" parent="Margin/Main/Corps/Gauche/Caisses/CaissesBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 8
 
-[node name="Row_classique" parent="Margin/Main/Rows" unique_id=1983609068 instance=ExtResource("2_row")]
+[node name="Sac" type="PanelContainer" parent="Margin/Main/Corps/Gauche"]
 layout_mode = 2
-crate = ExtResource("c_classique")
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 1.0
+theme_override_styles/panel = SubResource("panel_cream")
 
-[node name="Row_cercueil" parent="Margin/Main/Rows" unique_id=542431218 instance=ExtResource("2_row")]
+[node name="SacBox" type="VBoxContainer" parent="Margin/Main/Corps/Gauche/Sac"]
 layout_mode = 2
-crate = ExtResource("c_cercueil")
+theme_override_constants/separation = 8
 
-[node name="Row_baignoire" parent="Margin/Main/Rows" unique_id=916640391 instance=ExtResource("2_row")]
+[node name="BandeauSac" type="PanelContainer" parent="Margin/Main/Corps/Gauche/Sac/SacBox"]
 layout_mode = 2
-crate = ExtResource("c_baignoire")
+theme_override_styles/panel = SubResource("band_green")
 
-[node name="Row_baguette" parent="Margin/Main/Rows" unique_id=1876348227 instance=ExtResource("2_row")]
+[node name="Texte" type="Label" parent="Margin/Main/Corps/Gauche/Sac/SacBox/BandeauSac"]
 layout_mode = 2
-crate = ExtResource("c_baguette")
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 20
+text = "SAC À MATÉRIAUX"
+horizontal_alignment = 1
 
-[node name="Row_dollar" parent="Margin/Main/Rows" unique_id=890985404 instance=ExtResource("2_row")]
-layout_mode = 2
-crate = ExtResource("c_dollar")
-
-[node name="InfoLabel" type="Label" parent="Margin/Main" unique_id=1188278786]
+[node name="MatGrid" type="HBoxContainer" parent="Margin/Main/Corps/Gauche/Sac/SacBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+alignment = 1
+theme_override_constants/separation = 8
 
-[node name="Buttons" type="HBoxContainer" parent="Margin/Main" unique_id=1655910468]
+[node name="Etabli" type="PanelContainer" parent="Margin/Main/Corps"]
+custom_minimum_size = Vector2(740, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_styles/panel = SubResource("panel_cream")
+
+[node name="EtabliBox" type="VBoxContainer" parent="Margin/Main/Corps/Etabli"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BandeauEtabli" type="PanelContainer" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("band_dark")
+
+[node name="Texte" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/BandeauEtabli"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_font_sizes/font_size = 24
+text = "ÉTABLI"
+horizontal_alignment = 1
+
+[node name="Apercu" type="Control" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Preview" type="TextureRect" parent="Margin/Main/Corps/Etabli/EtabliBox/Apercu"]
+unique_name_in_owner = true
+layout_mode = 0
+expand_mode = 1
+stretch_mode = 0
+
+[node name="NameLabel" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
+text = "Caisse"
+
+[node name="Stats" type="GridContainer" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="LabelSolidite" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 16
+text = "POIDS"
+
+[node name="BarSolidite" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="LabelGlisse" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 16
+text = "VIES"
+
+[node name="BarGlisse" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="LabelVol" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 16
+text = "TEMPS DE VOL"
+
+[node name="BarVol" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="CostGrid" type="GridContainer" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 84)
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 4
+columns = 4
+
+[node name="FabriquerButton" type="Button" parent="Margin/Main/Corps/Etabli/EtabliBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_disabled_color = Color(0.29, 0.165, 0.078, 0.6)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("btn_yellow")
+theme_override_styles/hover = SubResource("btn_yellow")
+theme_override_styles/pressed = SubResource("btn_yellow")
+theme_override_styles/focus = SubResource("btn_yellow")
+theme_override_styles/disabled = SubResource("btn_cream")
+text = "Fabriquer  ▸"
+
+[node name="Cadenas" type="Control" parent="Margin/Main/Corps/Etabli/EtabliBox/FabriquerButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.0
+offset_right = 50.0
+offset_bottom = 16.0
+mouse_filter = 2
+script = ExtResource("7_cad")
+
+[node name="Bas" type="HBoxContainer" parent="Margin/Main"]
+layout_mode = 2
+alignment = 2
 theme_override_constants/separation = 20
 
-[node name="LaunchButton" type="Button" parent="Margin/Main/Buttons" unique_id=667341]
+[node name="LaunchButton" type="Button" parent="Margin/Main/Bas"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(520, 64)
+custom_minimum_size = Vector2(340, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("btn_yellow")
+theme_override_styles/hover = SubResource("btn_yellow")
+theme_override_styles/pressed = SubResource("btn_yellow")
+theme_override_styles/focus = SubResource("btn_yellow")
 text = "LANCER LE SAVON !"
 
-[node name="ResetButton" type="Button" parent="Margin/Main/Buttons" unique_id=1815394585]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "Recommencer à zéro"
+[connection signal="pressed" from="Margin/Main/Haut/EquipesButton" to="." method="_on_equipes_pressed"]
+
+[node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -156.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0

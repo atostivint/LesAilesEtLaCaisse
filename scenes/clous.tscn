@@ -7,6 +7,10 @@
 size = Vector2(100, 26)
 
 [sub_resource type="StyleBoxFlat" id="Style_board"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.788, 0.553, 0.31, 1)
 border_width_left = 4
 border_width_top = 4
