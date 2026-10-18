@@ -1,6 +1,6 @@
 [gd_scene load_steps=0 format=3 uid="uid://41rgft6gb77r"]
 
-[ext_resource type="Script" uid="uid://ee3lkbentbds" path="res://scripts/soap.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b2fgre7yn5pks" path="res://scenes/soap.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dtaqxwt3eml0l" path="res://artwork/sprites/aile_gauche.svg" id="t_aile_gauche"]
 [ext_resource type="Texture2D" uid="uid://b27rq47akl4pl" path="res://artwork/sprites/aile_droite.svg" id="t_aile_droite"]
 [ext_resource type="Texture2D" uid="uid://codbfaocqrx5e" path="res://artwork/sprites/savon_bleu_fond.svg" id="t_fond"]
