@@ -143,7 +143,6 @@ func _finish() -> void:
 	soap.modulate = Color.WHITE
 	if sim.phase == FlightSim.Phase.STOPPED:
 		_shake(1.0)  # plouf
-	hud.show_result(_result_text())
 	return_delay.start()  # le message « ENTRÉE » n'apparaît (et l'écran ne se quitte) qu'après ce délai
 
 
@@ -163,7 +162,7 @@ func _aller_au_score() -> void:
 
 
 func _on_return_delay_timeout() -> void:
-	hud.set_return_prompt(true)
+	_aller_au_score()
 
 
 func _on_spawn_timer_timeout() -> void:
@@ -219,14 +218,3 @@ func _hint() -> String:
 				return "ESPACE dans la zone rouge du tremplin = bon décollage, puis MAINTIENS ESPACE pour voler"
 			return "MAINTIENS ESPACE : jetpack     relâche : tu retombes     évite les pièges, ramasse les pièces"
 	return ""
-
-
-func _result_text() -> String:
-	var lines: Array[String] = []
-	lines.append("LIGNE D'ARRIVÉE !" if result["door"] else ("PLOUF !" if not sim.broken else "PLUS D'AILES !"))
-	lines.append(tuning.cm(float(result["distance"])))
-	if result["record"]:
-		lines.append("NOUVEAU RECORD !")
-	lines.append("Récolte : %s" % tuning.collected_text(result["collected"]))
-	lines.append("Record : %s" % tuning.cm(GameState.best))
-	return "\n".join(lines)

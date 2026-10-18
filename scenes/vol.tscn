@@ -15,7 +15,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 
 [node name="ReturnDelay" type="Timer" parent="." unique_id=1688613712]
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1714545708]
@@ -147,44 +147,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 200.0
 theme_override_font_sizes/font_size = 54
-horizontal_alignment = 1
-
-[node name="ResultRoot" type="Control" parent="HUD" unique_id=159788654]
-unique_name_in_owner = true
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Center" type="CenterContainer" parent="HUD/ResultRoot" unique_id=412937300]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Panel" type="PanelContainer" parent="HUD/ResultRoot/Center" unique_id=1479140753]
-layout_mode = 2
-
-[node name="Box" type="VBoxContainer" parent="HUD/ResultRoot/Center/Panel" unique_id=1693778360]
-layout_mode = 2
-
-[node name="ResultLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box" unique_id=313487858]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(520, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 34
-horizontal_alignment = 1
-
-[node name="ReturnLabel" type="Label" parent="HUD/ResultRoot/Center/Panel/Box" unique_id=607761589]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 34
-text = "
-ENTRÉE : retour à l'atelier"
 horizontal_alignment = 1
 
 [connection signal="timeout" from="ReturnDelay" to="." method="_on_return_delay_timeout"]

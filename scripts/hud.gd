@@ -12,9 +12,6 @@ var _popup_tween: Tween
 @onready var wings_label: Label = %WingsLabel
 @onready var hint_label: Label = %HintLabel
 @onready var popup_label: Label = %PopupLabel
-@onready var result_root: Control = %ResultRoot
-@onready var result_label: Label = %ResultLabel
-@onready var return_label: Label = %ReturnLabel
 
 
 func update_run(sim: FlightSim, tuning: Tuning) -> void:
@@ -40,12 +37,3 @@ func show_popup(text: String, duration: float) -> void:
 	_popup_tween = create_tween()
 	_popup_tween.tween_interval(duration - 0.4)
 	_popup_tween.tween_property(popup_label, "modulate:a", 0.0, 0.4)
-
-
-func show_result(text: String) -> void:
-	result_label.text = text
-	result_root.visible = true
-
-
-func set_return_prompt(shown: bool) -> void:
-	return_label.visible = shown

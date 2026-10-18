@@ -9,6 +9,7 @@ const GRISE := Color(0.4, 0.4, 0.4, 1)
 const GRIS_BOUTON := Color(0.72, 0.72, 0.72, 1)
 const YELLOW_BTN := Color(0.99, 0.76, 0.12, 1)
 const FONT := preload("res://fonts/COOPBL.TTF")
+const VERT := Color(0.71, 0.85, 0.42, 1)
 const CADENAS := preload("res://scripts/cadenas.gd")
 const GRISE_TEXTE := Color(0.45, 0.42, 0.4, 1)
 const SHAPE_ICON := preload("res://scripts/shape_icon.gd")
@@ -43,6 +44,7 @@ func _ready() -> void:
 	fabriquer_button.pressed.connect(_on_fabriquer)
 	launch_button.pressed.connect(_on_launch)
 	launch_button.grab_focus()
+	_habiller_boutons()
 	preview.get_parent().resized.connect(_place_preview)
 	_refresh()
 
@@ -243,3 +245,21 @@ func _clear(node: Node) -> void:
 	for child in node.get_children():
 		node.remove_child(child)
 		child.queue_free()
+
+
+func _habiller_boutons() -> void:
+	# Lancer le savon : vert, avec une légère pulsation pour donner envie de cliquer
+	for etat in ["normal", "hover", "pressed", "focus"]:
+		launch_button.add_theme_stylebox_override(etat, _card_style(VERT, 40, 6))
+	# Équipes : au survol, fond crème et texte orange
+	var equipes_button: Button = get_node("Margin/Main/Haut/EquipesButton")
+	for etat in ["hover", "pressed", "focus"]:
+		equipes_button.add_theme_stylebox_override(etat, _card_style(CREAM, 40, 6))
+	call_deferred("_animer_lancer")
+
+
+func _animer_lancer() -> void:
+	launch_button.pivot_offset = launch_button.size / 2.0
+	var pulsation := create_tween().set_loops()
+	pulsation.tween_property(launch_button, "scale", Vector2(1.05, 1.05), 0.7).set_trans(Tween.TRANS_SINE)
+	pulsation.tween_property(launch_button, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
