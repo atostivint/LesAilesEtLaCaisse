@@ -173,7 +173,7 @@ func _on_savon_pressed() -> void:
 
 
 func _on_launch() -> void:
-	get_tree().change_scene_to_file("res://scenes/vol.tscn")
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
 
 func _material_tile(index: int, materiau: MaterialData, count: int) -> PanelContainer:

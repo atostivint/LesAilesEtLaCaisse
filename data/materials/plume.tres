@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://ceyq50worddnl"]
+[gd_resource type="Resource" script_class="MaterialData" load_steps=3 format=3 uid="uid://ceyq50worddnl"]
 
 [ext_resource type="Script" uid="uid://cfri0lelhv7cx" path="res://scripts/material_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dcscuoo5uevau" path="res://artwork/materiaux/materiau_papier.svg" id="2"]

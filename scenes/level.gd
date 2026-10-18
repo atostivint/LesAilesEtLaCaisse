@@ -82,7 +82,7 @@ func _terminer_vol() -> void:
 	if _termine:
 		return
 	_termine = true
-	var distance := (soap.global_position.x - _start_x) / tuning.ppm
+	var distance: float = (soap.global_position.x - _start_x) / tuning.ppm
 	GameState.apply_result(distance, distance >= tuning.door_x, _collected)
 	get_tree().change_scene_to_file(SCORES[_palier(distance)])
 
