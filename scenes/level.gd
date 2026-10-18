@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var soap = $Soap
 @onready var cam = $Camera2D
+@onready var carrelage: Control = $Carrelage
 @onready var flight_energy_bar: ProgressBar = %FlightEnergy
 @onready var start_prompt: Label = %StartPrompt
 @onready var flight_instructions: Label = %FlightInstructions
@@ -67,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	if not game_started:
 		return
 	cam.position.x += soap.velocity.x * delta
+	carrelage.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta
 	%Ground.position.x += soap.velocity.x * delta
