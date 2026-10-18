@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://uh1v6m3ptypi"]
+[gd_scene load_steps=14 format=3 uid="uid://uh1v6m3ptypi"]
 
 [ext_resource type="Script" uid="uid://cwre3s5j0w81b" path="res://main_menu.gd" id="1_hv5mw"]
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="6_soap"]
@@ -6,6 +6,30 @@
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="3_tile"]
 [ext_resource type="Script" uid="uid://b62jiow73o68x" path="res://scripts/eau_savon.gd" id="4_eau"]
 [ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="5_font"]
+
+[sub_resource type="StyleBoxFlat" id="btn_marron"]
+bg_color = Color(0.29, 0.165, 0.078, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.2, 0.11, 0.05, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="btn_vert"]
+bg_color = Color(0.42, 0.54, 0.18, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="pill"]
 bg_color = Color(0.984, 0.941, 0.839, 1)
@@ -152,57 +176,59 @@ theme_override_constants/separation = 14
 [node name="Jouer" type="Button" parent="Boutons"]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_hover_color = Color(0.478, 0.165, 0.031, 1)
-theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("btn_yellow")
-theme_override_styles/pressed = SubResource("btn_cream")
-theme_override_styles/hover = SubResource("btn_cream")
-theme_override_styles/focus = SubResource("btn_cream")
+theme_override_styles/normal = SubResource("btn_vert")
+theme_override_styles/hover = SubResource("btn_vert")
+theme_override_styles/pressed = SubResource("btn_vert")
+theme_override_styles/focus = SubResource("btn_vert")
 text = "Nouvelle partie"
 
 [node name="Continuer" type="Button" parent="Boutons"]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_hover_color = Color(0.478, 0.165, 0.031, 1)
-theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("btn_cream")
-theme_override_styles/pressed = SubResource("btn_cream")
-theme_override_styles/hover = SubResource("btn_cream")
-theme_override_styles/focus = SubResource("btn_cream")
+theme_override_styles/normal = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
+theme_override_styles/pressed = SubResource("btn_marron")
+theme_override_styles/focus = SubResource("btn_marron")
 theme_override_styles/disabled = SubResource("btn_disabled")
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
 text = "Continuer"
 
 [node name="Reglages" type="Button" parent="Boutons"]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_hover_color = Color(0.478, 0.165, 0.031, 1)
-theme_override_colors/font_disabled_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("btn_cream")
-theme_override_styles/pressed = SubResource("btn_cream")
-theme_override_styles/hover = SubResource("btn_cream")
-theme_override_styles/disabled = SubResource("btn_disabled")
-theme_override_styles/focus = SubResource("btn_cream")
+theme_override_styles/normal = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
+theme_override_styles/pressed = SubResource("btn_marron")
+theme_override_styles/focus = SubResource("btn_marron")
 text = "Réglages"
 
 [node name="Credits" type="Button" parent="Boutons"]
 custom_minimum_size = Vector2(630, 80)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_colors/font_hover_color = Color(0.478, 0.165, 0.031, 1)
-theme_override_colors/font_disabled_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_colors/font_focus_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("btn_cream")
-theme_override_styles/pressed = SubResource("btn_cream")
-theme_override_styles/hover = SubResource("btn_cream")
-theme_override_styles/disabled = SubResource("btn_disabled")
-theme_override_styles/focus = SubResource("btn_cream")
+theme_override_styles/normal = SubResource("btn_marron")
+theme_override_styles/hover = SubResource("btn_marron")
+theme_override_styles/pressed = SubResource("btn_marron")
+theme_override_styles/focus = SubResource("btn_marron")
 text = "Crédits"
 
 [node name="Score" type="PanelContainer" parent="."]
