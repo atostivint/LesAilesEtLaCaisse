@@ -1,10 +1,41 @@
 # Les ailes et la caisse
 
-Jeu Godot : un savon, une caisse à savon ailée, une piste, et le plus long vol possible jusqu'à la ligne d'arrivée. Sous-titre : « Courses de monsieurs propres ».
+> *Courses de monsieurs propres. Satisfait ou remoussé !*
 
-Le concept, les mécaniques et les écrans sont décrits dans [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md). Les maquettes sont dans [docs/design/](docs/design/).
+Un savon, une caisse à savon ailée, une piste et un seul but : **voler le plus loin possible** jusqu'à la ligne d'arrivée. Le tout dans l'esprit d'une publicité de lessive de 1975, avec un humour de feuilleton télé.
 
-## Démarrer
+## Le jeu
+
+- **Décolle** : descends le tremplin et appuie sur Espace dans la zone rouge pour un bonus de vitesse.
+- **Vole** : maintiens Espace (ou flèche haut, W, Entrée, clic gauche) pour monter, relâche pour retomber, comme dans Jetpack Joyride.
+- **Ramasse** planches, plumes, élastiques et étoiles sur les étagères, et évite les pinces à linge et les planches à clous. Chaque obstacle te coûte une aile ; sans aile, le savon tombe dans l'eau savonneuse.
+- **Améliore** ta caisse à l'atelier avec les matériaux récoltés : caisse cercueil, carton, baignoire, baguette, poisson. Plus elle est lourde, plus elle file, mais plus elle retombe vite.
+- **Savoure** l'écran de score : cinq niveaux, de « La gloire de Madame » au « Grand désastre domestique ».
+
+Le concept complet, les mécaniques et la direction artistique sont dans [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md). Les maquettes sont dans [docs/design/](docs/design/).
+
+## Télécharger et jouer
+
+Les versions Windows, macOS et Linux se téléchargent sur la page itch.io du jeu. Aucune installation : décompresser et lancer.
+
+- **macOS** : l'application n'est pas signée. Au premier lancement, clic droit sur l'app, puis « Ouvrir ».
+- **Linux** : rendre le fichier exécutable (`chmod +x LesAilesEtLaCaisse.x86_64`).
+
+## Compiler les versions
+
+Les presets d'export (`export_presets.cfg`) sont dans le dépôt. Avec les modèles d'export Godot 4.7 installés :
+
+```bash
+godot --headless --path . --export-release "Windows" builds/windows/LesAilesEtLaCaisse.exe
+godot --headless --path . --export-release "Linux" builds/linux/LesAilesEtLaCaisse.x86_64
+godot --headless --path . --export-release "macOS" builds/macos/LesAilesEtLaCaisse.zip
+```
+
+Sur Mac, remplacer `godot` par `/Applications/Godot.app/Contents/MacOS/Godot`. Le dossier `builds/` est ignoré par git.
+
+## Développer
+
+### Démarrer
 
 1. Installer **Godot 4.7** (version standard, pas .NET) : <https://godotengine.org/download>
 2. Cloner le dépôt :
@@ -12,7 +43,7 @@ Le concept, les mécaniques et les écrans sont décrits dans [docs/GAME_DESIGN.
    git clone https://github.com/atostivint/LesAilesEtLaCaisse.git
    ```
 3. Dans Godot : **Importer** → sélectionner `project.godot` → **Importer et éditer**.
-4. Lancer le jeu avec **F5** (scène principale : `scenes/atelier.tscn`).
+4. Lancer le jeu avec **F5** (scène principale : `Mathilde/main_menu.tscn`).
 
 Le premier import crée le dossier `.godot/` (cache local, ignoré par git). C'est normal.
 

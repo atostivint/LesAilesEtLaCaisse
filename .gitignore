@@ -6,3 +6,6 @@
 /captures/
 .DS_Store
 *.translation
+
+# Exports
+/builds/

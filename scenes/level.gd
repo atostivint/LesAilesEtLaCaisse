@@ -16,13 +16,13 @@ var tuning: Tuning
 
 ## Vitesse de défilement du carrelage, en part de la vitesse du savon : 0 = fixe à l'écran, 1 = fixe dans le monde.
 ## Plus c'est bas, moins ça scintille (confort visuel).
-@export_range(0.0, 1.0, 0.05) var bg_parallax := 0.3
+@export_range(0.0, 1.0, 0.05) var bg_parallax := 0.15
 
 @export var trap_timer_init: float = 0.5
 @export_range(0.5, 30.0, 0.5) var shelf_spawn_interval := 3.0
 
 @export_range(0, 12) var min_traps_per_spawn := 0
-@export_range(0, 12) var max_traps_per_spawn := 4
+@export_range(0, 12) var max_traps_per_spawn := 2
 
 @export_range(0, 1, 0.1) var bonus_spawn_proba = 0.5
 
@@ -35,6 +35,9 @@ var SHELF = preload("res://scenes/shelf.tscn")
 
 const SCORES := {"excellent": "res://scenes/score_excellent.tscn", "bon": "res://scenes/score_bon.tscn", "moyen": "res://scenes/score_moyen.tscn", "mauvais": "res://scenes/score_mauvais.tscn", "catastrophe": "res://scenes/score_catastrophe.tscn"}
 
+const MOULURE_PERIOD := 720.0 # plus petit multiple commun des motifs de moulure_plafond.gd
+var _moulures: Control
+var _moulure_shift := 0.0
 var _start_x := 0.0 # position x du savon au départ : la distance du vol en découle
 var _collected := {} # matériaux ramassés pendant le vol (confiés à GameState à la fin)
 var _termine := false # vrai dès la fin du vol : évite de changer de scène deux fois (deux pièges touchés le même frame)
@@ -57,6 +60,8 @@ func _ready() -> void:
 	shelf_spawners = %ShelfSpawnersGroup.get_children()
 	%ShelfTimer.wait_time = shelf_spawn_interval
 	%ShelfTimer.stop()
+	get_viewport().size_changed.connect(_fit_to_view)
+	_fit_to_view()
 	
 
 func _input(event: InputEvent) -> void:
@@ -86,6 +91,48 @@ func _physics_process(delta: float) -> void:
 	%ShelfSpawnersGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta
 	%Ground.position.x += soap.velocity.x * delta
+	# Les moulures glissent à contre-sens de la caméra, comme le carrelage (même parallaxe)
+	_moulure_shift -= soap.velocity.x * delta * bg_parallax
+	_place_moulures()
+
+
+func _fit_to_view() -> void:
+	## Plafond, sol et moulures couvrent toute la zone visible (la fenêtre peut être plus large ou plus haute
+	## que 1456x819 : le contenu est étendu, jamais étiré).
+	var view := get_viewport_rect().size
+	var half_w := view.x * 0.5 + 40.0
+	var left: float = cam.position.x - half_w
+	var w := half_w * 2.0
+	var top: float = cam.position.y - view.y * 0.5 - 10.0
+	var bottom: float = cam.position.y + view.y * 0.5 + 10.0
+
+	var ceiling: StaticBody2D = %Ceiling
+	ceiling.scale = Vector2.ONE
+	ceiling.position = Vector2(left, 0.0)
+	var c_top := minf(-2.0, top)
+	ceiling.get_node("Polygon2D").polygon = PackedVector2Array([Vector2(0, c_top), Vector2(0, 145), Vector2(w, 145), Vector2(w, c_top)])
+	var c_shape: CollisionShape2D = ceiling.get_node("CollisionShape2D")
+	c_shape.shape = RectangleShape2D.new()
+	c_shape.shape.size = Vector2(w, 145.0 - c_top)
+	c_shape.position = Vector2(w * 0.5, (145.0 + c_top) * 0.5)
+	_moulures = ceiling.get_node("Moulures")
+	_moulures.size = Vector2(w + 2.0 * MOULURE_PERIOD, 145.0)
+	_place_moulures()
+
+	var ground: Area2D = %Ground
+	ground.scale = Vector2.ONE
+	ground.position = Vector2(left, 776.0)
+	var g_bottom := maxf(83.0, bottom - 776.0)
+	ground.get_node("Polygon2D").polygon = PackedVector2Array([Vector2(0, -2), Vector2(0, g_bottom), Vector2(w, g_bottom), Vector2(w, -2)])
+	var g_shape: CollisionShape2D = ground.get_node("CollisionShape2D")
+	g_shape.shape = RectangleShape2D.new()
+	g_shape.shape.size = Vector2(w, g_bottom + 2.0)
+	g_shape.position = Vector2(w * 0.5, (g_bottom - 2.0) * 0.5)
+
+
+func _place_moulures() -> void:
+	if _moulures:
+		_moulures.position = Vector2(-MOULURE_PERIOD + fposmod(_moulure_shift, MOULURE_PERIOD), -2.0)
 
 func die():
 	_terminer_vol()

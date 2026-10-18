@@ -8,12 +8,12 @@ script = ExtResource("1_npg1n")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=107363416]
 position = Vector2(-1.9999998, -0.9999999)
-scale = Vector2(1.1249999, 1.1249999)
+scale = Vector2(1.6, 1.6)
 polygon = PackedVector2Array(1, -1, 1, 21, 23, 21, 23, 0)
 
 [node name="ObstacleFleurDeDouche" type="Sprite2D" parent="." unique_id=125752756]
-position = Vector2(12, 3)
-scale = Vector2(0.07620321, 0.0762032)
+position = Vector2(17, 4)
+scale = Vector2(0.11, 0.11)
 texture = ExtResource("2_62q8x")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

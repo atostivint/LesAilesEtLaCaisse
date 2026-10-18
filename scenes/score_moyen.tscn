@@ -104,12 +104,14 @@ script = ExtResource("2_tile")
 
 [node name="Haut" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -819.0
 offset_bottom = -440.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="Colline" type="Polygon2D" parent="Haut"]
 color = Color(0.98, 0.94, 0.84, 1)
