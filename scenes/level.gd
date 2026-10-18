@@ -14,6 +14,10 @@ extends Node2D
 var game_started := false
 var tuning: Tuning
 
+## Vitesse de défilement du carrelage, en part de la vitesse du savon : 0 = fixe à l'écran, 1 = fixe dans le monde.
+## Plus c'est bas, moins ça scintille (confort visuel).
+@export_range(0.0, 1.0, 0.05) var bg_parallax := 0.3
+
 @export var trap_timer_init: float = 0.5
 @export_range(0.5, 30.0, 0.5) var shelf_spawn_interval := 3.0
 
@@ -38,6 +42,8 @@ var _termine := false # vrai dès la fin du vol : évite de changer de scène de
 func _ready() -> void:
 	Musique.jouer_piste(Musique.PISTE_COURSE)
 	tuning = GameState.tuning
+	soap.set_crate_texture(tuning.crate(GameState.equipped).texture)
+	Personnage.appliquer_choisi(soap)
 	soap.cruise_speed = cruise_speed
 	soap.gravity = gravity
 	soap.jet_thrust = jet_thrust
@@ -75,6 +81,7 @@ func _physics_process(delta: float) -> void:
 	if not game_started:
 		return
 	cam.position.x += soap.velocity.x * delta
+	carrelage.position.x += soap.velocity.x * delta * (1.0 - bg_parallax)
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
 	%ShelfSpawnersGroup.position.x += soap.velocity.x * delta
 	%Ceiling.position.x += soap.velocity.x * delta
