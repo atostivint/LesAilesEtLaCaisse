@@ -94,7 +94,8 @@ func _terminer_vol() -> void:
 	_termine = true
 	var distance: float = (soap.global_position.x - _start_x) / tuning.ppm
 	GameState.apply_result(distance, distance >= tuning.door_x, _collected)
-	get_tree().change_scene_to_file(SCORES[_palier(distance)])
+	# Différé : on peut être dans un callback physique (piège ou sol touché), où changer de scène est interdit
+	get_tree().change_scene_to_file.call_deferred(SCORES[_palier(distance)])
 
 func _palier(distance: float) -> String:
 	## Même barème que vol.gd : le palier se lit sur la part de la ligne d'arrivée (tuning.door_x) parcourue.

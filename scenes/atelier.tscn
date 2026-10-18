@@ -269,7 +269,8 @@ clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Soap" parent="Margin/Main/Corps/Etabli/EtabliBox/Apercu" unique_id=674192252 instance=ExtResource("5_nuf4i")]
+[node name="Preview" parent="Margin/Main/Corps/Etabli/EtabliBox/Apercu" unique_id=674192252 instance=ExtResource("5_nuf4i")]
+unique_name_in_owner = true
 
 [node name="NameLabel" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox" unique_id=2025416338]
 unique_name_in_owner = true
