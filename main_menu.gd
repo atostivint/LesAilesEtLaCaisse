@@ -12,6 +12,9 @@ func _ready() -> void:
 	preload("res://scripts/reglages.gd").appliquer_volume()
 	# « Continuer » n'est disponible que s'il existe au moins une partie sauvegardée
 	$Boutons/Continuer.disabled = not GameState.any_save()
+	# Une partie existe : « Continuer » passe au-dessus de « Nouvelle partie »
+	if GameState.any_save():
+		$Boutons.move_child($Boutons/Continuer, 0)
 
 
 func _on_jouer_pressed() -> void:
