@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" uid="uid://cbidi30h5srsy" path="res://scripts/score_ecran.gd" id="1_score"]
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="2_tile"]
 [ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="3_font"]
-[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="4_soap"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
-[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
 [ext_resource type="Script" path="res://scripts/eau_savon.gd" id="5_eau"]
 
 [sub_resource type="StyleBoxFlat" id="bas"]
@@ -96,6 +94,25 @@ polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 14
 color = Color(0.35, 0.6, 0.62, 1)
 polygon = PackedVector2Array(0, 402, 1456, 402, 1456, 379, 0, 379)
 
+[node name="Gerard" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 300.0
+offset_bottom = 330.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eleonore" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 1050.0
+offset_top = 30.0
+offset_right = 1320.0
+offset_bottom = 330.0
+expand_mode = 1
+stretch_mode = 5
+
+
 [node name="Eau" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 12
@@ -108,30 +125,6 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("5_eau")
 couleur = Color(0.2, 0.45, 0.85, 1)
-
-[node name="Savon" parent="." unique_id=1068524024 instance=ExtResource("4_soap")]
-unique_name_in_owner = true
-position = Vector2(720, 318)
-scale = Vector2(3, 3)
-
-[node name="Gerard" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 130.0
-offset_right = 300.0
-offset_bottom = 379.0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Eleonore" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1140.0
-offset_top = 79.0
-offset_right = 1410.0
-offset_bottom = 379.0
-expand_mode = 1
-stretch_mode = 5
-
 
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -207,10 +200,10 @@ size_flags_horizontal = 3
 
 [node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Suite" unique_id=1089923808]
 layout_mode = 2
-autowrap_mode = 3
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 24
 text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
+autowrap_mode = 3
 
 [node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes" unique_id=1431529782]
 custom_minimum_size = Vector2(360, 0)
