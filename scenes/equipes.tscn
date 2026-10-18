@@ -203,6 +203,10 @@ theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 18
 text = "CHOISIS TON ÉQUIPE"
 
+[node name="EspaceHaut" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="Equipes" type="GridContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -255,6 +259,10 @@ unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 theme_override_constants/separation = 8
+
+[node name="EspaceBas" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Valider" type="Button" parent="Marge/Main"]
 custom_minimum_size = Vector2(0, 56)

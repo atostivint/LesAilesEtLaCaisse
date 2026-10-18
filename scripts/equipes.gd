@@ -63,8 +63,8 @@ func _ready() -> void:
 
 
 func _place_savon() -> void:
-	# Le savon s'adapte à la zone d'aperçu (plafonné à 2,6 : au-delà il déborde de la carte)
-	var k := minf(minf(zone.size.x / 110.0, zone.size.y / 100.0), 2.6)
+	# Le savon s'adapte à la zone d'aperçu (plafonné à 3,2 : au-delà il déborde de la carte)
+	var k := minf(minf(zone.size.x / 100.0, zone.size.y / 90.0), 3.2)
 	savon.scale = Vector2(k, k)
 	savon.position = (zone.size / 2.0).floor()
 
