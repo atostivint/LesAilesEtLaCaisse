@@ -168,6 +168,19 @@ custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
+[node name="BoutonMenu" parent="Margin/Main/Haut" instance=ExtResource("9_menu")]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+size_flags_vertical = 4
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 1
+
 [node name="Corps" type="HBoxContainer" parent="Margin/Main"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -376,12 +389,3 @@ text = "LANCER LE SAVON !"
 
 [connection signal="pressed" from="Margin/Main/Haut/SavonButton" to="." method="_on_savon_pressed"]
 
-[node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = -156.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 60.0
