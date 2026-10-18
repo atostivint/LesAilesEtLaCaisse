@@ -4,6 +4,12 @@ var cruise_speed: float
 var gravity: float
 var jet_thrust: float
 
+@export_group("Jauge de vol")
+@export_range(1.0, 1000.0, 1.0) var max_flight_energy := 100.0
+@export_range(0.0, 100.0, 0.5) var energy_drain_per_second := 20.0
+@export_range(0.0, 100.0, 0.5) var energy_recharge_per_second := 35.0
+var flight_energy: float
+
 ##  - les ailes battent en boucle (AnimationPlayer « WingsPlayer »), plus vite quand le jet est maintenu ;
 ##  - les yeux regardent devant, puis de temps en temps en bas d'un côté ou de l'autre (peur de tomber) ;
 ##  - la bouche change de forme en cycle ;
@@ -55,8 +61,13 @@ var _gaze_tween: Tween
 @onready var gaze_timer: Timer = $GazeTimer
 @onready var mouth_timer: Timer = $MouthTimer
 
+var SHELF_SLOPE_TANGENT := Vector2(221.0, 71.0).normalized()
+var SHELF_SLOPE_NORMAL := Vector2(-71.0, 221.0).normalized()
+const MIN_SLOPE_SLIDE_SPEED := 40.0
+
 func _ready() -> void:
 	velocity = Vector2(1, 1)
+	flight_energy = max_flight_energy
 
 	$Visuals/Fond.self_modulate = body_color
 	mouth_timer.wait_time = mouth_interval
@@ -67,12 +78,29 @@ func _physics_process(delta: float) -> void:
 	velocity += Vector2(0, gravity) * delta
 	velocity.x = cruise_speed * delta
 	
-	if Input.is_action_just_pressed("thrust"):
-		velocity.y = 0
-	if Input.is_action_pressed("thrust"):
+	thrusting = Input.is_action_pressed("thrust") and flight_energy > 0.0
+	if thrusting:
+		if Input.is_action_just_pressed("thrust"):
+			velocity.y = 0.0
 		velocity.y -= jet_thrust * delta
+		flight_energy = maxf(0.0, flight_energy - energy_drain_per_second * delta)
 
 	move_and_slide()
+	if _is_sliding_on_shelf_slope():
+		flight_energy = minf(max_flight_energy, flight_energy + energy_recharge_per_second * delta)
+
+
+func _is_sliding_on_shelf_slope() -> bool:
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider() as Node
+		if collider != null and collider.is_in_group("shelves"):
+			return true
+		# if absf(collision.get_normal().dot(SHELF_SLOPE_NORMAL)) < 0.98:
+		# 	continue
+		# if absf(velocity.dot(SHELF_SLOPE_TANGENT)) >= MIN_SLOPE_SLIDE_SPEED:
+		# 	return true
+	return false
 
 
 func set_crate_texture(texture: Texture2D) -> void:

@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var soap = $Soap
 @onready var cam = $Camera2D
+@onready var flight_energy_bar: ProgressBar = %FlightEnergy
 
 @export var trap_timer_init: float = 0.5
 
@@ -20,10 +21,16 @@ func _ready() -> void:
 	soap.cruise_speed = cruise_speed
 	soap.gravity = gravity
 	soap.jet_thrust = jet_thrust
+	flight_energy_bar.max_value = soap.max_flight_energy
+	flight_energy_bar.value = soap.flight_energy
 	
 	trap_spawners = %TrapsSpawnerGroup.get_children()
 	%TrapTimer.wait_time = trap_timer_init
 	
+
+func _process(_delta: float) -> void:
+	flight_energy_bar.value = soap.flight_energy
+
 
 func _physics_process(delta: float) -> void:
 	cam.position.x += soap.velocity.x * delta

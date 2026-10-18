@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://41rgft6gb77r"]
+
+[ext_resource type="Script" uid="uid://ee3lkbentbds" path="res://scripts/soap.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dtaqxwt3eml0l" path="res://artwork/sprites/aile_gauche.svg" id="t_aile_gauche"]
+[ext_resource type="Texture2D" uid="uid://b27rq47akl4pl" path="res://artwork/sprites/aile_droite.svg" id="t_aile_droite"]
+[ext_resource type="Texture2D" uid="uid://codbfaocqrx5e" path="res://artwork/sprites/savon_bleu_fond.svg" id="t_fond"]
+[ext_resource type="Texture2D" uid="uid://bys3of372vlaj" path="res://artwork/sprites/savon_bleu_contour.svg" id="t_contour"]
+[ext_resource type="Texture2D" uid="uid://dxopa0kyyetjg" path="res://artwork/sprites/savon_bleu_reflet.svg" id="t_reflet"]
+[ext_resource type="Texture2D" uid="uid://b48vn28w7brq0" path="res://artwork/sprites/savon_bleu_sangles.svg" id="t_sangles"]
+[ext_resource type="Texture2D" uid="uid://cxuba43e4c00v" path="res://artwork/sprites/savon_bleu_yeux_blancs.svg" id="t_yeux"]
+[ext_resource type="Texture2D" uid="uid://lupppk2b8v83" path="res://artwork/sprites/savon_bleu_pupille_gauche.svg" id="t_pg"]
+[ext_resource type="Texture2D" uid="uid://dy3thawbe65cp" path="res://artwork/sprites/savon_bleu_pupille_droite.svg" id="t_pd"]
+[ext_resource type="Texture2D" uid="uid://bmacnqyvlkylp" path="res://artwork/sprites/savon_bleu_bouche_grimace.svg" id="t_grimace"]
+[ext_resource type="Texture2D" uid="uid://cndr5p0jcu7uf" path="res://artwork/sprites/savon_bleu_bouche_sourire.svg" id="t_sourire"]
+[ext_resource type="Texture2D" uid="uid://c0c43ouj35xis" path="res://artwork/sprites/savon_bleu_bouche_moue.svg" id="t_moue"]
+[ext_resource type="Texture2D" uid="uid://bx5n4ni7fnnxw" path="res://artwork/sprites/savon_bleu_bouche_inquiete.svg" id="t_inquiete"]
+[ext_resource type="Texture2D" uid="uid://ts2qb5sliieh" path="res://artwork/sprites/savon_bleu_bouche_surprise.svg" id="t_surprise"]
+
+[sub_resource type="Animation" id="Animation_blink"]
+resource_name = "blink"
+length = 0.1667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.35), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_soap"]
+_data = {
+&"blink": SubResource("Animation_blink")
+}
+
+[sub_resource type="Animation" id="Animation_flap"]
+resource_name = "flap"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AileGauche:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.45, -0.35, 0.45]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AileDroite:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.45, 0.35, -0.45]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wings"]
+_data = {
+&"flap": SubResource("Animation_flap")
+}
+
+[node name="Soap" type="Node2D" unique_id=674192252]
+modulate = Color(1, 1, 1, 1)
+script = ExtResource("1_script")
+mouths = Array[Texture2D]([ExtResource("t_grimace"), ExtResource("t_sourire"), ExtResource("t_moue"), ExtResource("t_inquiete"), ExtResource("t_surprise")])
+
+[node name="Visuals" type="Node2D" parent="."]
+scale = Vector2(0.29, 0.29)
+
+[node name="AileGauche" type="Node2D" parent="Visuals"]
+position = Vector2(-57.4, -38.2)
+
+[node name="Sprite" type="Sprite2D" parent="Visuals/AileGauche"]
+position = Vector2(-50.2, -38.7)
+texture = ExtResource("t_aile_gauche")
+
+[node name="AileDroite" type="Node2D" parent="Visuals"]
+position = Vector2(59.3, -21.7)
+
+[node name="Sprite" type="Sprite2D" parent="Visuals/AileDroite"]
+position = Vector2(50.2, -38.7)
+texture = ExtResource("t_aile_droite")
+
+[node name="Caisse" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -107.93)
+
+[node name="Fond" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_fond")
+
+[node name="Contour" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_contour")
+
+[node name="Reflet" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_reflet")
+
+[node name="Sangles" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_sangles")
+
+[node name="YeuxBlancs" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_yeux")
+
+[node name="PupilleGauche" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_pg")
+
+[node name="PupilleDroite" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("t_pd")
+
+[node name="Bouche" type="Sprite2D" parent="Visuals"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=851107047]
+libraries/ = SubResource("AnimationLibrary_soap")
+
+[node name="WingsPlayer" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("AnimationLibrary_wings")
+autoplay = "flap"
+
+[node name="GazeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MouthTimer" type="Timer" parent="."]
+wait_time = 1.4
+autostart = true
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1732252205]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D" unique_id=795917749]
+polygon = PackedVector2Array(-27, -19, -28, 20, 27, 19, 27, -19)
+
+[connection signal="timeout" from="GazeTimer" to="." method="_on_gaze_timer_timeout"]
+[connection signal="timeout" from="MouthTimer" to="." method="_on_mouth_timer_timeout"]

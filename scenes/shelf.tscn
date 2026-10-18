@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e7j2cm5fc1x3" path="res://scripts/shelf.gd" id="1_shelf"]
 
-[node name="Shelf" type="StaticBody2D" unique_id=1763206019]
+[node name="Shelf" type="StaticBody2D" unique_id=1763206019 groups=["shelves"]]
 script = ExtResource("1_shelf")
 
 [node name="BracketLeft" type="Polygon2D" parent="." unique_id=1016831617]

@@ -18,6 +18,24 @@ position = Vector2(155, 630)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1352944768]
 position = Vector2(731, 409)
 
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1949068157]
+
+[node name="EnergyLabel" type="Label" parent="HUD" unique_id=1949068158]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 324.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 20
+text = "ÉNERGIE"
+
+[node name="FlightEnergy" type="ProgressBar" parent="HUD" unique_id=1949068159]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 324.0
+offset_bottom = 72.0
+show_percentage = false
+
 [node name="TrapsSpawnerGroup" type="Polygon2D" parent="." unique_id=1986952392]
 unique_name_in_owner = true
 position = Vector2(1429, 32)
