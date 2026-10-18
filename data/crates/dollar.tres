@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="CrateData" format=3 uid="uid://dbmtjf7qyh7w0"]
+[gd_resource type="Resource" script_class="CrateData" load_steps=3 format=3 uid="uid://dbmtjf7qyh7w0"]
 
 [ext_resource type="Script" uid="uid://f6gyud804v5v" path="res://scripts/crate_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://brbu2eis5fvvd" path="res://artwork/sprites/caisse_coffre.svg" id="2_tex"]
 
 [resource]
 script = ExtResource("1")
-texture = ExtResource("2_tex")
 id = "dollar"
 nom = "Caisse dollar"
 solidite = 2
@@ -17,3 +16,4 @@ cost = {
 "plume": 14
 }
 color = Color(0.35, 0.6, 0.65, 1)
+texture = ExtResource("2_tex")

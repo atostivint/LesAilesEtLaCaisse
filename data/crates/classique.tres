@@ -1,15 +1,12 @@
-[gd_resource type="Resource" script_class="CrateData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CrateData" load_steps=3 format=3 uid="uid://bni600guymhj5"]
 
-[ext_resource type="Script" path="res://scripts/crate_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://f6gyud804v5v" path="res://scripts/crate_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://csi3oliukyfc0" path="res://artwork/sprites/caisse_savon.svg" id="2_tex"]
 
 [resource]
 script = ExtResource("1")
-texture = ExtResource("2_tex")
 id = "classique"
 nom = "Caisse classique"
 desc = "La caisse de départ, ailes à plumes."
-solidite = 1
-poids = 1
-cost = {}
 color = Color(0.6, 0.4, 0.2, 1)
+texture = ExtResource("2_tex")
