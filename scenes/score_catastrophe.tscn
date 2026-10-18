@@ -152,7 +152,6 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("5_eau")
 couleur = Color(0.2, 0.45, 0.85, 1)
-fond = Color(1, 1, 1, 1)
 
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1

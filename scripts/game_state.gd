@@ -50,6 +50,12 @@ func any_save() -> bool:
 	return false
 
 
+func supprimer_partie(numero: int) -> void:
+	## Efface le fichier de sauvegarde de l'emplacement (le classement est conservé).
+	if has_slot(numero):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(chemin(numero)))
+
+
 func resume(numero: int) -> String:
 	## Ligne de résumé d'un emplacement (pour l'écran des parties).
 	if not has_slot(numero):

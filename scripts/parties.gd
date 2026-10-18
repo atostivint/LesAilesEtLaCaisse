@@ -11,10 +11,29 @@ const JAUNE := Color(0.99, 0.76, 0.12, 1)
 
 @onready var cartes: HBoxContainer = %Cartes
 
+var _a_supprimer := -1  # emplacement en attente de confirmation de suppression
+var _dialogue: ConfirmationDialog
+
 
 func _ready() -> void:
 	Musique.jouer()
+	_dialogue = ConfirmationDialog.new()
+	_dialogue.dialog_text = "Supprimer cette partie ? Cette action est définitive."
+	_dialogue.ok_button_text = "Supprimer"
+	_dialogue.get_cancel_button().text = "Annuler"
+	_dialogue.confirmed.connect(_on_supprimer_confirme)
+	add_child(_dialogue)
+	_afficher_cartes()
+
+
+func _afficher_cartes() -> void:
+	for ancienne in cartes.get_children():
+		cartes.remove_child(ancienne)
+		ancienne.queue_free()
 	for i in GameState.NB_SLOTS:
+		# « Continuer » ne montre que les parties commencées
+		if GameState.mode != "nouvelle" and not GameState.has_slot(i):
+			continue
 		cartes.add_child(_carte(i))
 
 
@@ -25,18 +44,30 @@ func _carte(numero: int) -> Control:
 	var contenu := VBoxContainer.new()
 	contenu.add_theme_constant_override("separation", 16)
 	carte.add_child(contenu)
+	var entete := HBoxContainer.new()
+	contenu.add_child(entete)
 	var titre := Label.new()
 	titre.text = "Partie %d" % (numero + 1)
+	titre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	titre.add_theme_font_override("font", FONT)
 	titre.add_theme_font_size_override("font_size", 34)
 	titre.add_theme_color_override("font_color", BRUN)
-	contenu.add_child(titre)
+	entete.add_child(titre)
+	var existe := GameState.has_slot(numero)
+	if existe:
+		var poubelle := Button.new()
+		poubelle.text = "🗑"
+		poubelle.tooltip_text = "Supprimer cette partie"
+		poubelle.flat = true
+		poubelle.add_theme_font_size_override("font_size", 30)
+		poubelle.add_theme_color_override("font_color", BRUN)
+		poubelle.pressed.connect(_on_poubelle.bind(numero))
+		entete.add_child(poubelle)
 	var resume := Label.new()
 	resume.text = GameState.resume(numero)
 	resume.autowrap_mode = TextServer.AUTOWRAP_WORD
 	resume.add_theme_font_size_override("font_size", 20)
 	resume.add_theme_color_override("font_color", BRUN)
-	var existe := GameState.has_slot(numero)
 	var bouton := Button.new()
 	bouton.custom_minimum_size = Vector2(0, 60)
 	bouton.add_theme_font_override("font", FONT)
@@ -52,7 +83,6 @@ func _carte(numero: int) -> Control:
 		bouton.pressed.connect(_on_nouvelle.bind(numero))
 	else:
 		bouton.text = "Continuer"
-		bouton.disabled = not existe
 		bouton.pressed.connect(_on_continuer.bind(numero))
 	contenu.add_child(bouton)
 	contenu.add_child(resume)
@@ -86,3 +116,14 @@ func _on_nouvelle(numero: int) -> void:
 func _on_continuer(numero: int) -> void:
 	if GameState.charger_partie(numero):
 		get_tree().change_scene_to_file(ATELIER)
+
+
+func _on_poubelle(numero: int) -> void:
+	_a_supprimer = numero
+	_dialogue.popup_centered()
+
+
+func _on_supprimer_confirme() -> void:
+	GameState.supprimer_partie(_a_supprimer)
+	_a_supprimer = -1
+	_afficher_cartes()

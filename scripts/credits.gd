@@ -6,6 +6,7 @@ extends Control
 const CREDITS := [
 	{"titre": "Développement", "lignes": ["Mathilde"]},
 	{"titre": "Graphisme et personnages", "lignes": ["À compléter"]},
+	{"titre": "Musique", "lignes": ["Leon Wari : soundcloud.com/leon_wari"]},
 	{"titre": "Ce que nous avons accompli", "lignes": ["À compléter"]},
 ]
 

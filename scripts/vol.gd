@@ -184,7 +184,6 @@ func _hint() -> String:
 		State.RUN:
 			return "MAINTIENS ESPACE : jetpack     relâche : tu retombes     évite les pièges, ramasse les pièces"
 	return ""
-<< << << < HEAD
 
 
 func _result_text() -> String:

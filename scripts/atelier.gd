@@ -13,7 +13,8 @@ const VERT := Color(0.71, 0.85, 0.42, 1)
 const CADENAS := preload("res://scripts/cadenas.gd")
 const GRISE_TEXTE := Color(0.45, 0.42, 0.4, 1)
 const SHAPE_ICON := preload("res://scripts/shape_icon.gd")
-const PREVIEW_SCALE := 1.4
+const PREVIEW_BASE := Vector2(100, 90)
+const PERSONNAGE := preload("res://scripts/personnage.gd")
 const EQUIPES := "res://scenes/equipes.tscn"
 const CREAM := Color(0.984, 0.941, 0.839, 1)
 const BROWN := Color(0.29, 0.165, 0.078, 1)
@@ -25,7 +26,7 @@ const MISSING := Color(0.75, 0.2, 0.12, 1)
 
 @onready var mat_grid: HBoxContainer = %MatGrid
 @onready var crate_list: VBoxContainer = %CrateList
-@onready var preview: TextureRect = %Preview
+@onready var preview: Soap = %Preview
 @onready var name_label: Label = %NameLabel
 @onready var bar_solidite: ProgressBar = %BarSolidite
 @onready var bar_glisse: ProgressBar = %BarGlisse
@@ -41,6 +42,8 @@ var _selected := ""
 func _ready() -> void:
 	Musique.jouer()
 	_selected = GameState.equipped
+	# Le savon de l'aperçu porte les couleurs et le visage de l'équipe choisie
+	PERSONNAGE.appliquer_choisi(preview)
 	fabriquer_button.pressed.connect(_on_fabriquer)
 	launch_button.pressed.connect(_on_launch)
 	launch_button.grab_focus()
@@ -106,8 +109,8 @@ func _refresh_crates(tuning: Tuning) -> void:
 
 func _refresh_detail(tuning: Tuning) -> void:
 	var c := tuning.crate(_selected)
-	preview.texture = c.texture
-	# Caisse non construite : illustration grisée ; cadenas fermé. Construite : couleurs normales, cadenas ouvert
+	preview.set_crate_texture(c.texture)
+	# Caisse non construite : savon avec ses ailes grisé ; cadenas fermé. Construite : couleurs normales, cadenas ouvert
 	var construite := GameState.is_unlocked(c.id)
 	preview.modulate = Color.WHITE if construite else GRISE
 	cadenas.open = construite
@@ -146,13 +149,11 @@ func _refresh_detail(tuning: Tuning) -> void:
 
 
 func _place_preview() -> void:
-	# Image à la même échelle pour toutes les caisses, centrée dans la zone d'aperçu
-	if preview.texture == null:
-		return
-	var sz := preview.texture.get_size() * PREVIEW_SCALE
+	# Savon à la même échelle pour toutes les caisses, centré dans la zone d'aperçu (même calcul que l'écran des équipes)
 	var box := preview.get_parent() as Control
-	preview.size = sz
-	preview.position = ((box.size - sz) / 2.0).floor()
+	var k := minf(minf(box.size.x / PREVIEW_BASE.x, box.size.y / PREVIEW_BASE.y), 3.2)
+	preview.scale = Vector2(k, k)
+	preview.position = (box.size / 2.0).floor()
 
 
 func _select(id: String) -> void:
