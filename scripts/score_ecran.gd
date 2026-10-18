@@ -53,11 +53,14 @@ func _ready() -> void:
 	pastille_texte.add_theme_color_override("font_color", BROWN)
 	serie.text = d["series"]
 	citation.text = d["quote"]
+	# Texte réduit seulement quand la phrase est longue : même mise en page sur tous les paliers
+	citation.add_theme_font_size_override("font_size", 34 if String(d["quote"]).length() <= 100 else 28)
 	phrase.text = d["tag"]
 	phrase.visible = d["tag"] != ""
 	phrase.add_theme_color_override("font_color", accent)
 	suite_texte.text = "À SUIVRE ▸ " + d["next"]
 	suite_texte.add_theme_color_override("font_color", BROWN)
+	suite_texte.add_theme_font_size_override("font_size", 20 if String(d["next"]).length() <= 80 else 17)
 	# Score : la distance du dernier vol, dans l'unité du jeu
 	var distance := _distance_du_vol()
 	valeur.text = GameState.tuning.cm(distance)

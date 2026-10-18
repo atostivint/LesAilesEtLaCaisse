@@ -172,7 +172,7 @@ text = "Marseille\n« Le savon du vieux porc »"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.27, 0.1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 26
 text = "« Le savon du vieux porc »"
 
 [node name="Zone" type="Control" parent="Marge/Main/Corps/Apercu/ApercuBox"]
