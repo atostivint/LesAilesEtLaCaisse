@@ -29,6 +29,10 @@ func _physics_process(delta: float) -> void:
 	cam.position.x += soap.velocity.x * delta
 	%TrapsSpawnerGroup.position.x += soap.velocity.x * delta
 
+func hit_soap():
+	print("LOSE")
+	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
+
 func spawn_trap():
 	var used_spawners: Array[Node2D] = []
 	var spawn_count := randi_range(min_traps_per_spawn, max_traps_per_spawn)
@@ -40,4 +44,5 @@ func spawn_trap():
 
 		var trap = TRAP.instantiate()
 		trap.global_position = spawner.global_position
+		trap.soap_entered.connect(hit_soap)
 		add_child(trap)
