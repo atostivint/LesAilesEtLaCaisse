@@ -1,9 +1,42 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/bouton_menu.gd" id="1_menu"]
+[ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="normal"]
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 7
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="survol"]
+bg_color = Color(0.99, 0.76, 0.12, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 7
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
 
 [node name="BoutonMenu" type="Button"]
-layout_mode = 1
+custom_minimum_size = Vector2(140, 44)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -12,6 +45,15 @@ offset_top = -60.0
 offset_right = 156.0
 offset_bottom = -16.0
 grow_vertical = 0
-custom_minimum_size = Vector2(140, 44)
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_hover_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_focus_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("normal")
+theme_override_styles/hover = SubResource("survol")
+theme_override_styles/pressed = SubResource("survol")
+theme_override_styles/focus = SubResource("survol")
 text = "◂ Menu"
 script = ExtResource("1_menu")

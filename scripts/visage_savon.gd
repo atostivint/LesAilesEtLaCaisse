@@ -10,9 +10,20 @@ const DRAW_SCALE := 0.2
 const LINE_W := 0.8
 
 @export var expression := 0
+var _t := 0.0
+
+
+func _process(delta: float) -> void:
+	_t += delta
+	queue_redraw()
 
 
 func _draw() -> void:
+	# Animation : le visage respire doucement et cligne (écrasement bref) toutes les 3 secondes
+	var clignement := fmod(_t, 3.0) < 0.12
+	var respiration := sin(_t * 3.0)
+	var echelle_y := (0.85 if clignement else 1.0) + 0.03 * respiration
+	draw_set_transform(Vector2(0.0, 0.6 * respiration), 0.0, Vector2(1.0, echelle_y))
 	match expression:
 		0:
 			_kawaii()

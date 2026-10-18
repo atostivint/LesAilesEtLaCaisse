@@ -9,6 +9,8 @@ const GRISE := Color(0.4, 0.4, 0.4, 1)
 const GRIS_BOUTON := Color(0.72, 0.72, 0.72, 1)
 const YELLOW_BTN := Color(0.99, 0.76, 0.12, 1)
 const FONT := preload("res://fonts/COOPBL.TTF")
+const CADENAS := preload("res://scripts/cadenas.gd")
+const GRISE_TEXTE := Color(0.45, 0.42, 0.4, 1)
 const SHAPE_ICON := preload("res://scripts/shape_icon.gd")
 const PREVIEW_SCALE := 1.4
 const EQUIPES := "res://scenes/equipes.tscn"
@@ -79,8 +81,18 @@ func _refresh_crates(tuning: Tuning) -> void:
 		texts.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		texts.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(texts)
-		texts.add_child(_card_label(c.nom, 18, FONT, BROWN))
-		var style := _card_style(YELLOW if c.id == _selected else CREAM, 30, 2)
+		var construite := GameState.is_unlocked(c.id)
+		var nom_label := _card_label(c.nom, 18, FONT, BROWN if construite else GRISE_TEXTE)
+		texts.add_child(nom_label)
+		# Cadenas à droite : fermé tant que la caisse n'est pas débloquée
+		var cadenas_carte = CADENAS.new()
+		cadenas_carte.open = construite
+		cadenas_carte.custom_minimum_size = Vector2(34, 40)
+		cadenas_carte.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		cadenas_carte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(cadenas_carte)
+		var fond := YELLOW if (c.id == _selected and construite) else (GRIS_BOUTON if not construite else CREAM)
+		var style := _card_style(fond, 30, 2)
 		style.border_width_bottom = 3
 		button.add_theme_stylebox_override("normal", style)
 		button.add_theme_stylebox_override("hover", style)

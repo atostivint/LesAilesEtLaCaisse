@@ -49,6 +49,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	soap.set_crate_texture(CRATE)
+	Personnage.appliquer_choisi(soap)
 	soap.thrusting = true
 	# Les membres sont dessinés dans un enfant placé après le savon : ils passent devant le corps
 	_limbs = Node2D.new()

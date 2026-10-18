@@ -63,6 +63,7 @@ func _ready() -> void:
 	course = Course.new(tuning, tuning.course_seed)
 	sim = FlightSim.new(tuning.stats_for(crate_id), tuning, course)
 	soap.set_crate_texture(tuning.crate(crate_id).texture)
+	Personnage.appliquer_choisi(soap)
 	spawn_timer.wait_time = tuning.spawn_interval
 	_spawn_segment(tuning.course_start)  # le premier tronçon est déjà là quand le savon attend en haut de la piste
 	cam.make_current()

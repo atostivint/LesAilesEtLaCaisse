@@ -1,20 +1,21 @@
 extends Control
 ## Écran de score de fin de vol, un seul modèle pour les 5 paliers (maquettes « Score » : PNG et canvas Claude Design).
 ## Le palier se règle avec `mood` dans l'inspecteur (scènes score_*.tscn) : excellent, bon, moyen, mauvais, catastrophe.
-## Textes, couleur d'accent et visage du savon viennent de MOODS. « Rejouer » relance un vol.
+## Après un vol, un pop-up demande le nom du joueur pour l'ajouter au classement.
+## « Classement » affiche les meilleurs scores ; « Rejouer » relance un vol.
 
 const VOL := "res://scenes/vol.tscn"
-const VISAGE := preload("res://scripts/visage_savon.gd")
 const INK := Color(0.984, 0.941, 0.839, 1)
 const BROWN := Color(0.29, 0.165, 0.078, 1)
+const CREME_PANNEAU := Color(0.984, 0.941, 0.839, 1)
 
-## « visage » : index dans visage_savon.gd (0 kawaii, 1 agressif, 2 endormi, 3 anxieux, 4 blasé, 5 fou).
+## Textes du palier. « visage » ne sert plus (le personnage est celui du joueur).
 var MOODS := {
-	"excellent": {"accent": Color("#7A8B2E"), "label": "SCORE EXCELLENT", "series": "La bague au savon", "quote": "« Gérard demande Éléonore en mariage, elle dit oui et la bague glisse toute seule au doigt ! »", "tag": "", "next": "Éléonore prépare le grand jour, Pamela commettra-t-elle l'irréparable ?", "visage": 0},
-	"bon": {"accent": Color("#C8561B"), "label": "BON SCORE", "series": "Gérard pris au piège", "quote": "« Éléonore a tout frotté ! Même Gérard y est passé ! »", "tag": "", "next": "Pamela folle de jalousie, prendra-t-elle sa revanche ?", "visage": 0},
-	"moyen": {"accent": Color("#7a4a22"), "label": "SCORE MOYEN", "series": "Gérard perd de son éclat", "quote": "« Gérard s'ennuie auprès d'Éléonore, et leur histoire n'est plus aussi pétillante qu'avant. »", "tag": "", "next": "Éléonore sent-elle que Gérard lui file entre les doigts ?", "visage": 2},
-	"mauvais": {"accent": Color("#3f7f8a"), "label": "MAUVAIS SCORE", "series": "Éléonore dérape", "quote": "« Éléonore a un accident de voiture et se retrouve à l'hôpital, entre la vie et la mort. »", "tag": "", "next": "Gérard au chevet d'Éléonore, mais l'accident était-il vraiment fortuit ?", "visage": 3},
-	"catastrophe": {"accent": Color("#B5361F"), "label": "SCORE CATASTROPHIQUE", "series": "Pas une trace", "quote": "« On retrouve Éléonore sans vie. Le coupable a tout nettoyé, il ne reste rien. »", "tag": "", "next": "Pamela offre son épaule à Gérard, mais une tache sur sa manche la trahira-t-elle ?", "visage": 5},
+	"excellent": {"accent": Color("#7A8B2E"), "label": "SCORE EXCELLENT", "series": "La bague au savon", "quote": "« Gérard demande Éléonore en mariage, elle dit oui et la bague glisse toute seule au doigt ! »", "tag": "", "next": "Éléonore prépare le grand jour, Pamela commettra-t-elle l'irréparable ?"},
+	"bon": {"accent": Color("#C8561B"), "label": "BON SCORE", "series": "Gérard pris au piège", "quote": "« Éléonore a tout frotté ! Même Gérard y est passé ! »", "tag": "", "next": "Pamela folle de jalousie, prendra-t-elle sa revanche ?"},
+	"moyen": {"accent": Color("#7a4a22"), "label": "SCORE MOYEN", "series": "Gérard perd de son éclat", "quote": "« Gérard s'ennuie auprès d'Éléonore, et leur histoire n'est plus aussi pétillante qu'avant. »", "tag": "", "next": "Éléonore sent-elle que Gérard lui file entre les doigts ?"},
+	"mauvais": {"accent": Color("#3f7f8a"), "label": "MAUVAIS SCORE", "series": "Éléonore dérape", "quote": "« Éléonore a un accident de voiture et se retrouve à l'hôpital, entre la vie et la mort. »", "tag": "", "next": "Gérard au chevet d'Éléonore, mais l'accident était-il vraiment fortuit ?"},
+	"catastrophe": {"accent": Color("#B5361F"), "label": "SCORE CATASTROPHIQUE", "series": "Pas une trace", "quote": "« On retrouve Éléonore sans vie. Le coupable a tout nettoyé, il ne reste rien. »", "tag": "", "next": "Pamela offre son épaule à Gérard, mais une tache sur sa manche la trahira-t-elle ?"},
 }
 
 @export_enum("excellent", "bon", "moyen", "mauvais", "catastrophe") var mood := "excellent"
@@ -32,8 +33,13 @@ const MOODS_FICHIER := {"excellent": "excellent", "bon": "bon", "moyen": "moyen"
 @onready var suite_texte: Label = $Bas/Marge/Colonnes/Gauche/Suite/Texte
 @onready var entete: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/EnTete
 @onready var valeur: Label = $Bas/Marge/Colonnes/Droite/Carte/Contenu/Valeur
+@onready var droite: VBoxContainer = $Bas/Marge/Colonnes/Droite
 @onready var badge: Panel = $Haut/Badge
 @onready var savon: Soap = %Savon
+
+var _popup_nom: Control
+var _champ_nom: LineEdit
+var _classement_panneau: Control
 
 
 func _ready() -> void:
@@ -54,17 +60,43 @@ func _ready() -> void:
 	phrase.add_theme_color_override("font_color", accent)
 	suite_texte.text = "À SUIVRE ▸ " + d["next"]
 	suite_texte.add_theme_color_override("font_color", BROWN)
+	# Score : la distance du dernier vol, dans l'unité du jeu
+	var distance := _distance_du_vol()
+	valeur.text = GameState.tuning.cm(distance)
+	valeur.add_theme_font_size_override("font_size", 56)
 	valeur.add_theme_color_override("font_color", accent)
-	_mettre_savon(d["visage"])
+	Personnage.appliquer_choisi(savon)
 	# Gérard à gauche et Éléonore à droite, dans la pose du palier
 	var numero: int = MOODS_NUMERO[mood]
 	var fichier: String = MOODS_FICHIER[mood]
 	$Haut/Gerard.texture = load("res://artwork/personnages/gerard-%d-%s.svg" % [numero, fichier])
 	$Haut/Eleonore.texture = load("res://artwork/personnages/eleonore-%d-%s.svg" % [numero, fichier])
+	# Bouton classement, juste au-dessus de Rejouer
+	var bouton_classement := Button.new()
+	bouton_classement.text = "Classement"
+	bouton_classement.custom_minimum_size = Vector2(0, 48)
+	bouton_classement.add_theme_color_override("font_color", BROWN)
+	bouton_classement.add_theme_font_override("font", $Bas/Marge/Colonnes/Droite/Rejouer.get_theme_font("font"))
+	bouton_classement.add_theme_font_size_override("font_size", 24)
+	bouton_classement.add_theme_stylebox_override("normal", _style_bouton(CREME_PANNEAU))
+	bouton_classement.add_theme_stylebox_override("hover", _style_bouton(Color(0.99, 0.76, 0.12, 1)))
+	bouton_classement.pressed.connect(_afficher_classement)
+	droite.add_child(bouton_classement)
+	droite.move_child(bouton_classement, $Bas/Marge/Colonnes/Droite/Rejouer.get_index())
+	_construire_popup_nom()
+	_construire_classement()
+	if GameState.score_en_attente:
+		_popup_nom.show()
+
+
+func _distance_du_vol() -> float:
+	if GameState.last_run.is_empty():
+		return 0.0
+	return float(GameState.last_run["distance"])
 
 
 func _style_fond(node: Control, color: Color, radius: float, marge := 0.0) -> void:
-	# Fond coloré d'un bloc (pastille, pilule, bandeau ou pastille ronde), avec une bordure brune
+	# Fond coloré d'un bloc (bandeau ou pastille ronde), avec une bordure brune
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
 	style.border_color = BROWN
@@ -83,17 +115,140 @@ func _style_fond(node: Control, color: Color, radius: float, marge := 0.0) -> vo
 	node.add_theme_stylebox_override("panel" if node is PanelContainer or node is Panel else "normal", style)
 
 
-func _mettre_savon(visage: int) -> void:
-	# Le savon du jeu, sans ses yeux et sa bouche d'origine, avec le visage du palier
-	savon.mouth_timer.stop()
-	for nom in ["YeuxBlancs", "PupilleGauche", "PupilleDroite", "Bouche"]:
-		savon.get_node("Visuals/" + nom).visible = false
-	savon.body_color = Color(1, 0.97, 0.9, 1)
-	var dessin = Control.new()
-	dessin.set_script(VISAGE)
-	dessin.expression = visage
-	dessin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	savon.add_child(dessin)
+func _style_bouton(couleur: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = couleur
+	style.border_color = BROWN
+	style.border_width_left = 4
+	style.border_width_top = 4
+	style.border_width_right = 4
+	style.border_width_bottom = 7
+	style.corner_radius_top_left = 24
+	style.corner_radius_top_right = 24
+	style.corner_radius_bottom_right = 24
+	style.corner_radius_bottom_left = 24
+	return style
+
+
+func _style_panneau() -> StyleBoxFlat:
+	var style := _style_bouton(CREME_PANNEAU)
+	style.border_width_bottom = 8
+	style.content_margin_left = 28.0
+	style.content_margin_top = 24.0
+	style.content_margin_right = 28.0
+	style.content_margin_bottom = 24.0
+	return style
+
+
+func _construire_popup_nom() -> void:
+	## Pop-up « NOUVEAU SCORE » : le joueur entre son nom pour le classement.
+	_popup_nom = _fenetre_centree(480)
+	var contenu: VBoxContainer = _popup_nom.get_node("Panneau/Contenu")
+	contenu.add_child(_texte("NOUVEAU SCORE", 36, BROWN, GameState.tuning.cm(_distance_du_vol())))
+	contenu.add_child(_texte("Entre ton nom pour le classement :", 22, BROWN))
+	_champ_nom = LineEdit.new()
+	_champ_nom.max_length = 16
+	_champ_nom.placeholder_text = "Ton nom"
+	_champ_nom.add_theme_font_size_override("font_size", 24)
+	_champ_nom.text_submitted.connect(func(_t): _valider_nom())
+	contenu.add_child(_champ_nom)
+	var bouton := Button.new()
+	bouton.text = "Ajouter au classement"
+	bouton.custom_minimum_size = Vector2(0, 52)
+	bouton.add_theme_color_override("font_color", BROWN)
+	bouton.add_theme_font_size_override("font_size", 24)
+	bouton.add_theme_stylebox_override("normal", _style_bouton(Color(0.99, 0.76, 0.12, 1)))
+	bouton.add_theme_stylebox_override("hover", _style_bouton(Color(0.99, 0.82, 0.3, 1)))
+	bouton.pressed.connect(_valider_nom)
+	contenu.add_child(bouton)
+
+
+func _construire_classement() -> void:
+	## Tableau du classement (les meilleurs scores enregistrés).
+	_classement_panneau = _fenetre_centree(560)
+	var contenu: VBoxContainer = _classement_panneau.get_node("Panneau/Contenu")
+	contenu.add_child(_texte("CLASSEMENT", 36, BROWN))
+	var liste := VBoxContainer.new()
+	liste.name = "Liste"
+	contenu.add_child(liste)
+	var fermer := Button.new()
+	fermer.text = "Fermer"
+	fermer.custom_minimum_size = Vector2(0, 48)
+	fermer.add_theme_color_override("font_color", BROWN)
+	fermer.add_theme_font_size_override("font_size", 24)
+	fermer.add_theme_stylebox_override("normal", _style_bouton(CREME_PANNEAU))
+	fermer.pressed.connect(func(): _classement_panneau.hide())
+	contenu.add_child(fermer)
+
+
+func _fenetre_centree(largeur: float) -> Control:
+	## Un voile sombre et un panneau crème au centre de l'écran (pop-up).
+	var fenetre := Control.new()
+	fenetre.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fenetre.mouse_filter = Control.MOUSE_FILTER_STOP
+	var voile := ColorRect.new()
+	voile.color = Color(0.0, 0.0, 0.0, 0.45)
+	voile.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fenetre.add_child(voile)
+	var panneau := PanelContainer.new()
+	panneau.name = "Panneau"
+	panneau.add_theme_stylebox_override("panel", _style_panneau())
+	panneau.custom_minimum_size = Vector2(largeur, 0)
+	panneau.set_anchors_preset(Control.PRESET_CENTER)
+	panneau.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	panneau.grow_vertical = Control.GROW_DIRECTION_BOTH
+	fenetre.add_child(panneau)
+	var contenu := VBoxContainer.new()
+	contenu.name = "Contenu"
+	contenu.add_theme_constant_override("separation", 14)
+	panneau.add_child(contenu)
+	fenetre.hide()
+	add_child(fenetre)
+	return fenetre
+
+
+func _texte(texte: String, taille: int, couleur: Color, sous_titre := "") -> Control:
+	var bloc := VBoxContainer.new()
+	var titre := Label.new()
+	titre.text = texte
+	titre.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	titre.add_theme_font_size_override("font_size", taille)
+	titre.add_theme_color_override("font_color", couleur)
+	bloc.add_child(titre)
+	if sous_titre != "":
+		var sous := Label.new()
+		sous.text = sous_titre
+		sous.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		sous.add_theme_font_size_override("font_size", 22)
+		sous.add_theme_color_override("font_color", BROWN)
+		bloc.add_child(sous)
+	return bloc
+
+
+func _valider_nom() -> void:
+	var nom := _champ_nom.text.strip_edges()
+	if nom == "":
+		nom = "Anonyme"
+	GameState.ajouter_au_classement(nom, _distance_du_vol(), mood)
+	GameState.score_en_attente = false
+	_popup_nom.hide()
+	_afficher_classement()
+
+
+func _afficher_classement() -> void:
+	var liste: VBoxContainer = _classement_panneau.get_node("Panneau/Contenu/Liste")
+	for enfant in liste.get_children():
+		enfant.queue_free()
+	if GameState.classement.is_empty():
+		liste.add_child(_texte("Pas encore de score.", 22, BROWN))
+	for i in GameState.classement.size():
+		var entree: Dictionary = GameState.classement[i]
+		var ligne := Label.new()
+		ligne.text = "%d.  %s   ·   %s" % [i + 1, entree["nom"], GameState.tuning.cm(float(entree["distance"]))]
+		ligne.add_theme_font_size_override("font_size", 24)
+		ligne.add_theme_color_override("font_color", BROWN)
+		liste.add_child(ligne)
+	_classement_panneau.show()
 
 
 func _on_rejouer_pressed() -> void:

@@ -1,11 +1,11 @@
 extends Control
 ## Écran des équipes : on choisit son camp, puis la couleur du savon.
-## Le visage du savon change selon l'équipe (kawaii, agressif, endormi, anxieux, blasé, fou).
-## Pour l'instant, la sélection est visuelle seulement : rien n'est sauvegardé.
+## Le choix est enregistré (GameState) et appliqué partout : menu, jeu, scores.
+## « Valider mon savon » lance une courte animation puis revient à l'atelier.
 
 const ATELIER := "res://scenes/atelier.tscn"
 const CRATE := preload("res://artwork/sprites/caisse_savon.svg")
-const VISAGE := preload("res://scripts/visage_savon.gd")
+const PERSONNAGE := preload("res://scripts/personnage.gd")
 const COULEURS := [
 	Color(0.984, 0.941, 0.839, 1),
 	Color(0.9, 0.6, 0.62, 1),
@@ -32,7 +32,7 @@ const BRUN := Color(0.29, 0.165, 0.078, 1)
 
 var _equipe := 1
 var _couleur := 0
-var _visage
+var _valide := false
 
 @onready var grille: GridContainer = %Equipes
 @onready var swatches: HBoxContainer = %Swatches
@@ -40,10 +40,14 @@ var _visage
 @onready var savon: Soap = %Savon
 @onready var nom_label: Label = %Nom
 @onready var phrase_label: Label = %Phrase
+@onready var valider: Button = $Marge/Main/Valider
 
 
 func _ready() -> void:
 	Musique.jouer()
+	if GameState.equipe >= 0:
+		_equipe = GameState.equipe
+		_couleur = GameState.couleur
 	for i in EQUIPES.size():
 		var bouton: Button = grille.get_child(i)
 		bouton.pressed.connect(_on_equipe.bind(i))
@@ -52,15 +56,8 @@ func _ready() -> void:
 		b.custom_minimum_size = Vector2(44, 44)
 		b.pressed.connect(_on_couleur.bind(i))
 		swatches.add_child(b)
+	valider.pressed.connect(_on_valider)
 	savon.set_crate_texture(CRATE)
-	# Les yeux et la bouche d'origine du savon sont remplacés par le visage dessiné
-	savon.mouth_timer.stop()
-	for nom in ["YeuxBlancs", "PupilleGauche", "PupilleDroite", "Bouche"]:
-		savon.get_node("Visuals/" + nom).visible = false
-	_visage = Control.new()
-	_visage.set_script(VISAGE)
-	_visage.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	savon.add_child(_visage)
 	zone.resized.connect(_place_savon)
 	_place_savon()
 	_on_equipe(_equipe)
@@ -75,21 +72,48 @@ func _place_savon() -> void:
 
 
 func _on_equipe(index: int) -> void:
+	if _valide:
+		return
 	_equipe = index
 	var equipe: Dictionary = EQUIPES[index]
 	nom_label.text = equipe["nom"]
 	phrase_label.text = equipe["phrase"]
-	_visage.expression = equipe["visage"]
-	_visage.queue_redraw()
+	PERSONNAGE.appliquer(savon, equipe["visage"], COULEURS[_couleur])
 	for i in grille.get_child_count():
 		_colorer(grille.get_child(i), CREME if i != index else JAUNE, i == index)
 
 
 func _on_couleur(index: int) -> void:
+	if _valide:
+		return
 	_couleur = index
-	savon.body_color = COULEURS[index]
+	PERSONNAGE.appliquer(savon, EQUIPES[_equipe]["visage"], COULEURS[index])
 	for i in swatches.get_child_count():
 		_colorer(swatches.get_child(i), COULEURS[i], i == index)
+
+
+func _on_valider() -> void:
+	## Enregistre l'équipe, fait « rebondir » le savon avec un message, puis revient à l'atelier.
+	if _valide:
+		return
+	_valide = true
+	valider.disabled = true
+	GameState.set_equipe(_equipe, _couleur)
+	var message := Label.new()
+	message.text = "Savon validé !"
+	message.add_theme_color_override("font_color", BRUN)
+	message.add_theme_font_size_override("font_size", 40)
+	message.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	message.offset_top = 16.0
+	message.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	zone.add_child(message)
+	var k: float = savon.scale.x
+	var tween := create_tween()
+	tween.tween_property(savon, "scale", Vector2(k * 1.2, k * 1.2), 0.2)
+	tween.tween_property(savon, "scale", Vector2(k * 0.95, k * 0.95), 0.1)
+	tween.tween_property(savon, "scale", Vector2(k, k), 0.1)
+	await get_tree().create_timer(0.9).timeout
+	get_tree().change_scene_to_file(ATELIER)
 
 
 func _colorer(button: Button, bg: Color, selected := false) -> void:
