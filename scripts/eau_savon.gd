@@ -30,6 +30,8 @@ func _regenerate() -> void:
 
 
 func _draw() -> void:
+	# Fond plein de la couleur de l'eau : pas de trou entre les vagues
+	draw_rect(Rect2(Vector2.ZERO, size), couleur)
 	var points := PackedVector2Array()
 	for x in range(0, int(size.x) + 1, 8):
 		points.append(Vector2(x, 14.0 + sin(x * 0.03) * 5.0))
