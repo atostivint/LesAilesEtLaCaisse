@@ -8,6 +8,10 @@
 [ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="5_font"]
 
 [sub_resource type="StyleBoxFlat" id="btn_marron"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.29, 0.165, 0.078, 1)
 border_width_left = 6
 border_width_top = 6
@@ -20,6 +24,10 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="btn_vert"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.42, 0.54, 0.18, 1)
 border_width_left = 6
 border_width_top = 6
@@ -32,6 +40,10 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="pill"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.984, 0.941, 0.839, 1)
 border_width_left = 4
 border_width_top = 4
@@ -44,6 +56,10 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
 [sub_resource type="StyleBoxFlat" id="btn_yellow"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.99, 0.76, 0.12, 1)
 border_width_left = 6
 border_width_top = 6
@@ -56,6 +72,10 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="btn_cream"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.984, 0.941, 0.839, 1)
 border_width_left = 6
 border_width_top = 6
@@ -68,6 +88,10 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="btn_disabled"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.72, 0.72, 0.72, 1)
 border_width_left = 6
 border_width_top = 6
@@ -80,6 +104,10 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
 [sub_resource type="StyleBoxFlat" id="score_panel"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.984, 0.941, 0.839, 1)
 border_width_left = 6
 border_width_top = 6

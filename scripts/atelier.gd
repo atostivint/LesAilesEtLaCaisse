@@ -229,6 +229,10 @@ func _card_label(text: String, size: int, font: Font, color: Color) -> Label:
 func _card_style(bg: Color, radius := 30, border := 6) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = bg
+	style.content_margin_left = 18.0
+	style.content_margin_right = 18.0
+	style.content_margin_top = 10.0
+	style.content_margin_bottom = 10.0
 	style.border_color = BROWN
 	style.border_width_left = border
 	style.border_width_top = border

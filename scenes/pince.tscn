@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" path="res://scenes/warning_badge.tscn" id="2_badge"]
 
 [sub_resource type="StyleBoxFlat" id="Style_body"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.784, 0.337, 0.106, 1)
 border_width_left = 4
 border_width_top = 4
@@ -12,6 +16,10 @@ border_width_bottom = 4
 border_color = Color(0.243, 0.141, 0.071, 1)
 
 [sub_resource type="StyleBoxFlat" id="Style_tip"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.71, 0.212, 0.122, 1)
 border_width_left = 4
 border_width_top = 4

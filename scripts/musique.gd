@@ -28,5 +28,16 @@ func jouer() -> void:
 		print("Musique : lecture de %s" % PISTE)
 
 
+var _chrono := 0.0
+
+
+func _process(delta: float) -> void:
+	# Diagnostic : niveau de sortie du bus Master toutes les 2 secondes (dans la sortie de Godot)
+	_chrono += delta
+	if _chrono >= 2.0:
+		_chrono = 0.0
+		print("Musique : en lecture=%s, niveau Master=%.1f dB" % [_lecteur.playing, AudioServer.get_bus_peak_volume_left_db(0, 0)])
+
+
 func arreter() -> void:
 	_lecteur.stop()

@@ -118,6 +118,10 @@ func _style_fond(node: Control, color: Color, radius: float, marge := 0.0) -> vo
 func _style_bouton(couleur: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = couleur
+	style.content_margin_left = 22.0
+	style.content_margin_right = 22.0
+	style.content_margin_top = 10.0
+	style.content_margin_bottom = 10.0
 	style.border_color = BROWN
 	style.border_width_left = 4
 	style.border_width_top = 4

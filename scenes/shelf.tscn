@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://e7j2cm5fc1x3" path="res://scripts/shelf.gd" id="1_shelf"]
 
 [sub_resource type="StyleBoxFlat" id="Style_plank"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.788, 0.553, 0.31, 1)
 border_width_left = 4
 border_width_top = 4

@@ -32,6 +32,10 @@ content_margin_right = 16.0
 content_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="bouton_jaune"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.99, 0.76, 0.12, 1)
 border_width_left = 6
 border_width_top = 6
@@ -42,6 +46,22 @@ corner_radius_top_left = 40
 corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="bouton_marron"]
+bg_color = Color(0.29, 0.165, 0.078, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.2, 0.11, 0.05, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+content_margin_left = 22.0
+content_margin_right = 22.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 
 [node name="Equipes" type="Control"]
 layout_mode = 3
@@ -239,13 +259,14 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_font")
+theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("bouton_jaune")
-theme_override_styles/hover = SubResource("bouton_jaune")
-theme_override_styles/pressed = SubResource("bouton_jaune")
-theme_override_styles/focus = SubResource("bouton_jaune")
+theme_override_styles/normal = SubResource("bouton_marron")
+theme_override_styles/hover = SubResource("bouton_marron")
+theme_override_styles/pressed = SubResource("bouton_marron")
+theme_override_styles/focus = SubResource("bouton_marron")
 text = "Valider mon savon"
 
 [connection signal="pressed" from="Marge/Main/Haut/Retour" to="." method="_on_retour_pressed"]
