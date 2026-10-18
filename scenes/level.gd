@@ -13,9 +13,12 @@ extends Node2D
 @export_range(0, 12) var min_traps_per_spawn := 3
 @export_range(0, 12) var max_traps_per_spawn := 7
 
+@export_range(0, 1, 0.1) var bonus_spawn_proba = 0.5
+
 var trap_spawners: Array
 
 var TRAP = preload("res://scenes/trap.tscn")
+var BONUS = preload("res://scenes/bonus.tscn")
 
 func _ready() -> void:
 	soap.cruise_speed = cruise_speed
@@ -46,6 +49,9 @@ func hit_soap():
 	print("LOSE")
 	get_tree().change_scene_to_file("res://scenes/atelier.tscn")
 
+func apply_bonus(data):
+	print("got bonus ", data)
+
 func spawn_trap():
 	var used_spawners: Array[Node2D] = []
 	var spawn_count := randi_range(min_traps_per_spawn, max_traps_per_spawn)
@@ -59,6 +65,17 @@ func spawn_trap():
 		trap.global_position = spawner.global_position
 		trap.soap_entered.connect(hit_soap)
 		add_child(trap)
+
+	# Spawn material
+	if randf() <= bonus_spawn_proba:
+		var spawner: Node2D = trap_spawners.pick_random()
+		while spawner in used_spawners:
+			spawner = trap_spawners.pick_random()
+		var bonus = BONUS.instantiate()
+		bonus.global_position = spawner.global_position
+		bonus.type = "paper"
+		bonus.soap_entered.connect(apply_bonus)
+		add_child(bonus)
 
 
 func _on_ground_body_entered(body: Node2D) -> void:

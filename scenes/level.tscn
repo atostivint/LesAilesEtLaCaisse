@@ -90,6 +90,8 @@ autostart = true
 
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1317302672]
 unique_name_in_owner = true
+position = Vector2(-29, 0)
+scale = Vector2(1.04, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1440828113]
 position = Vector2(741, 43.25)

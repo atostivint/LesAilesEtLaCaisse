@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b2il4xrp3ba6"]
+
+[ext_resource type="Script" uid="uid://j3qt5cxl2g7e" path="res://scripts/bonus.gd" id="1_piybw"]
+[ext_resource type="Texture2D" uid="uid://dp2ew7rioc1ep" path="res://artwork/sprites/materiau_papier.svg" id="2_piybw"]
+
+[node name="Bonus" type="Area2D" unique_id=696545699]
+script = ExtResource("1_piybw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=107363416]
+position = Vector2(-1.9999998, -0.9999999)
+scale = Vector2(1.1249999, 1.1249999)
+polygon = PackedVector2Array(1, -1, 1, 21, 23, 21, 23, 0)
+
+[node name="MateriauPapier" type="Sprite2D" parent="." unique_id=441000281]
+position = Vector2(13, 11)
+scale = Vector2(0.20489322, 0.20489322)
+texture = ExtResource("2_piybw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
