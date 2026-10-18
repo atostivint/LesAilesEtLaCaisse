@@ -222,22 +222,6 @@ theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
 text = "Savon de Castille\n« Le savon de la Castagne »"
 
-[node name="Naplouse" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
-custom_minimum_size = Vector2(250, 60)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "Savon de Naplouse\n« Le savon de la Nap-loose »"
-
-[node name="Noir" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
-custom_minimum_size = Vector2(250, 60)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "Savon noir africain\n« Le savon noir de crasse »"
-
 [node name="CouleurTitre" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)

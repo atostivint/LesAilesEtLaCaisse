@@ -17,14 +17,12 @@ const COULEURS := [
 	Color(0.24, 0.16, 0.12, 1),
 ]
 ## Dans l'ordre des boutons de la grille.
-## « visage » : 0 kawaii, 1 agressif, 2 endormi, 3 anxieux, 4 blasé, 5 fou (voir visage_savon.gd).
+## « visage » : index d'yeux et de bouche (voir personnage.gd).
 const EQUIPES := [
 	{"nom": "Savon d'Alep", "phrase": "« Le savon syrieusement sale »", "visage": 0},
 	{"nom": "Savon de Marseille", "phrase": "« Le savon du vieux porc »", "visage": 1},
 	{"nom": "Savon de Tripoli", "phrase": "« Le savon tris pourri »", "visage": 2},
 	{"nom": "Savon de Castille", "phrase": "« Le savon de la Castagne »", "visage": 3},
-	{"nom": "Savon de Naplouse", "phrase": "« Le savon de la Nap-loose »", "visage": 4},
-	{"nom": "Savon noir africain", "phrase": "« Le savon noir de crasse »", "visage": 5},
 ]
 const JAUNE := Color(0.99, 0.76, 0.12, 1)
 const CREME := Color(0.984, 0.941, 0.839, 1)
