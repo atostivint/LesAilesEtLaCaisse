@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
 [ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="3_font"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
+[ext_resource type="Script" path="res://scripts/eau_savon.gd" id="5_eau"]
 [ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
 
 [sub_resource type="StyleBoxFlat" id="bas"]
@@ -106,22 +107,48 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -440.0
+offset_bottom = -400.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Colline" type="Polygon2D" parent="Haut"]
 color = Color(0.98, 0.94, 0.84, 1)
-polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 379, 0, 379)
-
-[node name="Mer" type="Polygon2D" parent="Haut"]
-color = Color(0.35, 0.6, 0.62, 1)
-polygon = PackedVector2Array(0, 402, 1456, 402, 1456, 379, 0, 379)
+polygon = PackedVector2Array(0, 300, 180, 240, 420, 220, 700, 300, 1000, 400, 1456, 330, 1456, 419, 0, 419)
 
 [node name="Savon" parent="Haut" instance=ExtResource("4_soap")]
 unique_name_in_owner = true
 position = Vector2(720, 330)
 scale = Vector2(3, 3)
+
+[node name="Gerard" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 410.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eleonore" type="TextureRect" parent="Haut"]
+layout_mode = 0
+offset_left = 1140.0
+offset_top = 110.0
+offset_right = 1410.0
+offset_bottom = 410.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eau" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_eau")
 
 [node name="Bas" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -129,7 +156,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -440.0
+offset_top = -360.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("bas")
