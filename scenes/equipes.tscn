@@ -1,40 +1,20 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene format=3 uid="uid://bnwtgq5d5p35j"]
 
-[ext_resource type="Script" path="res://scripts/equipes.gd" id="1_eq"]
-[ext_resource type="Script" path="res://scripts/carrelage.gd" id="2_tile"]
-[ext_resource type="FontFile" path="res://fonts/COOPBL.TTF" id="3_font"]
-[ext_resource type="PackedScene" path="res://scenes/soap.tscn" id="4_soap"]
+[ext_resource type="Script" uid="uid://cp0bx4thiwnme" path="res://scripts/equipes.gd" id="1_eq"]
+[ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="2_tile"]
+[ext_resource type="FontFile" uid="uid://r57oom8r8ki2" path="res://fonts/COOPBL.TTF" id="3_font"]
+[ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="4_soap"]
+[ext_resource type="Texture2D" uid="uid://bmacnqyvlkylp" path="res://artwork/sprites/savon_bleu_bouche_grimace.svg" id="5_4u1pu"]
+[ext_resource type="Texture2D" uid="uid://bx5n4ni7fnnxw" path="res://artwork/sprites/savon_bleu_bouche_inquiete.svg" id="6_wbrv4"]
+[ext_resource type="Texture2D" uid="uid://c0c43ouj35xis" path="res://artwork/sprites/savon_bleu_bouche_moue.svg" id="7_sqxny"]
+[ext_resource type="Texture2D" uid="uid://cndr5p0jcu7uf" path="res://artwork/sprites/savon_bleu_bouche_sourire.svg" id="8_ugl5s"]
+[ext_resource type="Texture2D" uid="uid://ts2qb5sliieh" path="res://artwork/sprites/savon_bleu_bouche_surprise.svg" id="9_di0bs"]
 [ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
-
-[sub_resource type="StyleBoxFlat" id="carte"]
-bg_color = Color(0.984, 0.941, 0.839, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 10
-border_color = Color(0.29, 0.165, 0.078, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="bande_vert"]
-bg_color = Color(0.42, 0.54, 0.18, 1)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-content_margin_left = 16.0
-content_margin_top = 6.0
-content_margin_right = 16.0
-content_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="bouton_jaune"]
 content_margin_left = 22.0
-content_margin_right = 22.0
 content_margin_top = 10.0
+content_margin_right = 22.0
 content_margin_bottom = 10.0
 bg_color = Color(0.99, 0.76, 0.12, 1)
 border_width_left = 6
@@ -47,7 +27,36 @@ corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
+[sub_resource type="StyleBoxFlat" id="carte"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.984, 0.941, 0.839, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 10
+border_color = Color(0.29, 0.165, 0.078, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="bande_vert"]
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+bg_color = Color(0.42, 0.54, 0.18, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+
 [sub_resource type="StyleBoxFlat" id="bouton_marron"]
+content_margin_left = 22.0
+content_margin_top = 10.0
+content_margin_right = 22.0
+content_margin_bottom = 10.0
 bg_color = Color(0.29, 0.165, 0.078, 1)
 border_width_left = 6
 border_width_top = 6
@@ -58,19 +67,17 @@ corner_radius_top_left = 40
 corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
-content_margin_left = 22.0
-content_margin_right = 22.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
 
-[node name="Equipes" type="Control"]
+[node name="Equipes" type="Control" unique_id=1741367870]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_eq")
 
-[node name="Fond" type="Control" parent="."]
+[node name="Fond" type="Control" parent="." unique_id=341497705]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_tile")
 
-[node name="Marge" type="MarginContainer" parent="."]
+[node name="Marge" type="MarginContainer" parent="." unique_id=1285441009]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,34 +98,33 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-[node name="Main" type="VBoxContainer" parent="Marge"]
+[node name="Main" type="VBoxContainer" parent="Marge" unique_id=1387899226]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Haut" type="HBoxContainer" parent="Marge/Main"]
+[node name="Haut" type="HBoxContainer" parent="Marge/Main" unique_id=1022922206]
 layout_mode = 2
-alignment = 0
 theme_override_constants/separation = 20
 
-[node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut"]
+[node name="Titres" type="VBoxContainer" parent="Marge/Main/Haut" unique_id=1512573380]
 layout_mode = 2
-size_flags_vertical = 0
 size_flags_horizontal = 3
+size_flags_vertical = 0
 theme_override_constants/separation = 6
 
-[node name="Titre" type="Label" parent="Marge/Main/Haut/Titres"]
+[node name="Titre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=1811586187]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
-theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_shadow_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_constants/outline_size = 12
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_constants/shadow_offset_x = 6
 theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 56
 text = "équipes"
 
-[node name="SousTitre" type="Label" parent="Marge/Main/Haut/Titres"]
+[node name="SousTitre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=360555721]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
@@ -127,7 +133,7 @@ theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 22
 text = "Choisis ton camp, puis la couleur de ton savon"
 
-[node name="Retour" type="Button" parent="Marge/Main/Haut"]
+[node name="Retour" type="Button" parent="Marge/Main/Haut" unique_id=130003554]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
 size_flags_vertical = 0
@@ -135,79 +141,81 @@ theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("bouton_jaune")
-theme_override_styles/hover = SubResource("bouton_jaune")
 theme_override_styles/pressed = SubResource("bouton_jaune")
+theme_override_styles/hover = SubResource("bouton_jaune")
 theme_override_styles/focus = SubResource("bouton_jaune")
 text = "◂ Atelier"
 
-[node name="ReserveMenu" type="Control" parent="Marge/Main/Haut"]
+[node name="ReserveMenu" type="Control" parent="Marge/Main/Haut" unique_id=465747513]
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 
-[node name="Corps" type="HBoxContainer" parent="Marge/Main"]
+[node name="Corps" type="HBoxContainer" parent="Marge/Main" unique_id=1296988579]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 22
 
-[node name="Apercu" type="PanelContainer" parent="Marge/Main/Corps"]
+[node name="Apercu" type="PanelContainer" parent="Marge/Main/Corps" unique_id=1149767582]
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("carte")
 
-[node name="ApercuBox" type="VBoxContainer" parent="Marge/Main/Corps/Apercu"]
+[node name="ApercuBox" type="VBoxContainer" parent="Marge/Main/Corps/Apercu" unique_id=225254260]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Nom" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+[node name="Nom" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox" unique_id=1626725032]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 36
-text = "Marseille\n« Le savon du vieux porc »"
+text = "Marseille
+« Le savon du vieux porc »"
 
-[node name="Phrase" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+[node name="Phrase" type="Label" parent="Marge/Main/Corps/Apercu/ApercuBox" unique_id=1551891945]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.27, 0.1, 1)
 theme_override_font_sizes/font_size = 18
 text = "« Le savon du vieux porc »"
 
-[node name="Zone" type="Control" parent="Marge/Main/Corps/Apercu/ApercuBox"]
+[node name="Zone" type="Control" parent="Marge/Main/Corps/Apercu/ApercuBox" unique_id=750910648]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Savon" parent="Marge/Main/Corps/Apercu/ApercuBox/Zone" instance=ExtResource("4_soap")]
+[node name="Savon" parent="Marge/Main/Corps/Apercu/ApercuBox/Zone" unique_id=1996630281 instance=ExtResource("4_soap")]
 unique_name_in_owner = true
+mouths = Array[Texture2D]([ExtResource("5_4u1pu"), ExtResource("6_wbrv4"), ExtResource("7_sqxny"), ExtResource("8_ugl5s"), ExtResource("9_di0bs")])
 
-[node name="Droite" type="PanelContainer" parent="Marge/Main/Corps"]
+[node name="Droite" type="PanelContainer" parent="Marge/Main/Corps" unique_id=200498676]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.4
 theme_override_styles/panel = SubResource("carte")
 
-[node name="DroiteBox" type="VBoxContainer" parent="Marge/Main/Corps/Droite"]
+[node name="DroiteBox" type="VBoxContainer" parent="Marge/Main/Corps/Droite" unique_id=240938274]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Bandeau" type="PanelContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="Bandeau" type="PanelContainer" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=368551435]
 layout_mode = 2
 theme_override_styles/panel = SubResource("bande_vert")
 
-[node name="Texte" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox/Bandeau"]
+[node name="Texte" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox/Bandeau" unique_id=683681325]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 18
 text = "CHOISIS TON ÉQUIPE"
 
-[node name="EspaceHaut" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="EspaceHaut" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=254613817]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Equipes" type="GridContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="Equipes" type="GridContainer" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=210808323]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -215,77 +223,83 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 8
 columns = 2
 
-[node name="Alep" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+[node name="Alep" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=498950482]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
-text = "Alep\n« Le savon syrieusement sale »"
+text = "Alep
+« Le savon syrieusement sale »"
 
-[node name="Marseille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+[node name="Marseille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=149116280]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
-text = "Marseille\n« Le savon du vieux porc »"
+text = "Marseille
+« Le savon du vieux porc »"
 
-[node name="Tripoli" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+[node name="Tripoli" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=1865671003]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
-text = "Tripoli\n« Le savon tris pourri »"
+text = "Tripoli
+« Le savon tris pourri »"
 
-[node name="Castille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes"]
+[node name="Castille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=1659287675]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
-text = "Castille\n« Le savon de la Castagne »"
+text = "Castille
+« Le savon de la Castagne »"
 
-[node name="CouleurTitre" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="CouleurTitre" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=522974105]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
 text = "COULEUR DU SAVON"
+horizontal_alignment = 1
 
-[node name="Swatches" type="HBoxContainer" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="Swatches" type="HBoxContainer" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=871392891]
 unique_name_in_owner = true
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 8
+alignment = 1
 
-[node name="EspaceBas" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox"]
+[node name="EspaceBas" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=1572935958]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Valider" type="Button" parent="Marge/Main"]
+[node name="Valider" type="Button" parent="Marge/Main" unique_id=363788913]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_font")
 theme_override_colors/font_hover_color = Color(0.42, 0.54, 0.18, 1)
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = SubResource("bouton_marron")
-theme_override_styles/hover = SubResource("bouton_marron")
 theme_override_styles/pressed = SubResource("bouton_marron")
+theme_override_styles/hover = SubResource("bouton_marron")
 theme_override_styles/focus = SubResource("bouton_marron")
 text = "Valider mon savon"
 
-[connection signal="pressed" from="Marge/Main/Haut/Retour" to="." method="_on_retour_pressed"]
-
-[node name="BoutonMenu" parent="." instance=ExtResource("9_menu")]
+[node name="BoutonMenu" parent="." unique_id=1562156535 instance=ExtResource("9_menu")]
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
-anchor_right = 1.0
 anchor_top = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
 offset_left = -156.0
 offset_top = 16.0
 offset_right = -16.0
 offset_bottom = 60.0
+
+[connection signal="pressed" from="Marge/Main/Haut/Retour" to="." method="_on_retour_pressed"]
