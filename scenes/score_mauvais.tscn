@@ -223,7 +223,7 @@ text = "Plus blanc que blanc !"
 
 [node name="Suite" type="PanelContainer" parent="Bas/Marge/Colonnes/Gauche"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 
 
 [node name="Texte" type="Label" parent="Bas/Marge/Colonnes/Gauche/Suite"]
@@ -231,6 +231,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_font_sizes/font_size = 24
 text = "À SUIVRE ▸ Le notaire arrive avec un chiffon."
+autowrap_mode = 3
 
 [node name="Droite" type="VBoxContainer" parent="Bas/Marge/Colonnes"]
 layout_mode = 2
