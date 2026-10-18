@@ -39,6 +39,7 @@ const MOODS_FICHIER := {"excellent": "excellent", "bon": "bon", "moyen": "moyen"
 
 var _popup_nom: Control
 var _champ_nom: LineEdit
+var _liste_noms: VBoxContainer
 var _classement_panneau: Control
 
 
@@ -151,6 +152,19 @@ func _construire_popup_nom() -> void:
 	_champ_nom.add_theme_font_size_override("font_size", 24)
 	_champ_nom.text_submitted.connect(func(_t): _valider_nom())
 	contenu.add_child(_champ_nom)
+	# Prénoms déjà utilisés : cliquables, 4 visibles, le reste en défilant sur le côté
+	contenu.add_child(_texte("Prénoms déjà utilisés", 20, BROWN))
+	var defilement := ScrollContainer.new()
+	defilement.custom_minimum_size = Vector2(0, 4 * 44 + 3 * 6)
+	defilement.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	defilement.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	contenu.add_child(defilement)
+	_liste_noms = VBoxContainer.new()
+	_liste_noms.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_liste_noms.add_theme_constant_override("separation", 6)
+	defilement.add_child(_liste_noms)
+	_champ_nom.text_changed.connect(_rafraichir_noms)
+	_rafraichir_noms("")
 	var bouton := Button.new()
 	bouton.text = "Ajouter au classement"
 	bouton.custom_minimum_size = Vector2(0, 52)
@@ -252,3 +266,29 @@ func _afficher_classement() -> void:
 
 func _on_rejouer_pressed() -> void:
 	get_tree().change_scene_to_file(VOL)
+
+
+func _rafraichir_noms(filtre: String) -> void:
+	## Remplit la liste des prénoms déjà utilisés (ceux du classement), filtrés par ce qui est tapé.
+	for enfant in _liste_noms.get_children():
+		enfant.queue_free()
+	var vus := {}
+	for entree in GameState.classement:
+		var nom: String = entree["nom"]
+		if vus.has(nom) or (filtre != "" and not nom.to_lower().contains(filtre.strip_edges().to_lower())):
+			continue
+		vus[nom] = true
+		var bouton := Button.new()
+		bouton.text = nom
+		bouton.custom_minimum_size = Vector2(0, 44)
+		bouton.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		bouton.add_theme_color_override("font_color", BROWN)
+		bouton.add_theme_font_size_override("font_size", 22)
+		bouton.add_theme_stylebox_override("normal", _style_bouton(CREME_PANNEAU))
+		bouton.pressed.connect(_choisir_nom.bind(nom))
+		_liste_noms.add_child(bouton)
+
+
+func _choisir_nom(nom: String) -> void:
+	_champ_nom.text = nom
+	_champ_nom.caret_column = nom.length()
