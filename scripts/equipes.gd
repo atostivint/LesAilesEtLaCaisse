@@ -187,7 +187,7 @@ func _on_valider() -> void:
 	zone.add_child(message)
 	# Centré sous le savon
 	var taille := message.get_minimum_size()
-	message.position = Vector2(zone.size.x * 0.5 - taille.x * 0.5, savon.position.y + 80.0 * savon.scale.y)
+	message.position = Vector2(zone.size.x * 0.5 - taille.x * 0.5, savon.position.y + 52.0 * savon.scale.y + 10.0)
 	message.pivot_offset = taille * 0.5
 	message.scale = Vector2.ZERO
 	var t := create_tween()
