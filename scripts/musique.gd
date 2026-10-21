@@ -1,14 +1,14 @@
 extends Node
 ## Musique de fond (autoload « Musique »).
 ## Par défaut : The_Bathroom.wav, sur les menus et le reste du jeu. Le vol (course) et les scores
-## jouent Electrosw_150.wav via jouer_piste(PISTE_COURSE). Une piste ne redémarre pas si on la redemande.
+## jouent Electrosw_nvx.wav via jouer_piste(PISTE_COURSE). Une piste ne redémarre pas si on la redemande.
 ## Le WAV est lu directement (sans passer par l'import de Godot) : son format est lu dans son en-tête.
 ## Le MP3 est lu de la même façon, depuis ses octets.
 
 const PISTE := "res://audio/The_Bathroom.wav"
-const PISTE_COURSE := "res://audio/Electrosw_150.wav"
-## Volume de la piste de course, réglé sur celui de la musique des menus (mesuré : la course est 6,9 dB plus forte).
-const VOLUME_COURSE_DB := -6.9
+const PISTE_COURSE := "res://audio/Electrosw_nvx.wav"
+## Volume de la piste de course, réglé sur celui de la musique des menus (mesuré : la course est 5,5 dB plus forte).
+const VOLUME_COURSE_DB := -5.5
 const SEUIL_SILENCE := 200  # amplitude sur 32767 en dessous de laquelle l'image est considérée silencieuse
 const SAUT_RECHERCHE := 256  # images (~6 ms à 44,1 kHz) entre deux contrôles de la fin du son
 
