@@ -270,23 +270,8 @@ func _facteur_vitesse() -> float:
 	return 1.0 + VITESSE_PAR_KM * km + VITESSE_DANS_KM * fmod(p, 1.0)
 
 
-## Les tortues se voient mieux : le défilement ralentit en les approchant (jusqu'à RALENTI_MIN), puis repart.
-const RALENTI_AVANT_M := 90.0 # distance (m) avant la tortue où le ralentissement commence
-const RALENTI_APRES_M := 50.0 # distance (m) après la tortue pour retrouver la vitesse normale
-const RALENTI_MIN := 0.9 # vitesse au niveau de la tortue (1 = normale)
 const ANNONCE_TORTUE_M := 120.0 # le bandeau « tortue » apparaît à cette distance
-var _ralenti := 1.0 # facteur de ralenti lissé (suit _facteur_tortue avec de l'inertie)
 var _tortue_annoncee := 0 # numéro de la dernière tortue annoncée par le bandeau
-
-
-func _facteur_tortue() -> float:
-	var metres := tuning.metres(_distance_unites())
-	var avant := _palier_annonce * PAS_TORTUE_M - metres # distance jusqu'à la prochaine tortue
-	var f := lerpf(RALENTI_MIN, 1.0, smoothstep(0.0, 1.0, clampf(avant / RALENTI_AVANT_M, 0.0, 1.0)))
-	if _palier_annonce > 1:
-		var apres := metres - (_palier_annonce - 1) * PAS_TORTUE_M # distance depuis la dernière tortue
-		f = minf(f, lerpf(RALENTI_MIN, 1.0, smoothstep(0.0, 1.0, clampf(apres / RALENTI_APRES_M, 0.0, 1.0))))
-	return f
 
 
 func _annoncer_tortue_proche(numero: int) -> void:
@@ -353,8 +338,7 @@ func _physics_process(delta: float) -> void:
 	# La caméra reste collée au savon : il ne bouge jamais à l'écran en x (seulement en haut et en bas),
 	# c'est le décor qui défile. Même si le savon ralentit sur une rampe, il ne sort pas de l'écran.
 	var avant: float = cam.position.x
-	_ralenti = lerpf(_ralenti, _facteur_tortue(), 1.0 - exp(-4.0 * delta))
-	soap.cruise_speed = _vitesse_base * _facteur_vitesse() * _ralenti
+	soap.cruise_speed = _vitesse_base * _facteur_vitesse()
 	if _tortue_annoncee < _palier_annonce and _palier_annonce * PAS_TORTUE_M - tuning.metres(_distance_unites()) <= ANNONCE_TORTUE_M:
 		_tortue_annoncee = _palier_annonce
 		_annoncer_tortue_proche(_palier_annonce)
