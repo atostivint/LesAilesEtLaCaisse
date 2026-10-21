@@ -66,8 +66,15 @@ func _ready() -> void:
 		b.pressed.connect(_on_couleur.bind(i))
 		swatches.add_child(b)
 	valider.pressed.connect(_on_valider)
-	nom_label.add_theme_color_override("font_outline_color", BRUN)
-	nom_label.add_theme_constant_override("outline_size", 8)
+	# Nom du savon : police du jeu en plus gras et plus grande, pour bien la lire
+	var gras := FontVariation.new()
+	gras.base_font = nom_label.get_theme_font("font")
+	gras.variation_embolden = 0.9
+	nom_label.add_theme_font_override("font", gras)
+	nom_label.add_theme_font_size_override("font_size", 44)
+	nom_label.add_theme_color_override("font_color", Color(0.2, 0.1, 0.04, 1))
+	nom_label.add_theme_color_override("font_outline_color", CREME)
+	nom_label.add_theme_constant_override("outline_size", 4)
 	savon.set_crate_texture(CRATE)
 	zone.resized.connect(_place_savon)
 	_place_savon()
