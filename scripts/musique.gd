@@ -7,6 +7,8 @@ extends Node
 
 const PISTE := "res://audio/The_Bathroom.wav"
 const PISTE_COURSE := "res://audio/Electrosw_150.wav"
+## Volume de la piste de course, réglé sur celui de la musique des menus (mesuré : la course est 6,9 dB plus forte).
+const VOLUME_COURSE_DB := -6.9
 const SEUIL_SILENCE := 200  # amplitude sur 32767 en dessous de laquelle l'image est considérée silencieuse
 const SAUT_RECHERCHE := 256  # images (~6 ms à 44,1 kHz) entre deux contrôles de la fin du son
 
@@ -33,6 +35,7 @@ func jouer_piste(chemin: String) -> void:
 		_piste = chemin
 		_lecteur.stop()
 		_lecteur.stream = _charger(chemin)
+		_lecteur.volume_db = VOLUME_COURSE_DB if chemin == PISTE_COURSE else 0.0
 		if _lecteur.stream == null:
 			push_warning("Musique : impossible de lire %s" % chemin)
 	if _lecteur.stream and not _lecteur.playing:
