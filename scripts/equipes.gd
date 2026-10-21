@@ -66,6 +66,8 @@ func _ready() -> void:
 		b.pressed.connect(_on_couleur.bind(i))
 		swatches.add_child(b)
 	valider.pressed.connect(_on_valider)
+	nom_label.add_theme_color_override("font_outline_color", BRUN)
+	nom_label.add_theme_constant_override("outline_size", 8)
 	savon.set_crate_texture(CRATE)
 	zone.resized.connect(_place_savon)
 	_place_savon()
@@ -130,6 +132,7 @@ func _on_equipe(index: int) -> void:
 	var equipe: Dictionary = EQUIPES[index]
 	nom_label.text = equipe["nom"]
 	phrase_label.text = equipe["phrase"]
+	_animer_texte()
 	PERSONNAGE.appliquer(savon, equipe["visage"], COULEURS[_couleur])
 	for i in grille.get_child_count():
 		var bouton: Button = grille.get_child(i)
@@ -137,6 +140,16 @@ func _on_equipe(index: int) -> void:
 		var fond := GRIS if bloquee else (JAUNE if i == index else CREME)
 		_colorer(bouton, fond, i == index)
 		bouton.add_theme_color_override("font_color", BRUN_GRISE if bloquee else BRUN)
+
+
+func _animer_texte() -> void:
+	## Quand on change de savon : le nom grandit avec un petit rebond, la phrase apparaît en fondu.
+	nom_label.pivot_offset = nom_label.size * 0.5
+	nom_label.scale = Vector2.ONE * 0.7
+	phrase_label.modulate.a = 0.0
+	var t := create_tween().set_parallel(true)
+	t.tween_property(nom_label, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_property(phrase_label, "modulate:a", 1.0, 0.5)
 
 
 func _on_couleur(index: int) -> void:

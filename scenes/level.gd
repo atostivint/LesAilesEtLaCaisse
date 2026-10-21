@@ -148,7 +148,7 @@ func _ready() -> void:
 	Personnage.appliquer_choisi(soap)
 	# Caractéristiques de la caisse équipée : le poids donne de l'élan (plus de distance, donc un meilleur score)
 	# mais le savon retombe plus vite ; les ailes (solidité) allongent l'autonomie du jet.
-	var caisse := tuning.crate(id_caisse)
+	var caisse := tuning.crate(GameState.equipped)
 	_vitesse_base = cruise_speed * (1.0 + POIDS_VITESSE * (caisse.poids - 1))
 	soap.cruise_speed = _vitesse_base
 	soap.gravity = gravity * (1.0 - MANIABILITE_GRAVITE * caisse.maniabilite)
@@ -271,10 +271,11 @@ func _facteur_vitesse() -> float:
 
 
 ## Les tortues se voient mieux : le défilement ralentit en les approchant (jusqu'à RALENTI_MIN), puis repart.
-const RALENTI_AVANT_M := 250.0 # distance (m) avant la tortue où le ralentissement commence
-const RALENTI_APRES_M := 100.0 # distance (m) après la tortue pour retrouver la vitesse normale
-const RALENTI_MIN := 0.65 # vitesse au niveau de la tortue (1 = normale)
+const RALENTI_AVANT_M := 90.0 # distance (m) avant la tortue où le ralentissement commence
+const RALENTI_APRES_M := 50.0 # distance (m) après la tortue pour retrouver la vitesse normale
+const RALENTI_MIN := 0.9 # vitesse au niveau de la tortue (1 = normale)
 const ANNONCE_TORTUE_M := 120.0 # le bandeau « tortue » apparaît à cette distance
+var _ralenti := 1.0 # facteur de ralenti lissé (suit _facteur_tortue avec de l'inertie)
 var _tortue_annoncee := 0 # numéro de la dernière tortue annoncée par le bandeau
 
 
@@ -352,7 +353,8 @@ func _physics_process(delta: float) -> void:
 	# La caméra reste collée au savon : il ne bouge jamais à l'écran en x (seulement en haut et en bas),
 	# c'est le décor qui défile. Même si le savon ralentit sur une rampe, il ne sort pas de l'écran.
 	var avant: float = cam.position.x
-	soap.cruise_speed = _vitesse_base * _facteur_vitesse() * _facteur_tortue()
+	_ralenti = lerpf(_ralenti, _facteur_tortue(), 1.0 - exp(-4.0 * delta))
+	soap.cruise_speed = _vitesse_base * _facteur_vitesse() * _ralenti
 	if _tortue_annoncee < _palier_annonce and _palier_annonce * PAS_TORTUE_M - tuning.metres(_distance_unites()) <= ANNONCE_TORTUE_M:
 		_tortue_annoncee = _palier_annonce
 		_annoncer_tortue_proche(_palier_annonce)
@@ -443,7 +445,8 @@ func _placer_tortue() -> void:
 	## Une tortue tous les 1000 m (distance affichée) : elle apparaît bien avant d'être à l'écran.
 	var km_px := PAS_TORTUE_M * 100.0 / tuning.display_cm_per_unit * tuning.ppm
 	var marque := _start_x + _num_tortue * km_px
-	if cam.position.x + 2400.0 < marque:
+	# Posée assez tôt pour que la zone libre autour d'elle (700 px avant) soit déjà réservée avant la génération des obstacles
+	if cam.position.x + 3000.0 < marque:
 		return
 	_spawn_tortue(marque, _num_tortue)
 	_zone_libre_debut = marque - 700.0
@@ -475,8 +478,12 @@ func _spawn_tortue(x: float, numero: int) -> void:
 	tortue.add_child(image)
 	var dos := CollisionPolygon2D.new()
 	var contour := PackedVector2Array()
-	for i in TORTUE_DOS.size() / 2:
+	# Carapace : le dessus (de gauche à droite, sans se croiser) puis une base plate en dessous. Un contour
+	# qui se croise rebondissait au lieu de faire glisser le savon.
+	for i in 8:
 		contour.append(Vector2(TORTUE_DOS[i * 2], TORTUE_DOS[i * 2 + 1]))
+	contour.append(Vector2(TORTUE_DOS[14], 480.0))
+	contour.append(Vector2(TORTUE_DOS[0], 480.0))
 	dos.polygon = contour
 	tortue.add_child(dos)
 	# Ligne de glissade : le dessus de la carapace, de gauche à droite
@@ -678,6 +685,8 @@ func hit_soap():
 	clignote.tween_property(soap, "modulate:a", 0.35, 0.1)
 	clignote.tween_property(soap, "modulate:a", 1.0, 0.1)
 	await get_tree().create_timer(tuning.invuln_time).timeout
+	if not is_inside_tree(): # le vol peut s'être terminé pendant l'invulnérabilité
+		return
 	soap.modulate.a = 1.0
 	_invulnerable = false
 
@@ -763,7 +772,7 @@ func apply_bonus(material: MaterialData) -> void:
 
 
 func _maj_compteur() -> void:
-	## Matériaux : une carte par matériau, au niveau de l'eau, avec son dessin et son total (stock de l'atelier + vol en cours).
+	## Matériaux : une carte par matériau, au niveau de l'eau, avec son dessin et le nombre ramassé pendant ce vol.
 	if _mat_boite == null:
 		_mat_boite = HBoxContainer.new()
 		_mat_boite.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
@@ -795,7 +804,7 @@ func _maj_compteur() -> void:
 			icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			ligne.add_child(icone)
 			var nombre := Label.new()
-			nombre.text = str(_total_materiau(m.id)) # le stock de l'atelier, pas 0
+			nombre.text = str(_total_materiau(m.id)) # 0 au départ : seulement ce qui est ramassé pendant ce vol
 			nombre.custom_minimum_size = Vector2(34.0, 0.0)
 			nombre.add_theme_font_override("font", FONT_TORTUE)
 			nombre.add_theme_font_size_override("font_size", 32)
@@ -894,6 +903,5 @@ func _on_ground_body_entered(body: Node2D) -> void:
 
 
 func _total_materiau(id: String) -> int:
-	## Quantité affichée en vol = stock de l'atelier + ce qui est ramassé pendant ce vol (même total que dans l'atelier).
-	var stock := GameState.stock(id)
-	return stock + int(_collected.get(id, 0))
+	## Quantité affichée en vol : seulement ce qui est ramassé pendant ce vol (le stock de l'atelier n'est pas compté).
+	return int(_collected.get(id, 0))

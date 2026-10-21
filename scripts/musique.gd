@@ -53,12 +53,28 @@ func _process(delta: float) -> void:
 
 
 func _charger(chemin: String) -> AudioStream:
+	var octets := FileAccess.get_file_as_bytes(chemin)
+	if octets.is_empty():
+		# Fichier brut introuvable (cas de certains exports) : on prend la ressource importée par Godot
+		return _importe(chemin)
 	if chemin.ends_with(".mp3"):
-		var mp3 := AudioStreamMP3.load_from_buffer(FileAccess.get_file_as_bytes(chemin))
+		var mp3 := AudioStreamMP3.load_from_buffer(octets)
 		if mp3:
 			mp3.loop = true
 		return mp3
 	return _charger_wav(chemin)
+
+
+func _importe(chemin: String) -> AudioStream:
+	var s := load(chemin) as AudioStream
+	if s is AudioStreamWAV:
+		# Sans fin de boucle, le son s'arrête au bout de quelques secondes : on boucle sur toute la durée
+		s.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		s.loop_begin = 0
+		s.loop_end = int(s.get_length() * s.mix_rate)
+	elif s is AudioStreamMP3:
+		s.loop = true
+	return s
 
 
 func _charger_wav(chemin: String) -> AudioStreamWAV:
