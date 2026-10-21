@@ -7,11 +7,14 @@
 script = ExtResource("1")
 id = "carton"
 nom = "Caisse carton"
-desc = "Ailes en carton, boulonnées et peintes."
+desc = "Ailes en carton, boulonnées et peintes : plus d'élan, plus d'autonomie."
+maniabilite = 2
+autonomie = 2
 cost = {
-"boulon": 5,
-"carton": 5,
-"etoile": 5
+"planche": 30,
+"plume": 25
 }
+poids = 2
+solidite = 2
 color = Color(0.75, 0.6, 0.4, 1)
 texture = ExtResource("2_tex")

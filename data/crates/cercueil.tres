@@ -7,10 +7,13 @@
 script = ExtResource("1")
 id = "cercueil"
 nom = "Caisse cercueil"
-solidite = 2
+desc = "Un peu plus d'autonomie et de contrôle. Ça se sent à peine."
+poids = 1
+solidite = 1
+maniabilite = 1
+autonomie = 1
 cost = {
-"elastique": 5,
-"planche": 5
+"planche": 12
 }
 color = Color(0.9, 0.75, 0.2, 1)
 texture = ExtResource("2_tex")

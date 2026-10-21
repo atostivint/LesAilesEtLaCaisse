@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="500" viewBox="0 0 660 500">
+  <!-- Tortue au drapeau (vectorisée à la main). Carapace : #2F8BC7 ; drapeau : #E5452A. Fond transparent. -->
+  <g transform="translate(-90,-10)" stroke="#161616" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Queue -->
+    <path fill="#8DB63C" d="M 104,368 C 128,364 152,384 166,394 C 146,410 116,400 104,368 Z"/>
+    <!-- Patte arrière -->
+    <path fill="#8DB63C" d="M 168,408 C 134,420 108,440 107,464 C 110,486 152,494 192,486 C 214,470 218,440 230,424 Z"/>
+    <path fill="none" stroke-width="5" d="M 150,470 L 152,486 M 168,470 L 170,488"/>
+    <!-- Corps -->
+    <path fill="#8DB63C" d="M 150,380 C 200,428 320,432 400,396 L 440,380 C 436,420 430,440 428,460 C 400,420 330,425 250,440 C 200,446 170,430 150,380 Z"/>
+    <!-- Patte avant -->
+    <path fill="#8DB63C" d="M 346,410 C 352,452 346,482 366,496 C 402,506 442,490 446,456 C 440,426 412,402 392,392 Z"/>
+    <path fill="none" stroke-width="5" d="M 384,468 L 386,492 M 404,468 L 408,490"/>
+    <!-- Cou -->
+    <path fill="#8DB63C" d="M 404,250 C 428,300 452,332 442,382 L 398,396 C 380,350 370,300 382,258 Z"/>
+    <!-- Bras qui tient le drapeau -->
+    <path fill="#8DB63C" d="M 440,350 C 480,330 512,326 532,336 L 546,352 C 548,378 520,384 496,372 C 470,374 446,384 432,378 Z"/>
+    <!-- Hampe du drapeau -->
+    <path fill="none" stroke="#161616" stroke-width="20" d="M 488,46 L 548,406"/>
+    <path fill="none" stroke="#8B5A2B" stroke-width="12" d="M 488,46 L 548,406"/>
+    <!-- Main -->
+    <ellipse cx="538" cy="338" rx="19" ry="23" fill="#8DB63C"/>
+    <!-- Drapeau -->
+    <path fill="#E5452A" d="M 498,46 C 560,26 602,56 662,60 C 700,62 716,56 722,62 C 714,96 708,120 706,126 C 722,152 736,170 732,180 C 690,202 640,170 600,170 C 560,168 530,180 516,186 Z"/>
+    <circle cx="480" cy="38" r="16" fill="#E8B923"/>
+    <!-- Tête -->
+    <path fill="#8DB63C" d="M 380,232 C 384,172 430,150 470,160 C 502,166 532,186 546,216 C 550,242 528,256 506,264 C 496,288 480,298 454,292 C 420,286 384,266 380,232 Z"/>
+    <ellipse cx="456" cy="208" rx="26" ry="35" fill="#FBF6EA"/>
+    <ellipse cx="462" cy="211" rx="14" ry="23" fill="#161616" stroke="none"/>
+    <ellipse cx="458" cy="202" rx="5" ry="8" fill="#FBF6EA" stroke="none"/>
+    <path fill="#E8573A" d="M 468,268 C 480,258 504,262 506,270 C 498,284 478,286 468,268 Z"/>
+    <!-- Carapace -->
+    <path fill="#2F8BC7" d="M 142,372 C 160,290 206,226 270,206 C 330,194 386,216 410,266 C 426,300 420,326 406,342 C 330,402 220,416 142,372 Z"/>
+    <path fill="#000000" fill-opacity="0.12" d="M 142,372 C 220,420 336,402 408,342 L 414,312 C 340,372 236,394 150,350 Z"/>
+    <path fill="none" stroke-width="6" d="M 250,226 L 266,266 L 228,324 L 240,384 M 266,266 L 306,262 L 336,222 M 306,262 L 350,326 L 396,348 M 228,324 L 350,326"/>
+  </g>
+</svg>

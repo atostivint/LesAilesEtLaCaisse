@@ -23,7 +23,7 @@ static func make() -> Tuning:
 
 	# Monde
 	tuning.ppm = 20.0
-	tuning.display_cm_per_unit = 10.0
+	tuning.display_cm_per_unit = 30.0
 	tuning.door_x = 800.0
 	tuning.ceiling = 28.0
 

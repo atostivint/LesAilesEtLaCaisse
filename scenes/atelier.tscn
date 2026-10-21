@@ -117,6 +117,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Haut" type="HBoxContainer" parent="Margin/Main" unique_id=2094211142]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_constants/separation = 24
 
@@ -140,6 +141,7 @@ text = "atelier"
 
 [node name="SousTitre" type="Label" parent="Margin/Main/Haut/Titres" unique_id=861898838]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_constants/outline_size = 6
@@ -155,7 +157,6 @@ size_flags_vertical = 4
 [node name="Boutons" type="MarginContainer" parent="Margin/Main/Haut" unique_id=1174895000]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/margin_top = 12
 
 [node name="BoutonsBox" type="HBoxContainer" parent="Margin/Main/Haut/Boutons" unique_id=836007860]
 layout_mode = 2
@@ -231,14 +232,15 @@ theme_override_styles/panel = SubResource("band_green")
 [node name="Texte" type="Label" parent="Margin/Main/Corps/Gauche/Sac/SacBox/BandeauSac" unique_id=845137211]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 24
 text = "SAC À MATÉRIAUX"
 horizontal_alignment = 1
 
 [node name="MatGrid" type="HBoxContainer" parent="Margin/Main/Corps/Gauche/Sac/SacBox" unique_id=1947337005]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Etabli" type="PanelContainer" parent="Margin/Main/Corps" unique_id=1569751739]
@@ -259,12 +261,13 @@ theme_override_styles/panel = SubResource("band_dark")
 [node name="Texte" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/BandeauEtabli" unique_id=102755172]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
 text = "ÉTABLI"
 horizontal_alignment = 1
 
 [node name="Apercu" type="Control" parent="Margin/Main/Corps/Etabli/EtabliBox" unique_id=163147641]
-custom_minimum_size = Vector2(0, 230)
+custom_minimum_size = Vector2(0, 150)
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -291,7 +294,7 @@ columns = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 16
-text = "POIDS"
+text = "ÉLAN"
 
 [node name="BarSolidite" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats" unique_id=1322572652]
 unique_name_in_owner = true
@@ -313,11 +316,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 show_percentage = false
 
+[node name="LabelAutonomie" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_font_sizes/font_size = 16
+text = "AUTONOMIE"
+
+[node name="BarAutonomie" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
 [node name="LabelVol" type="Label" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats" unique_id=963759685]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_font_sizes/font_size = 16
-text = "TEMPS DE VOL"
+text = "MANIABILITÉ"
 
 [node name="BarVol" type="ProgressBar" parent="Margin/Main/Corps/Etabli/EtabliBox/Stats" unique_id=906429067]
 unique_name_in_owner = true
@@ -328,9 +344,10 @@ show_percentage = false
 
 [node name="CostGrid" type="GridContainer" parent="Margin/Main/Corps/Etabli/EtabliBox" unique_id=1436737183]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 84)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-theme_override_constants/h_separation = 20
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 36
 theme_override_constants/v_separation = 4
 columns = 4
 
@@ -365,7 +382,7 @@ script = ExtResource("7_cad")
 
 [node name="BasMarge" type="MarginContainer" parent="Margin/Main" unique_id=1968694592]
 layout_mode = 2
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 0
 
 [node name="Bas" type="HBoxContainer" parent="Margin/Main/BasMarge" unique_id=1241944520]
 layout_mode = 2
@@ -374,13 +391,13 @@ alignment = 2
 
 [node name="LaunchButton" type="Button" parent="Margin/Main/BasMarge/Bas" unique_id=1611722003]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 56)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_focus_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_pressed_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 26
 text = "LANCER LE SAVON !"
 
 [connection signal="pressed" from="Margin/Main/Haut/Boutons/BoutonsBox/SavonButton" to="." method="_on_savon_pressed"]

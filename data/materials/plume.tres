@@ -7,5 +7,6 @@
 script = ExtResource("1")
 id = "plume"
 nom = "Papier"
-weight = 3.0
+
+weight = 6.5
 icone = ExtResource("2")

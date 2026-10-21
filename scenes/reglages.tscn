@@ -63,7 +63,7 @@ theme_override_constants/shadow_offset_x = 6
 theme_override_constants/shadow_offset_y = 6
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 48
-text = "réglages"
+text = "Réglages"
 
 [node name="Carte" type="PanelContainer" parent="Marge/Main"]
 layout_mode = 2

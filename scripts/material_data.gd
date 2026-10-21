@@ -6,7 +6,7 @@ extends Resource
 
 @export var id := ""
 @export var nom := ""
-## Distance (unités internes) à partir de laquelle il apparaît (rareté : 100 / 200 / 300 / 400).
+## Distance de vol (en mètres) à partir de laquelle il apparaît (0 = dès le départ).
 @export var from := 0.0
 ## Fréquence parmi les matériaux disponibles.
 @export var weight := 1.0

@@ -7,5 +7,7 @@
 script = ExtResource("1")
 id = "boulon"
 nom = "Boulon"
-weight = 2.0
+
+weight = 2.5
+from = 1200.0
 icone = ExtResource("2")

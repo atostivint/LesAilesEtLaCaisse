@@ -7,6 +7,10 @@
 script = ExtResource("1")
 id = "classique"
 nom = "Caisse classique"
-desc = "La caisse de départ, ailes à plumes."
+desc = "La caisse de départ : peu d'ailes, lourde à manier. Il faudra du talent."
+poids = 1
+solidite = 0
+maniabilite = 0
+autonomie = 0
 color = Color(0.6, 0.4, 0.2, 1)
 texture = ExtResource("2_tex")

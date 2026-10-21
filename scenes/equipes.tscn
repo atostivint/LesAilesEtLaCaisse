@@ -114,6 +114,7 @@ theme_override_constants/separation = 16
 
 [node name="Titre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=1811586187]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_shadow_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
@@ -122,11 +123,11 @@ theme_override_constants/shadow_offset_y = 6
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 56
-text = "équipes"
+text = "Savons"
 
 [node name="SousTitre" type="Label" parent="Marge/Main/Haut/Titres" unique_id=360555721]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
 theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_constants/outline_size = 6
@@ -188,8 +189,10 @@ text = "Marseille
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.27, 0.1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 30
 text = "« Le savon du vieux porc »"
+autowrap_mode = 2
 
 [node name="Zone" type="Control" parent="Marge/Main/Corps/Apercu/ApercuBox" unique_id=750910648]
 unique_name_in_owner = true
@@ -218,8 +221,10 @@ theme_override_styles/panel = SubResource("bande_vert")
 [node name="Texte" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox/Bandeau" unique_id=683681325]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 30
 text = "CHOISIS TON ÉQUIPE"
+horizontal_alignment = 1
 
 [node name="EspaceHaut" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=254613817]
 layout_mode = 2
@@ -233,17 +238,8 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 8
 columns = 2
 
-[node name="Alep" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=498950482]
-custom_minimum_size = Vector2(250, 60)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "Alep
-« Le savon syrieusement sale »"
-
 [node name="Marseille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=149116280]
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(350, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
@@ -251,8 +247,17 @@ theme_override_font_sizes/font_size = 18
 text = "Marseille
 « Le savon du vieux porc »"
 
+[node name="Alep" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=498950482]
+custom_minimum_size = Vector2(350, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Alep
+« Le savon syrieusement sale »"
+
 [node name="Tripoli" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=1865671003]
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(350, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
@@ -261,7 +266,7 @@ text = "Tripoli
 « Le savon tris pourri »"
 
 [node name="Castille" type="Button" parent="Marge/Main/Corps/Droite/DroiteBox/Equipes" unique_id=1659287675]
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(350, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
 theme_override_fonts/font = ExtResource("3_font")
@@ -269,17 +274,24 @@ theme_override_font_sizes/font_size = 18
 text = "Castille
 « Le savon de la Castagne »"
 
+[node name="Espace" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=1200000001]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
 [node name="CouleurTitre" type="Label" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=522974105]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.29, 0.165, 0.078, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_outline_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 28
 text = "COULEUR DU SAVON"
 horizontal_alignment = 1
 
 [node name="Swatches" type="HBoxContainer" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=871392891]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="EspaceBas" type="Control" parent="Marge/Main/Corps/Droite/DroiteBox" unique_id=1572935958]
