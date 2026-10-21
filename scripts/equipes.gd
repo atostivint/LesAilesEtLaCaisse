@@ -169,7 +169,8 @@ func _on_couleur(index: int) -> void:
 
 
 func _on_valider() -> void:
-	## Enregistre l'équipe, fait « rebondir » le savon avec un message, puis revient à l'atelier.
+	## Enregistre l'équipe, puis une petite fête : le savon rebondit et tourne, des bulles éclatent autour,
+	## le message « Savon validé ! » fait son apparition, puis on revient à l'atelier.
 	if _valide:
 		return
 	_valide = true
@@ -178,17 +179,48 @@ func _on_valider() -> void:
 	var message := Label.new()
 	message.text = "Savon validé !"
 	message.add_theme_color_override("font_color", Color(0.18, 0.4, 0.08, 1))
-	message.add_theme_font_size_override("font_size", 40)
+	message.add_theme_color_override("font_outline_color", CREME)
+	message.add_theme_constant_override("outline_size", 10)
+	message.add_theme_font_size_override("font_size", 52)
+	message.add_theme_font_override("font", nom_label.get_theme_font("font"))
 	message.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	message.offset_top = 16.0
 	message.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	zone.add_child(message)
+	message.pivot_offset = message.get_minimum_size() * 0.5
+	message.scale = Vector2.ZERO
+	var t := create_tween()
+	t.tween_property(message, "scale", Vector2.ONE * 1.2, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_property(message, "scale", Vector2.ONE, 0.12)
+	t.tween_interval(0.9)
+	t.tween_property(message, "modulate:a", 0.0, 0.3)
+	# Le savon : rebond, puis balancement qui s'éteint
 	var k: float = savon.scale.x
-	var tween := create_tween()
-	tween.tween_property(savon, "scale", Vector2(k * 1.2, k * 1.2), 0.2)
-	tween.tween_property(savon, "scale", Vector2(k * 0.95, k * 0.95), 0.1)
-	tween.tween_property(savon, "scale", Vector2(k, k), 0.1)
-	await get_tree().create_timer(0.9).timeout
+	var rebond := create_tween()
+	rebond.tween_property(savon, "scale", Vector2(k * 1.25, k * 1.25), 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	rebond.tween_property(savon, "scale", Vector2(k * 0.92, k * 0.92), 0.1)
+	rebond.tween_property(savon, "scale", Vector2(k, k), 0.15)
+	var balancement := create_tween()
+	for angle in [0.14, -0.14, 0.09, -0.09, 0.0]:
+		balancement.tween_property(savon, "rotation", angle, 0.14).set_trans(Tween.TRANS_SINE)
+	# Bulles qui éclatent autour du savon
+	var bulles := CPUParticles2D.new()
+	bulles.one_shot = true
+	bulles.explosiveness = 0.9
+	bulles.amount = 40
+	bulles.lifetime = 1.0
+	bulles.position = savon.position
+	bulles.direction = Vector2(0, -1)
+	bulles.spread = 180.0
+	bulles.initial_velocity_min = 120.0
+	bulles.initial_velocity_max = 260.0
+	bulles.gravity = Vector2(0, 120)
+	bulles.scale_amount_min = 4.0
+	bulles.scale_amount_max = 10.0
+	bulles.color = Color(1, 1, 1, 0.85)
+	savon.get_parent().add_child(bulles)
+	bulles.emitting = true
+	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene_to_file(ATELIER)
 
 
