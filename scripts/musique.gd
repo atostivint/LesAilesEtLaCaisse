@@ -9,8 +9,6 @@ const PISTE := "res://audio/The_Bathroom.wav"
 const PISTE_COURSE := "res://audio/Electrosw_nvx.wav"
 ## Volume de la piste de course, réglé sur celui de la musique des menus (mesuré : la course est 5,5 dB plus forte).
 const VOLUME_COURSE_DB := -5.5
-const SEUIL_SILENCE := 200  # amplitude sur 32767 en dessous de laquelle l'image est considérée silencieuse
-const SAUT_RECHERCHE := 256  # images (~6 ms à 44,1 kHz) entre deux contrôles de la fin du son
 
 var _lecteur: AudioStreamPlayer
 var _chrono := 0.0
@@ -40,7 +38,7 @@ func jouer_piste(chemin: String) -> void:
 			push_warning("Musique : impossible de lire %s" % chemin)
 	if _lecteur.stream and not _lecteur.playing:
 		_lecteur.play()
-		print("Musique : lecture de %s (durée %.1f s)" % [chemin, _lecteur.stream.get_length()])
+		print("Musique : lecture de %s (durée %.1f s, boucle de %.1f à %.1f s)" % [chemin, _lecteur.stream.get_length(), 0.0, _fin_boucle(_lecteur.stream)])
 
 
 func arreter() -> void:
@@ -110,27 +108,12 @@ func _charger_wav(chemin: String) -> AudioStreamWAV:
 	onde.data = donnees
 	onde.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	onde.loop_begin = 0
-	onde.loop_end = _fin_du_son(donnees, canaux)
+	onde.loop_end = donnees.size() / (2 * canaux) # toute la durée : même boucle que dans l'export
 	return onde
 
 
-func _fin_du_son(donnees: PackedByteArray, canaux: int) -> int:
-	## Nombre d'images jusqu'à la dernière image sonore : le silence de fin de fichier n'est pas bouclé.
-	## Recherche par pas de SAUT_RECHERCHE images, puis précise dans le dernier pas.
-	var nb_images := donnees.size() / (2 * canaux)
-	var f := nb_images - 1
-	while f >= 0 and not _image_sonore(donnees, f, canaux):
-		f -= SAUT_RECHERCHE
-	if f < 0:
-		return nb_images
-	var fin := mini(f + SAUT_RECHERCHE - 1, nb_images - 1)
-	while fin > f and not _image_sonore(donnees, fin, canaux):
-		fin -= 1
-	return fin + 1
-
-
-func _image_sonore(donnees: PackedByteArray, image: int, canaux: int) -> bool:
-	for c in canaux:
-		if absi(donnees.decode_s16(image * 2 * canaux + 2 * c)) > SEUIL_SILENCE:
-			return true
-	return false
+func _fin_boucle(flux: AudioStream) -> float:
+	## Fin de la boucle en secondes (diagnostic : les pistes doivent boucler sur la même durée utile).
+	if flux is AudioStreamWAV:
+		return float(flux.loop_end) / flux.mix_rate
+	return flux.get_length()
