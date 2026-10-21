@@ -68,10 +68,10 @@ func _ready() -> void:
 	valider.pressed.connect(_on_valider)
 	# Nom du savon : police du jeu en plus gras et plus grande, pour bien la lire
 	var gras := FontVariation.new()
-	gras.base_font = nom_label.get_theme_font("font")
-	gras.variation_embolden = 0.9
+	gras.base_font = ThemeDB.fallback_font
+	gras.variation_embolden = 0.4
 	nom_label.add_theme_font_override("font", gras)
-	nom_label.add_theme_font_size_override("font_size", 44)
+	nom_label.add_theme_font_size_override("font_size", 40)
 	nom_label.add_theme_color_override("font_color", Color(0.2, 0.1, 0.04, 1))
 	nom_label.add_theme_color_override("font_outline_color", CREME)
 	nom_label.add_theme_constant_override("outline_size", 4)
@@ -182,12 +182,13 @@ func _on_valider() -> void:
 	message.add_theme_color_override("font_outline_color", CREME)
 	message.add_theme_constant_override("outline_size", 10)
 	message.add_theme_font_size_override("font_size", 52)
-	message.add_theme_font_override("font", nom_label.get_theme_font("font"))
-	message.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	message.offset_top = 16.0
+	message.add_theme_font_override("font", ThemeDB.fallback_font)
 	message.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	zone.add_child(message)
-	message.pivot_offset = message.get_minimum_size() * 0.5
+	# Centré sous le savon
+	var taille := message.get_minimum_size()
+	message.position = Vector2(zone.size.x * 0.5 - taille.x * 0.5, savon.position.y + 80.0 * savon.scale.y)
+	message.pivot_offset = taille * 0.5
 	message.scale = Vector2.ZERO
 	var t := create_tween()
 	t.tween_property(message, "scale", Vector2.ONE * 1.2, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
