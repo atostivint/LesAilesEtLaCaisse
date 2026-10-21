@@ -1,17 +1,16 @@
-[gd_scene load_steps=0 format=3 uid="uid://b2il4xrp3ba6"]
+[gd_scene format=3 uid="uid://b2il4xrp3ba6"]
 
 [ext_resource type="Script" uid="uid://j3qt5cxl2g7e" path="res://scripts/bonus.gd" id="1_piybw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bonus"]
+radius = 36.0
 
 [node name="Bonus" type="Area2D" unique_id=696545699]
 script = ExtResource("1_piybw")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=107363416]
-position = Vector2(0.33863735, 2.1738644)
-scale = Vector2(1.5426136, 1.5426136)
-polygon = PackedVector2Array(-0.21952182, -1.4092085, -0.21952182, 20.631308, 23.765745, 20.631308, 23.765745, -1.4092085)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=107363416]
+shape = SubResource("CircleShape2D_bonus")
 
 [node name="MateriauPapier" type="Sprite2D" parent="." unique_id=441000281]
-position = Vector2(18.456482, 15.738524)
-scale = Vector2(0.27668905, 0.27668905)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

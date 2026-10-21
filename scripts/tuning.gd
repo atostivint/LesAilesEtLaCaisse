@@ -44,8 +44,9 @@ func _geo(v: float, current: float) -> float:
 	set(v):
 		ppm = _geo(v, ppm)
 ## AFFICHAGE : centimètres affichés par unité interne. La physique reste en unités internes (notées "m"
-## dans l'inspecteur) ; seuls les textes du jeu sont convertis en cm. 10 = une distance de 800 s'affiche 8000 cm.
-@export_range(1.0, 100.0, 1.0) var display_cm_per_unit: float = 10.0
+## dans l'inspecteur) ; seuls les textes du jeu sont convertis en mètres. 30 = 1000 m affichés font environ
+## 3333 unités, soit ~67 000 px : à la vitesse de croisière, une tortue (1000 m) arrive en ~1 min 35.
+@export_range(1.0, 100.0, 1.0) var display_cm_per_unit: float = 30.0
 ## Distance de la ligne d'arrivée = objectif du niveau (m).
 @export_range(100.0, 3000.0, 10.0) var door_x: float = 800.0
 ## Hauteur du plafond (le bas du meuble) au-dessus de l'eau (m). Le savon ne peut pas le dépasser.
@@ -145,9 +146,14 @@ func stats_for(crate_id: String) -> Dictionary:
 	}
 
 
+func metres(v: float) -> float:
+	## Longueur interne -> mètres affichés (c'est l'unité des tortues et des seuils de savons).
+	return v * display_cm_per_unit / 100.0
+
+
 func cm(v: float) -> String:
-	## Longueur interne -> texte en centimètres.
-	return "%d cm" % int(v * display_cm_per_unit)
+	## Longueur interne -> texte en mètres (nom historique : le jeu affichait des centimètres).
+	return "%d m" % int(metres(v))
 
 
 func cm_speed(v: float) -> String:

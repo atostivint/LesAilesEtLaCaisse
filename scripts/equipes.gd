@@ -6,6 +6,7 @@ extends Control
 const ATELIER := "res://scenes/atelier.tscn"
 const CRATE := preload("res://artwork/sprites/caisse_savon.svg")
 const PERSONNAGE := preload("res://scripts/personnage.gd")
+const CADENAS := preload("res://scripts/cadenas.gd")
 const COULEURS := [
 	Color(0.984, 0.941, 0.839, 1),
 	Color(0.9, 0.6, 0.62, 1),
@@ -18,17 +19,20 @@ const COULEURS := [
 ]
 ## Dans l'ordre des boutons de la grille.
 ## « visage » : index d'yeux et de bouche (voir personnage.gd).
+## « seuil » : distance de record (en mètres) à atteindre pour débloquer l'équipe. 0 = dès le début.
 const EQUIPES := [
-	{"nom": "Alep", "phrase": "« Le savon syrieusement sale »", "visage": 0},
-	{"nom": "Marseille", "phrase": "« Le savon du vieux porc »", "visage": 1},
-	{"nom": "Tripoli", "phrase": "« Le savon tris pourri »", "visage": 2},
-	{"nom": "Castille", "phrase": "« Le savon de la Castagne »", "visage": 3},
+	{"nom": "Marseille", "phrase": "« Le savon du vieux porc »", "visage": 1, "seuil": 0},
+	{"nom": "Alep", "phrase": "« Le savon syrieusement sale »", "visage": 0, "seuil": 500},
+	{"nom": "Tripoli", "phrase": "« Le savon tris pourri »", "visage": 2, "seuil": 1500},
+	{"nom": "Castille", "phrase": "« Le savon de la Castagne »", "visage": 3, "seuil": 2500},
 ]
 const JAUNE := Color(0.99, 0.76, 0.12, 1)
 const CREME := Color(0.984, 0.941, 0.839, 1)
 const BRUN := Color(0.29, 0.165, 0.078, 1)
+const GRIS := Color(0.78, 0.76, 0.73, 1)
+const BRUN_GRISE := Color(0.55, 0.5, 0.46, 1)
 
-var _equipe := 1
+var _equipe := 0
 var _couleur := 0
 var _valide := false
 
@@ -43,12 +47,19 @@ var _valide := false
 
 func _ready() -> void:
 	Musique.jouer()
-	if GameState.equipe >= 0:
+	if GameState.equipe >= 0 and not _verrouillee(GameState.equipe):
 		_equipe = GameState.equipe
 		_couleur = GameState.couleur
 	for i in EQUIPES.size():
 		var bouton: Button = grille.get_child(i)
 		bouton.pressed.connect(_on_equipe.bind(i))
+		bouton.custom_minimum_size = Vector2(350, 72)
+		if _verrouillee(i):
+			# Ligne vide réservée : l'objectif est affiché en valeur par-dessus
+			bouton.text += "\n "
+			bouton.custom_minimum_size.y = 100.0
+			_ajouter_objectif(bouton, EQUIPES[i]["seuil"])
+			_ajouter_cadenas(bouton)
 	for i in COULEURS.size():
 		var b := Button.new()
 		b.custom_minimum_size = Vector2(44, 44)
@@ -69,8 +80,51 @@ func _place_savon() -> void:
 	savon.position = (zone.size / 2.0).floor()
 
 
+func _verrouillee(index: int) -> bool:
+	## Vrai tant que le record n'a pas atteint le seuil de l'équipe.
+	var seuil_m: int = EQUIPES[index]["seuil"]
+	# Le record est en unités internes : on le convertit en centimètres d'affichage, puis en mètres
+	return GameState.tuning.metres(GameState.best) < seuil_m
+
+
+func _ajouter_objectif(bouton: Button, seuil_m: int) -> void:
+	## Message « Atteins X m » bien visible (rouge, plus gros, contour crème) en bas du bouton verrouillé.
+	var objectif := Label.new()
+	objectif.text = "Atteins %d m !" % seuil_m
+	objectif.add_theme_font_override("font", bouton.get_theme_font("font"))
+	objectif.add_theme_font_size_override("font_size", 26)
+	objectif.add_theme_color_override("font_color", Color(0.78, 0.18, 0.08, 1))
+	objectif.add_theme_color_override("font_outline_color", CREME)
+	objectif.add_theme_constant_override("outline_size", 6)
+	objectif.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	objectif.anchor_left = 0.0
+	objectif.anchor_right = 1.0
+	objectif.anchor_top = 1.0
+	objectif.anchor_bottom = 1.0
+	objectif.offset_left = 8.0
+	objectif.offset_right = -48.0
+	objectif.offset_top = -38.0
+	objectif.offset_bottom = -8.0
+	objectif.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bouton.add_child(objectif)
+
+
+func _ajouter_cadenas(bouton: Button) -> void:
+	var cadenas: Control = CADENAS.new()
+	cadenas.anchor_left = 1.0
+	cadenas.anchor_right = 1.0
+	cadenas.anchor_top = 0.5
+	cadenas.anchor_bottom = 0.5
+	cadenas.offset_left = -40.0
+	cadenas.offset_right = -14.0
+	cadenas.offset_top = -14.0
+	cadenas.offset_bottom = 14.0
+	cadenas.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bouton.add_child(cadenas)
+
+
 func _on_equipe(index: int) -> void:
-	if _valide:
+	if _valide or _verrouillee(index):
 		return
 	_equipe = index
 	var equipe: Dictionary = EQUIPES[index]
@@ -78,7 +132,11 @@ func _on_equipe(index: int) -> void:
 	phrase_label.text = equipe["phrase"]
 	PERSONNAGE.appliquer(savon, equipe["visage"], COULEURS[_couleur])
 	for i in grille.get_child_count():
-		_colorer(grille.get_child(i), CREME if i != index else JAUNE, i == index)
+		var bouton: Button = grille.get_child(i)
+		var bloquee := _verrouillee(i)
+		var fond := GRIS if bloquee else (JAUNE if i == index else CREME)
+		_colorer(bouton, fond, i == index)
+		bouton.add_theme_color_override("font_color", BRUN_GRISE if bloquee else BRUN)
 
 
 func _on_couleur(index: int) -> void:

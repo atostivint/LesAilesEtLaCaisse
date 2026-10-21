@@ -19,18 +19,9 @@ rotation = 0.3538683
 color = Color(0.243, 0.141, 0.071, 1)
 polygon = PackedVector2Array(0, 0, 30, 0, 0, 36)
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=2139453341]
-position = Vector2(0.78499997, 0)
-scale = Vector2(0.215, 1)
+[node name="Planche" type="Polygon2D" parent="." unique_id=2139453341]
 color = Color(0.7224448, 0.28029668, 0, 1)
-polygon = PackedVector2Array(1, -1, 1, 14, 401, 14, 399, 0)
-
-[node name="Polygon2D2" type="Polygon2D" parent="." unique_id=1090461351]
-position = Vector2(84, 0)
-rotation = 0.5770447
-scale = Vector2(0.215, 1)
-color = Color(0.7224448, 0.28029668, 0, 1)
-polygon = PackedVector2Array(1, -1, 1, 14, 1059.0195, -47.985657, 1050.9653, -67.14294)
+polygon = PackedVector2Array(1, 1, 1, 13, 80, 13, 301, 84, 310, 67, 84, -1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=113067279]
 polygon = PackedVector2Array(1, 1, 1, 13, 80, 13, 301, 84, 310, 67, 84, -1)

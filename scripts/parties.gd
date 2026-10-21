@@ -18,12 +18,41 @@ var _dialogue: ConfirmationDialog
 func _ready() -> void:
 	Musique.jouer()
 	_dialogue = ConfirmationDialog.new()
+	_dialogue.title = "Supprimer la partie"
 	_dialogue.dialog_text = "Supprimer cette partie ? Cette action est définitive."
 	_dialogue.ok_button_text = "Supprimer"
 	_dialogue.get_cancel_button().text = "Annuler"
 	_dialogue.confirmed.connect(_on_supprimer_confirme)
+	_habiller_dialogue()
 	add_child(_dialogue)
 	_afficher_cartes()
+
+
+func _habiller_dialogue() -> void:
+	## Fenêtre de confirmation dans la DA : crème, bordure brune, police du jeu.
+	_dialogue.min_size = Vector2i(560, 0)
+	_dialogue.add_theme_stylebox_override("panel", _style(CREME, 24, 6, 10))
+	_dialogue.add_theme_stylebox_override("embedded_border", _style(CREME, 24, 6, 10))
+	_dialogue.add_theme_stylebox_override("embedded_unfocused_border", _style(CREME, 24, 6, 10))
+	_dialogue.add_theme_font_override("title_font", FONT)
+	_dialogue.add_theme_font_size_override("title_font_size", 30)
+	_dialogue.add_theme_color_override("title_color", BRUN)
+	var texte := _dialogue.get_label()
+	texte.add_theme_font_override("font", FONT)
+	texte.add_theme_font_size_override("font_size", 24)
+	texte.add_theme_color_override("font_color", BRUN)
+	_habiller_bouton(_dialogue.get_ok_button(), JAUNE)
+	_habiller_bouton(_dialogue.get_cancel_button(), CREME)
+
+
+func _habiller_bouton(bouton: Button, fond: Color) -> void:
+	bouton.custom_minimum_size = Vector2(190, 56)
+	bouton.add_theme_font_override("font", FONT)
+	bouton.add_theme_font_size_override("font_size", 24)
+	bouton.add_theme_color_override("font_color", BRUN)
+	bouton.add_theme_color_override("font_hover_color", BRUN)
+	for etat in ["normal", "hover", "pressed", "focus"]:
+		bouton.add_theme_stylebox_override(etat, _style(fond, 30, 6, 10))
 
 
 func _afficher_cartes() -> void:

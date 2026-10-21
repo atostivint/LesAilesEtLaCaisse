@@ -13,6 +13,7 @@ const CLE := "volume_musique"
 
 func _ready() -> void:
 	Musique.jouer()
+	_ajouter_bouton_retour()
 	curseur.value = _lire_volume()
 	_afficher(curseur.value)
 	curseur.value_changed.connect(_on_volume_change)
@@ -52,3 +53,27 @@ func _lire_volume() -> float:
 	if cfg.load(FICHIER) == OK:
 		return float(cfg.get_value(SECTION, CLE, 1.0))
 	return 1.0
+
+
+func _ajouter_bouton_retour() -> void:
+	## Bouton « Retour » sous les paramètres (sous la carte des réglages) : revient au menu principal.
+	var brun := Color(0.29, 0.165, 0.078, 1)
+	var b := Button.new()
+	b.text = "← Retour"
+	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	b.custom_minimum_size = Vector2(150, 44)
+	b.add_theme_font_override("font", preload("res://fonts/COOPBL.TTF"))
+	b.add_theme_font_size_override("font_size", 24)
+	for c in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+		b.add_theme_color_override(c, Color(0.984, 0.941, 0.839, 1) if c != "font_hover_color" else brun)
+	for etat in ["normal", "hover", "pressed", "focus"]:
+		var s := StyleBoxFlat.new()
+		s.bg_color = Color(0.99, 0.76, 0.12, 1) if etat == "hover" else brun
+		s.set_corner_radius_all(22)
+		s.content_margin_left = 20.0
+		s.content_margin_right = 20.0
+		s.content_margin_top = 6.0
+		s.content_margin_bottom = 6.0
+		b.add_theme_stylebox_override(etat, s)
+	b.pressed.connect(func(): get_tree().change_scene_to_file("res://Mathilde/main_menu.tscn"))
+	$Marge/Main.add_child(b) # dernier enfant de la colonne : il apparaît sous la carte des paramètres

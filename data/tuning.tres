@@ -19,7 +19,7 @@
 [resource]
 script = ExtResource("1")
 materials = Array[ExtResource("md")]([ExtResource("m_planche"), ExtResource("m_plume"), ExtResource("m_elastique"), ExtResource("m_etoile"), ExtResource("m_boulon"), ExtResource("m_carton")])
-crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson"), ExtResource("c_carton")])
+crates = Array[ExtResource("cd")]([ExtResource("c_classique"), ExtResource("c_crayon"), ExtResource("c_carton"), ExtResource("c_baignoire"), ExtResource("c_baguette"), ExtResource("c_poisson")])
 speed_ease = 4.0
 jet_gravity = 50.0
 jet_thrust = 225.0

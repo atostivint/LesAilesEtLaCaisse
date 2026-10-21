@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://do2cxnwqyse7o" path="res://scenes/level.gd" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://5yrrq8pk76qm" path="res://scenes/soap.tscn" id="2_w7c3h"]
-[ext_resource type="PackedScene" uid="uid://b7ms8okbpn1jt" path="res://scenes/shelf.tscn" id="3_w8frs"]
+[ext_resource type="Texture2D" path="res://artwork/sprites/canard.svg" id="3_canard"]
 [ext_resource type="Script" uid="uid://dfn7ksbclbn8v" path="res://scripts/carrelage.gd" id="4_tile"]
 [ext_resource type="Script" uid="uid://bo1gk4icevwnp" path="res://scripts/moulure_plafond.gd" id="5_moulure"]
+[ext_resource type="PackedScene" path="res://scenes/bouton_menu.tscn" id="9_menu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8frs"]
 bg_color = Color(1, 0.9666667, 0, 1)
@@ -17,8 +18,8 @@ size = Vector2(1467, 85.5)
 
 [node name="Level" type="Node2D" unique_id=1548918624]
 script = ExtResource("1_2q6dc")
-gravity = 4000
-jet_thrust = 8000
+gravity = 1900
+jet_thrust = 4800
 
 [node name="Carrelage" type="Control" parent="." unique_id=2103874512]
 layout_mode = 3
@@ -30,12 +31,20 @@ offset_bottom = 1300.0
 mouse_filter = 2
 script = ExtResource("4_tile")
 
-[node name="Soap" parent="." unique_id=674192252 instance=ExtResource("2_w7c3h")]
-position = Vector2(187, 608)
+[node name="Canard" type="StaticBody2D" parent="." groups=["shelves"]]
+position = Vector2(302, 422)
+scale = Vector2(0.5, 0.5)
+metadata/glide_boost = 0.9
 
-[node name="Shelf" parent="." unique_id=1178975091 instance=ExtResource("3_w8frs")]
-position = Vector2(127.00003, 705)
-rotation = -0.8005434
+[node name="Image" type="Sprite2D" parent="Canard"]
+texture = ExtResource("3_canard")
+centered = false
+
+[node name="Dos" type="CollisionPolygon2D" parent="Canard"]
+polygon = PackedVector2Array(300, 230, 330, 165, 410, 137, 500, 140, 560, 190, 602, 250, 684, 372, 764, 452, 902, 512, 1020, 562, 1105, 584, 1192, 572, 1280, 558, 1384, 466, 1415, 440, 1436, 500, 1300, 700, 900, 780, 500, 720, 362, 600, 340, 380)
+
+[node name="Soap" parent="." unique_id=674192252 instance=ExtResource("2_w7c3h")]
+position = Vector2(187, 270)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1352944768]
 position = Vector2(731, 409)
@@ -44,18 +53,21 @@ position = Vector2(731, 409)
 
 [node name="EnergyLabel" type="Label" parent="HUD" unique_id=1949068158]
 offset_left = 17.0
-offset_top = 104.0
+offset_top = 6.0
 offset_right = 317.0
-offset_bottom = 132.0
-theme_override_font_sizes/font_size = 20
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.984, 0.941, 0.839, 1)
+theme_override_colors/font_outline_color = Color(0.29, 0.165, 0.078, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 28
 text = "ÉNERGIE"
 
 [node name="FlightEnergy" type="ProgressBar" parent="HUD" unique_id=1949068159]
 unique_name_in_owner = true
 offset_left = 17.0
-offset_top = 132.0
+offset_top = 42.0
 offset_right = 317.0
-offset_bottom = 156.0
+offset_bottom = 68.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_w8frs")
 show_percentage = false
 
@@ -75,22 +87,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 34
 text = "APPUYEZ UNE FOIS POUR LANCER
 Espace · Entrée · ↑ · ↓ · W · clic gauche"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FlightInstructions" type="Label" parent="HUD" unique_id=182082142]
-unique_name_in_owner = true
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 60.0
-offset_top = -118.0
-offset_right = -60.0
-offset_bottom = -24.0
-grow_horizontal = 2
-text = "MAINTENEZ Espace, Entrée, ↑, ↓, W ou clic gauche pour activer le jet.
-Relâchez pour tomber; glissez sur la pente d'une étagère pour recharger."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -122,25 +118,6 @@ position = Vector2(4, 175)
 
 [node name="TrapSpawner5" type="Node2D" parent="TrapsSpawnerGroup" unique_id=27981436]
 position = Vector2(-1, 665)
-
-[node name="TrapTimer" type="Timer" parent="." unique_id=1938932720]
-unique_name_in_owner = true
-
-[node name="ShelfSpawnersGroup" type="Node2D" parent="." unique_id=2010145281]
-unique_name_in_owner = true
-position = Vector2(1429, 0)
-
-[node name="ShelfSpawner2" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145283]
-position = Vector2(-20, 218)
-
-[node name="ShelfSpawner3" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145284]
-position = Vector2(-11, 437)
-
-[node name="ShelfSpawner4" type="Node2D" parent="ShelfSpawnersGroup" unique_id=2010145285]
-position = Vector2(-17, 682)
-
-[node name="ShelfTimer" type="Timer" parent="." unique_id=2010145286]
-unique_name_in_owner = true
 
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1317302672]
 unique_name_in_owner = true
@@ -176,6 +153,14 @@ shape = SubResource("RectangleShape2D_vcd8f")
 color = Color(0.2, 0.74000007, 0.8, 1)
 polygon = PackedVector2Array(12, -2, 10, 79, 1461, 83, 1459, -2)
 
-[connection signal="timeout" from="TrapTimer" to="." method="spawn_trap"]
-[connection signal="timeout" from="ShelfTimer" to="." method="spawn_shelf"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
+
+[node name="BoutonMenu" parent="HUD" instance=ExtResource("9_menu")]
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -156.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0

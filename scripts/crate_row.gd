@@ -25,7 +25,7 @@ func refresh() -> void:
 	icon.texture = crate.texture
 	name_label.text = crate.nom
 	desc_label.text = crate.desc
-	stats_label.text = "Solidité %s\nPoids %s" % [_pips(crate.solidite), _pips(crate.poids)]
+	stats_label.text = "Vies %s\nAutonomie %s\nÉlan %s\nManiabilité %s" % [_pips(crate.solidite), _pips(crate.autonomie), _pips(crate.poids), _pips(crate.maniabilite)]
 	if GameState.is_unlocked(crate.id):
 		cost_label.text = "Débloquée"
 		var is_equipped := GameState.equipped == crate.id
@@ -35,6 +35,27 @@ func refresh() -> void:
 		cost_label.text = _cost_text(crate.cost)
 		action_button.text = "Débloquer"
 		action_button.disabled = not GameState.can_unlock(crate.id)
+	_colorer_bouton(not GameState.is_unlocked(crate.id) and not action_button.disabled)
+
+
+func _colorer_bouton(vert: bool) -> void:
+	## Bouton vert quand on a assez d'ingrédients pour fabriquer la caisse.
+	for etat in ["normal", "hover", "pressed", "focus"]:
+		if vert:
+			var fond := StyleBoxFlat.new()
+			fond.bg_color = Color(0.42, 0.54, 0.18) if etat != "hover" else Color(0.5, 0.64, 0.22)
+			fond.set_corner_radius_all(8)
+			fond.set_content_margin_all(8)
+			action_button.add_theme_stylebox_override(etat, fond)
+		else:
+			action_button.remove_theme_stylebox_override(etat)
+	if vert:
+		action_button.add_theme_color_override("font_color", Color.WHITE)
+		action_button.add_theme_color_override("font_hover_color", Color.WHITE)
+		action_button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	else:
+		for c in ["font_color", "font_hover_color", "font_pressed_color"]:
+			action_button.remove_theme_color_override(c)
 
 
 func _pips(n: int) -> String:

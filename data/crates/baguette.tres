@@ -7,15 +7,15 @@
 script = ExtResource("1")
 id = "baguette"
 nom = "Caisse baguette"
-desc = "Ailes en croissants : solide et rapide."
-solidite = 3
-poids = 2
+desc = "Ailes en croissants : rapide, endurante et agile."
+solidite = 4
+poids = 3
+maniabilite = 4
+autonomie = 4
 cost = {
-"boulon": 2,
-"carton": 3,
-"elastique": 3,
-"etoile": 3,
-"planche": 5
+"boulon": 8,
+"elastique": 24,
+"etoile": 16
 }
 color = Color(0.85, 0.6, 0.3, 1)
 texture = ExtResource("2_tex")

@@ -5,6 +5,8 @@ extends Control
 ## « Classement » affiche les meilleurs scores ; « Rejouer » ramène à l'atelier (matériaux déjà en stock) pour relancer un vol.
 
 const ATELIER := "res://scenes/atelier.tscn"
+const SAVON := preload("res://scenes/soap.tscn")
+const ECHELLE_SAVON := 4.5 # le savon qui fond est très grand à l'écran
 const INK := Color(0.984, 0.941, 0.839, 1)
 const BROWN := Color(0.29, 0.165, 0.078, 1)
 const CREME_PANNEAU := Color(0.984, 0.941, 0.839, 1)
@@ -60,8 +62,12 @@ func _ready() -> void:
 	valeur.add_theme_font_size_override("font_size", 56)
 	valeur.add_theme_color_override("font_color", accent)
 	# Savon bleu (Gérard) à gauche et savon rose (Éléonore) à droite, dans la pose du palier
-	$Haut/Gerard.texture = load("res://artwork/sprites/score_%s_bleu.svg" % mood)
-	$Haut/Eleonore.texture = load("res://artwork/sprites/score_%s_rose.svg" % mood)
+	var gerard: TextureRect = $Haut/Gerard
+	var eleonore: TextureRect = $Haut/Eleonore
+	gerard.texture = load("res://artwork/sprites/score_%s_bleu.svg" % mood)
+	eleonore.texture = load("res://artwork/sprites/score_%s_rose.svg" % mood)
+	_ranger_personnages(gerard, eleonore)
+	_ajouter_savon_qui_fond()
 	# Bouton classement, juste au-dessus de Rejouer
 	var bouton_classement := Button.new()
 	bouton_classement.text = "Classement"
@@ -74,10 +80,110 @@ func _ready() -> void:
 	bouton_classement.pressed.connect(_afficher_classement)
 	droite.add_child(bouton_classement)
 	droite.move_child(bouton_classement, $Bas/Marge/Colonnes/Droite/Rejouer.get_index())
+	# Bouton Atelier, juste sous Rejouer
+	var bouton_atelier := Button.new()
+	bouton_atelier.text = "Atelier"
+	bouton_atelier.custom_minimum_size = Vector2(0, 48)
+	bouton_atelier.add_theme_color_override("font_color", BROWN)
+	bouton_atelier.add_theme_font_override("font", $Bas/Marge/Colonnes/Droite/Rejouer.get_theme_font("font"))
+	bouton_atelier.add_theme_font_size_override("font_size", 24)
+	bouton_atelier.add_theme_stylebox_override("normal", _style_bouton(CREME_PANNEAU))
+	bouton_atelier.add_theme_stylebox_override("hover", _style_bouton(Color(0.99, 0.76, 0.12, 1)))
+	bouton_atelier.pressed.connect(func(): get_tree().change_scene_to_file(ATELIER))
+	droite.add_child(bouton_atelier)
+	droite.move_child(bouton_atelier, $Bas/Marge/Colonnes/Droite/Rejouer.get_index() + 1)
 	_construire_popup_nom()
 	_construire_classement()
 	if GameState.score_en_attente:
 		_popup_nom.show()
+
+
+func _ranger_personnages(gerard: TextureRect, eleonore: TextureRect) -> void:
+	## Gérard et Éléonore passent dans la card du bas, de part et d'autre du texte et du score.
+	var colonnes: HBoxContainer = $Bas/Marge/Colonnes
+	var marge: MarginContainer = $Bas/Marge
+	marge.add_theme_constant_override("margin_left", 36)
+	marge.add_theme_constant_override("margin_right", 36)
+	marge.add_theme_constant_override("margin_top", 24)
+	marge.add_theme_constant_override("margin_bottom", 24)
+	colonnes.add_theme_constant_override("separation", 24)
+	$Bas/Marge/Colonnes/Droite.custom_minimum_size.x = 330.0
+	for perso in [gerard, eleonore]:
+		perso.reparent(colonnes, false)
+		perso.layout_mode = 2
+		perso.custom_minimum_size = Vector2(200.0, 300.0)
+		perso.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		perso.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		perso.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	colonnes.move_child(gerard, 0)
+	colonnes.move_child(eleonore, colonnes.get_child_count() - 1)
+	# Score excellent : Gérard tient la bague (le sprite « anneau » suit Gérard, à côté de sa main)
+	var anneau := get_node_or_null("Haut/Anneau") as TextureRect
+	if anneau != null:
+		var bloc := Control.new()
+		bloc.custom_minimum_size = Vector2(275.0, 300.0)
+		bloc.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		colonnes.add_child(bloc)
+		colonnes.move_child(bloc, 0)
+		gerard.reparent(bloc, false)
+		gerard.layout_mode = 0
+		gerard.position = Vector2.ZERO
+		gerard.size = Vector2(200.0, 300.0)
+		anneau.reparent(bloc, false)
+		anneau.layout_mode = 0
+		anneau.position = Vector2(207.0, 100.0)
+		anneau.size = Vector2(59.0, 84.0)
+
+
+func _ajouter_savon_qui_fond() -> void:
+	## Le savon du joueur flotte dans l'eau savonneuse et s'y dissout lentement, en boucle :
+	## il rétrécit, s'enfonce et devient transparent, pendant que des bulles montent à la surface.
+	var haut: Control = $Haut
+	# L'eau couvre les 3/4 de la partie haute (« Haut ») : on monte son bord supérieur
+	var eau: Control = $Eau
+	eau.offset_top = haut.offset_top + (haut.offset_bottom - haut.offset_top) * 0.25
+	# Eau translucide : le savon (derrière) reste visible sous la surface et on le voit fondre
+	eau.modulate.a = 0.55
+	var surface_y: float = (eau.offset_top - haut.offset_top) + 14.0 # ligne de flottaison dans « Haut »
+	var savon: Soap = SAVON.instantiate()
+	haut.add_child(savon) # « Haut » est avant « Eau » dans l'arbre : l'eau passe devant et cache le bas du savon
+	Personnage.appliquer_choisi(savon)
+	savon.set_physics_process(false)
+	savon.wings_player.play("flap")
+	savon.process_mode = Node.PROCESS_MODE_PAUSABLE
+	var depart := Vector2(get_viewport_rect().size.x * 0.5, surface_y - 30.0)
+	savon.position = depart
+	savon.scale = Vector2.ONE * ECHELLE_SAVON
+	# Bulles de savon qui s'échappent du savon
+	var bulles := CPUParticles2D.new()
+	bulles.amount = 14
+	bulles.lifetime = 2.4
+	bulles.local_coords = false
+	bulles.direction = Vector2(0, -1)
+	bulles.spread = 40.0
+	bulles.initial_velocity_min = 15.0
+	bulles.initial_velocity_max = 40.0
+	bulles.gravity = Vector2.ZERO
+	bulles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+	bulles.emission_sphere_radius = 22.0
+	bulles.scale_amount_min = 2.0
+	bulles.scale_amount_max = 6.0
+	bulles.color = Color(1, 1, 1, 0.75)
+	bulles.position = Vector2(0, 8)
+	savon.add_child(bulles)
+	# Dissolution : rétrécit en s'enfonçant, devient translucide ; une courte pause, puis le savon revient
+	var boucle := create_tween().set_loops()
+	boucle.tween_callback(func():
+		savon.position = depart
+		savon.scale = Vector2.ONE * ECHELLE_SAVON
+		savon.modulate = Color.WHITE
+		bulles.emitting = true)
+	var duree := 18.0
+	boucle.tween_property(savon, "scale", Vector2.ONE * ECHELLE_SAVON * 0.2, duree).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	boucle.parallel().tween_property(savon, "position:y", depart.y + 70.0, duree)
+	boucle.parallel().tween_property(savon, "modulate:a", 0.0, duree).set_delay(duree * 0.3)
+	boucle.tween_callback(func(): bulles.emitting = false)
+	boucle.tween_interval(2.5)
 
 
 func _distance_du_vol() -> float:
@@ -169,6 +275,16 @@ func _construire_popup_nom() -> void:
 	bouton.add_theme_stylebox_override("hover", _style_bouton(Color(0.99, 0.82, 0.3, 1)))
 	bouton.pressed.connect(_valider_nom)
 	contenu.add_child(bouton)
+	# On n'est pas obligé d'entrer son score dans le classement
+	var passer := Button.new()
+	passer.text = "Ne pas enregistrer"
+	passer.custom_minimum_size = Vector2(0, 48)
+	passer.add_theme_color_override("font_color", BROWN)
+	passer.add_theme_font_size_override("font_size", 22)
+	passer.add_theme_stylebox_override("normal", _style_bouton(CREME_PANNEAU))
+	passer.add_theme_stylebox_override("hover", _style_bouton(Color(0.99, 0.76, 0.12, 1)))
+	passer.pressed.connect(_passer_classement)
+	contenu.add_child(passer)
 
 
 func _construire_classement() -> void:
@@ -233,6 +349,12 @@ func _texte(texte: String, taille: int, couleur: Color, sous_titre := "") -> Con
 	return bloc
 
 
+func _passer_classement() -> void:
+	## Le joueur ne veut pas inscrire son score : on ferme le pop-up sans rien ajouter au classement.
+	GameState.score_en_attente = false
+	_popup_nom.hide()
+
+
 func _valider_nom() -> void:
 	var nom := _champ_nom.text.strip_edges()
 	if nom == "":
@@ -260,7 +382,8 @@ func _afficher_classement() -> void:
 
 
 func _on_rejouer_pressed() -> void:
-	get_tree().change_scene_to_file(ATELIER)
+	# Rejouer relance directement un vol ; le bouton « Atelier » permet de repasser par l'atelier
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
 
 func _rafraichir_noms(filtre: String) -> void:
