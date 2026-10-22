@@ -1,0 +1,164 @@
+name: Release
+
+# Builds every platform and publishes:
+#   - web (HTML5) → itch.io channel `html5`
+#   - windows / linux / macos → GitHub Release assets (on a tag, or with the `tag` input)
+#
+# Triggers: pushing a tag like v1.0.0, or manual dispatch.
+# Manual dispatch without `tag` only builds and keeps the artifacts (no release).
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Create a GitHub Release with this tag (empty = build only)"
+        required: false
+        default: ""
+  push:
+    tags:
+      - "v*"
+
+env:
+  GODOT_VERSION: "4.5.2"
+  GAME_NAME: LesAilesEtLaCaisse
+  # itch.io target — the project must already exist on itch.io (Kind = HTML):
+  ITCH_USER: aleckt
+  ITCH_GAME: les-ailes-et-la-caisse
+  ITCH_CHANNEL: html5
+
+permissions:
+  contents: write # create the GitHub Release
+
+jobs:
+  export:
+    name: Export ${{ matrix.platform }}
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.5.2 # Godot 4.5.2 + export templates + butler preinstalled
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: web
+            preset: Web
+            out: builds/web/index.html
+          - platform: windows
+            preset: Windows
+            out: builds/windows/LesAilesEtLaCaisse.exe
+          - platform: linux
+            preset: Linux
+            out: builds/linux/LesAilesEtLaCaisse.x86_64
+          - platform: macos
+            preset: macOS
+            out: builds/macos/LesAilesEtLaCaisse.zip
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot export templates
+        run: |
+          mkdir -p "$HOME/.local/share/godot/export_templates"
+          mkdir -p "$HOME/.config"
+          if [ -d "/root/.local/share/godot/export_templates/${GODOT_VERSION}.stable" ]; then
+            mv "/root/.local/share/godot/export_templates/${GODOT_VERSION}.stable" \
+               "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          fi
+          if [ ! -d "$HOME/.config/godot" ] && [ -d /root/.config/godot ]; then
+            cp -r /root/.config/godot "$HOME/.config/godot"
+          fi
+          godot --headless --version
+          ls "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable" | head -20
+
+      - name: Import project
+        run: godot --headless --import || true
+
+      - name: Export ${{ matrix.platform }}
+        env:
+          PRESET: ${{ matrix.preset }}
+          OUT: ${{ matrix.out }}
+        run: |
+          mkdir -p "$(dirname "$OUT")"
+          godot --headless --export-release "$PRESET" "$(pwd)/$OUT"
+          test -f "$(pwd)/$OUT"
+          ls -lh "$(dirname "$OUT")"
+          echo "Build size: $(du -sm "$(dirname "$OUT")" | cut -f1) MB"
+
+      - name: Package ${{ matrix.platform }}
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          mkdir -p dist
+          case "$PLATFORM" in
+            web)
+              SIZE_MB=$(du -sm builds/web | cut -f1)
+              echo "::notice::Web build is ${SIZE_MB} MB"
+              if [ "$SIZE_MB" -gt 100 ]; then
+                echo "::warning::Web build is ${SIZE_MB} MB — browsers struggle above ~100 MB."
+              fi
+              ( cd builds/web && zip -qr "$OLDPWD/dist/${GAME_NAME}-web.zip" . )
+              ;;
+            windows)
+              ( cd builds/windows && zip -qr "$OLDPWD/dist/${GAME_NAME}-windows.zip" . )
+              ;;
+            linux)
+              ( cd builds/linux && chmod +x * && zip -qr "$OLDPWD/dist/${GAME_NAME}-linux.zip" . )
+              ;;
+            macos)
+              cp builds/macos/*.zip "dist/${GAME_NAME}-macos.zip"
+              ;;
+          esac
+          ls -lh dist
+
+      - name: Push to itch.io (butler)
+        if: matrix.platform == 'web'
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          if [ -z "$BUTLER_API_KEY" ]; then
+            echo "::error::BUTLER_API_KEY secret is empty or missing."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="ci-${GITHUB_RUN_NUMBER}"
+          fi
+          echo "Pushing $VERSION to $ITCH_USER/$ITCH_GAME:$ITCH_CHANNEL"
+          butler push builds/web "$ITCH_USER/$ITCH_GAME:$ITCH_CHANNEL" --userversion "$VERSION"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: export
+    if: startsWith(github.ref, 'refs/tags/') || inputs.tag != ''
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create or update the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          ls -lh dist
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG exists — uploading with --clobber"
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            gh release create "$TAG" dist/*.zip \
+              --title "$TAG" \
+              --generate-notes \
+              --target "$GITHUB_SHA"
+          fi
+          gh release view "$TAG" --json tagName,assets \
+            --jq '.tagName + " → " + ([.assets[].name] | join(", "))'
