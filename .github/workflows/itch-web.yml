@@ -35,6 +35,7 @@ jobs:
       - name: Setup Godot export templates
         run: |
           mkdir -p "$HOME/.local/share/godot/export_templates"
+          mkdir -p "$HOME/.config"
           if [ -d "/root/.local/share/godot/export_templates/${GODOT_VERSION}.stable" ]; then
             mv "/root/.local/share/godot/export_templates/${GODOT_VERSION}.stable" \
                "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
